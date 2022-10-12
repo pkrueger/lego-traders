@@ -1,3 +1,4 @@
+import { legoSetsService } from '../services/LegoSetsService.js'
 import { profileService } from '../services/ProfileService.js'
 import BaseController from '../utils/BaseController'
 
@@ -8,6 +9,7 @@ export class ProfilesController extends BaseController {
       .get('', this.getProfiles)
       .get('/:id', this.getProfile)
   }
+ 
 
   async getProfiles(req, res, next) {
     try {
