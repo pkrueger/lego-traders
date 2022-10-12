@@ -17,16 +17,16 @@ export default {
     onMounted(() => {
       getSetsByThemeId()
     })
+    async function getSetsByThemeId() {
+      try {
+        await legoSetsService.getSetsByThemeId()
+      } catch (error) {
+        Pop.error(error, 'Getting Set Themes')
+      }
+    }
     return {
       legoSetThemes: computed(() => AppState.legoSetThemes),
 
-      async getSetsByThemeId() {
-        try {
-          await legoSetsService.getSetsByThemeId()
-        } catch (error) {
-          Pop.error(error, 'Getting Set Themes')
-        }
-      }
     }
 
 
