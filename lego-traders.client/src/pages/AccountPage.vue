@@ -10,7 +10,7 @@
             alt="User Name">
         </div>
         <div class="border border-dark border-box p-2">
-          <!-- TODO add Account Details -->
+          <!-- Account Details -->
           <h3>Name: {{account.name}}</h3>
           <h5>Description: </h5>
           <p>{{account.desc}}</p>
