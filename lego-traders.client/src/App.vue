@@ -7,6 +7,7 @@
   </main>
   <footer>
   </footer>
+
 </template>
 
 <script>
