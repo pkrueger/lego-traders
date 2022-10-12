@@ -28,9 +28,8 @@
         <h3>Owned Sets:</h3>
         <div class="row">
           <!-- RouterLink to Set Details page -->
-          <LegoSetCard v-for="l in legoSets" :key="l" :legoSet="l" :account="account" />
+          <LegoSetCard v-for="l in legoSets" :key="l" :legoSet="l" :accountId="account.id" />
           <!-- TODO Component for My Sets  v-if="l.isOwned" -->
-
         </div>
         <div class="col-12">
           <h3>WishList:</h3>
@@ -65,7 +64,7 @@ export default {
     })
     return {
       account: computed(() => AppState.account),
-      legoSets: computed(() => AppState.legoSet)
+      legoSets: computed(() => AppState.legoSet || [])
     };
   },
   components: { AccountModal, LegoSetCard }
