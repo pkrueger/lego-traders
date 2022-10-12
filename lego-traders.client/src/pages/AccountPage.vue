@@ -28,13 +28,14 @@
         <h3>Owned Sets:</h3>
         <div class="row">
           <LegoSetCard v-for="l in legoSets" :key="l" :legoSet="l" />
-          <!-- TODO Component for My Sets -->
+          <!-- TODO Component for My Sets  v-if="l.isOwned == true" -->
 
         </div>
         <div class="col-12">
           <h3>WishList:</h3>
-          <div>
-            <!-- TODO Component for My Wishlist -->
+          <div class="row">
+            <LegoSetCard v-for="l in legoSets" :key="l" :legoSet="l" />
+            <!-- TODO Component for My Wishlist  v-if="l.isOwned == false" -->
           </div>
         </div>
       </div>
@@ -44,7 +45,7 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { AppState } from '../AppState'
 import AccountModal from '../components/AccountModal.vue';
 import LegoSetCard from '../components/LegoSetCard.vue';
@@ -53,11 +54,14 @@ export default {
   setup() {
     async function getMyLegoSets() {
       try {
-        // await legoSetsController.getMyLegoSets()
+        await legoSetsController.getMyLegoSets()
       } catch (error) {
         Pop.error('[getMyLegoSets]', error)
       }
     }
+    onMounted(() => {
+      // getMyLegoSets()
+    })
     return {
       account: computed(() => AppState.account),
       legoSets: computed(() => AppState.legoSet)
