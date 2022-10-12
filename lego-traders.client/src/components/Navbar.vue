@@ -3,8 +3,9 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
       <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-        <div class="d-flex flex-column align-items-center">
-          <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
+        <div class="d-flex gap-1 align-items-center">
+          <img alt="logo" src="../assets/img/lego-logo.png" height="45" />
+          <img src="../assets/img/lego-trader.png" alt="logo-text" height="45">
         </div>
       </router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -14,24 +15,28 @@
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto">
           <li>
-            <router-link :to="{ name: 'Marketplace' }"
-              class="marketplace text-shadow btn btn-danger selectable text-uppercase">
-              Marketplace
+            <router-link :to="{ name: 'Marketplace' }">
+              <button class="marketplace text-shadow btn btn-danger selectable text-uppercase">
+                Marketplace
+              </button>
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'Forum' }" class="forum text-shadow btn btn-primary selectable text-uppercase">
-              Forum
+            <router-link :to="{ name: 'Forum' }">
+              <button class="forum text-shadow btn btn-primary text-uppercase text-light">
+                Forum
+              </button>
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'MOC' }" class="moc text-shadow btn btn-success selectable text-uppercase">
+            <router-link :to="{ name: 'MOC' }"
+              class="moc text-shadow btn btn-success selectable text-uppercase text-light">
               Create Your Own
             </router-link>
           </li>
           <li>
             <router-link :to="{ name: 'Collection' }"
-              class="collections text-shadow btn btn-secondary selectable text-uppercase">
+              class="collections text-shadow btn btn-secondary selectable text-uppercase text-light">
               Collections
             </router-link>
           </li>
@@ -54,25 +59,29 @@ export default {
 </script>
 
 <style scoped>
-/* .marketplace {
-  background-image: url('red-lego.webp');
-  background-position: top left;
+.marketplace {
+  /* background-image: url('red-lego.webp'); */
+  /* background-position: top left; */
+  border: 2px solid black;
 }
 
 .forum {
-  background-image: url('blue-lego.webp');
-  background-position: top left;
+  /* background-image: url('blue-lego.webp'); */
+  /* background-position: top left; */
+  border: 2px solid black;
 }
 
 .moc {
-  background-image: url('green-lego.webp');
-  background-position: top left;
+  /* background-image: url('green-lego.webp'); */
+  /* background-position: top left; */
+  border: 2px solid black;
 }
 
 .collections {
-  background-image: url('grey-lego.webp');
-  background-position: top left;
-} */
+  /* background-image: url('grey-lego.webp'); */
+  /* background-position: top left; */
+  border: 2px solid black;
+}
 
 .yellow-lego {
   background-image: url('yellow-lego.webp');
@@ -83,6 +92,7 @@ export default {
 
 .navbar {
   background-color: transparent !important;
+  border: 2px solid black;
 }
 
 li {
@@ -98,16 +108,16 @@ a:hover {
   text-transform: uppercase;
 }
 
-.navbar-nav .router-link-exact-active {
+/* .navbar-nav .router-link-exact-active {
   border-bottom: 2px solid var(--bs-dark);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-}
+} */
 
 .text-shadow {
   font-weight: 600;
   color: aliceblue;
-  text-shadow: 1px 1px black, 0px 0px 5px rgba(64, 64, 64, 0.719);
+  text-shadow: 1px 1px black, 0px 0px 5px rgba(0, 0, 0, 0.719);
   letter-spacing: 0.1rem;
 }
 </style>

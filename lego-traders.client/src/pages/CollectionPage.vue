@@ -1,15 +1,35 @@
 <template>
   <div class="collection">
-
     <h1>Welcome to the Collection Page</h1>
+    <h1>{{legoSetThemes}}</h1>
   </div>
 </template>
 
 
 <script>
+import Pop from "../utils/Pop";
+import { legoSetsService } from "../services/LegoSetsService"
+import { computed } from "@vue/reactivity";
+import { AppState } from "../AppState";
+import { onMounted } from "vue";
 export default {
   setup() {
-    return {}
+    onMounted(() => {
+      getSetsByThemeId()
+    })
+    return {
+      legoSetThemes: computed(() => AppState.legoSetThemes),
+
+      async getSetsByThemeId() {
+        try {
+          await legoSetsService.getSetsByThemeId()
+        } catch (error) {
+          Pop.error(error, 'Getting Set Themes')
+        }
+      }
+    }
+
+
   }
 }
 </script>
