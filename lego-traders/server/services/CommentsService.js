@@ -1,8 +1,16 @@
 import { dbContext } from "../db/DbContext.js"
 
 class CommentsService {
-  async getCommentsByPostId(id) {
-    const comments = await dbContext.Posts.findById(id)
+  async createComment(commentData) {
+    const comment = await dbContext.Comments.create(commentData)
+    return comment
+  }
+  async getCommentsBySetNum(set_num) {
+    const comments = await dbContext.Comments.find({set_num})
+    return comments
+  }
+  async getCommentsByPostId(postId) {
+    const comments = await dbContext.Comments.find({postId})
     return comments
   }
 
