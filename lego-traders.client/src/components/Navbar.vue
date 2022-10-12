@@ -12,18 +12,25 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link :to="{ name: 'Marketplace' }" class="btn btn-danger selectable text-uppercase">
+          <router-link :to="{ name: 'Marketplace' }"
+            class="marketplace text-shadow btn btn-danger selectable text-uppercase">
             Marketplace
           </router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'Marketplace' }" class="btn btn-danger selectable text-uppercase">
-            Marketplace
+          <router-link :to="{ name: 'Forum' }" class="forum text-shadow btn btn-primary selectable text-uppercase">
+            Forum
           </router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'Marketplace' }" class="btn btn-danger selectable text-uppercase">
-            Marketplace
+          <router-link :to="{ name: 'MOC' }" class="moc text-shadow btn btn-success selectable text-uppercase">
+            Create Your Own
+          </router-link>
+        </li>
+        <li>
+          <router-link :to="{ name: 'Collection' }"
+            class="collections text-shadow btn btn-secondary selectable text-uppercase">
+            Collections
           </router-link>
         </li>
       </ul>
@@ -44,10 +51,34 @@ export default {
 </script>
 
 <style scoped>
+.marketplace {
+  background-image: url('red-lego.webp');
+  background-position: top left;
+}
+
+.forum {
+  background-image: url('blue-lego.webp');
+  background-position: top left;
+}
+
+.moc {
+  background-image: url('green-lego.webp');
+  background-position: top left;
+}
+
+.collections {
+  background-image: url('grey-lego.webp');
+  background-position: top left;
+}
+
 .navbar {
   background-image: url('yellow-lego.webp');
   background-position: top left;
   background-size: cover;
+}
+
+li {
+  margin-right: 1rem;
 }
 
 
@@ -60,8 +91,14 @@ a:hover {
 }
 
 .navbar-nav .router-link-exact-active {
-  border-bottom: 2px solid var(--bs-success);
+  border-bottom: 2px solid var(--bs-dark);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+.text-shadow {
+  color: aliceblue;
+  text-shadow: 1px 1px black, 0px 0px 5px rgba(64, 64, 64, 0.719);
+  letter-spacing: 0.08rem;
 }
 </style>
