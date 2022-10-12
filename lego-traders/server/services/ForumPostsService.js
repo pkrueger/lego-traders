@@ -1,6 +1,19 @@
 import { dbContext } from "../db/DbContext.js"
+import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class ForumPostsService {
+  async deletePost(id, userInfo) {
+    const post = await this.getPostByPostId(id)
+    if(!post){
+      throw new BadRequest('Bad Post Id')
+    }
+    // NOTE look at this!!!!--v
+    if(post?.creatorId.toString() != userInfo.id){
+      throw new Forbidden('This is not your Post.')
+    }
+    await dbContext.Posts.deleteOne(id)
+    return post
+  }
   async createPost(postData) {
   const post = await dbContext.Posts.create(postData)  
   await post.populate('creator', 'name picture')
@@ -14,6 +27,9 @@ class ForumPostsService {
   }
   async getPostByPostId(id) {
     const post = await dbContext.Posts.findById(id).populate('creator', 'name picture')
+    if (!post){
+      throw new BadRequest('Bad Post Id')
+    }
     return post
   }
   async getAllPosts() {
