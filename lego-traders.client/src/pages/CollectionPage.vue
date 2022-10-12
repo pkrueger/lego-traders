@@ -1,7 +1,9 @@
 <template>
   <div class="collection">
-    <h1>Welcome to the Collection Page</h1>
-    <h1>{{legoSetThemes}}</h1>
+    <button class="btn btn-primary" @click="getSetsByThemeId(158)">StarWars</button>
+    <div>
+      <LegoSetCard v-for="set in apiSets" :key="set._id" :legoSet="set" />
+    </div>
   </div>
 </template>
 
@@ -12,25 +14,27 @@ import { legoSetsService } from "../services/LegoSetsService"
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState";
 import { onMounted } from "vue";
+import LegoSetCard from "../components/LegoSetCard.vue";
 export default {
   setup() {
-    onMounted(() => {
-      getSetsByThemeId()
-    })
-    async function getSetsByThemeId() {
+    // onMounted(() => {
+    //   getSetsByThemeId()
+    // })
+    async function getSetsByThemeId(themeId) {
       try {
-        await legoSetsService.getSetsByThemeId()
-      } catch (error) {
-        Pop.error(error, 'Getting Set Themes')
+        await legoSetsService.getSetsByThemeId(themeId);
+      }
+      catch (error) {
+        Pop.error(error, "Getting Set Themes");
       }
     }
     return {
       legoSetThemes: computed(() => AppState.legoSetThemes),
-
-    }
-
-
-  }
+      apiSets: computed(() => AppState.apiSets),
+      getSetsByThemeId
+    };
+  },
+  components: { LegoSetCard }
 }
 </script>
 

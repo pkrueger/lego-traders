@@ -7,5 +7,8 @@ export const AppState = reactive({
   account: {},
   /** @type {import('./models/LegoSet.js').LegoSet[]} */
   legoSet: [],
-  legoSetThemes: []
+  // StarWars 18, 158
+  legoSetThemes: { starwars: 158 },
+  /** @type {import('./models/ApiSet.js').ApiSet[]} */
+  apiSets: []
 })
