@@ -11,9 +11,9 @@
         </div>
         <div class="border border-dark border-box p-2">
           <!-- TODO add Account Details -->
-          <h3>Name: Randy</h3>
+          <h3>Name: {{account.name}}</h3>
           <h5>Description: </h5>
-          <p>I'm a harry wizard</p>
+          <p>{{account.desc}}</p>
         </div>
       </div>
       <div class="col-md-1">
@@ -26,14 +26,16 @@
     <div class="row">
       <div class="col-12">
         <h3>Owned Sets:</h3>
-        <div>
+        <div class="row">
+          <LegoSetCard v-for="l in legoSets" :key="l" :legoSet="l" />
           <!-- TODO Component for My Sets -->
+
         </div>
-      </div>
-      <div class="col-12">
-        <h3>WishList:</h3>
-        <div>
-          <!-- TODO Component for My Wishlist -->
+        <div class="col-12">
+          <h3>WishList:</h3>
+          <div>
+            <!-- TODO Component for My Wishlist -->
+          </div>
         </div>
       </div>
     </div>
@@ -45,13 +47,23 @@
 import { computed } from 'vue'
 import { AppState } from '../AppState'
 import AccountModal from '../components/AccountModal.vue';
+import LegoSetCard from '../components/LegoSetCard.vue';
+import Pop from '../utils/Pop.js';
 export default {
   setup() {
+    async function getMyLegoSets() {
+      try {
+        // await legoSetsController.getMyLegoSets()
+      } catch (error) {
+        Pop.error('[getMyLegoSets]', error)
+      }
+    }
     return {
-      account: computed(() => AppState.account)
+      account: computed(() => AppState.account),
+      legoSets: computed(() => AppState.legoSet)
     };
   },
-  components: { AccountModal }
+  components: { AccountModal, LegoSetCard }
 }
 </script>
 

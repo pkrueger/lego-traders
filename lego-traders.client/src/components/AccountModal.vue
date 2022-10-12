@@ -9,21 +9,23 @@
         <div class="modal-body">
           <form @submit.prevent="handleSubmit()">
             <div class="form-floating mb-3">
-              <input type="name" class="form-control" id="name" aria-describedby="Your Name">
+              <input v-model="editable.name" type="name" class="form-control" id="name" aria-describedby="Your Name">
               <label id="name" for="name">Enter the name you would like displayed</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="email" class="form-control" id="email" aria-describedby="Your email">
+              <input v-model="editable.email" type="email" class="form-control" id="email"
+                aria-describedby="Your email">
               <label id="email" for="email">Your email</label>
             </div>
             <div class="form-floating mb-3">
-              <input type="url" class="form-control" id="picture" aria-describedby="Your picture">
+              <input v-model="editable.picture" type="url" class="form-control" id="picture"
+                aria-describedby="Your picture">
               <label id="url" for="url">Your Picture as a URL</label>
             </div>
             <div class="input-group mb-3">
 
               <label class="input-group-text" required for="theme">Select an Theme</label>
-              <select class="form-select" id="theme">
+              <select class="form-select" v-model="editable.theme" id="theme">
                 <option value="starwars">Star Wars</option>
                 <option value="dc">DC</option>
                 <option value="harrypotter">Harry Potter</option>
@@ -48,9 +50,25 @@
 
 
 <script>
+import { ref } from 'vue';
+import { accountService } from '../services/AccountService.js';
+import Pop from '../utils/Pop.js';
+
+// Add editable form stuff
 export default {
   setup() {
-    return {}
+    const editable = ref({})
+
+    return {
+      editable,
+      async handleSubmit() {
+        try {
+          await accountService.editAccount(editable.value)
+        } catch (error) {
+          Pop.error('[handleSubmit]', error)
+        }
+      }
+    }
   }
 }
 </script>
