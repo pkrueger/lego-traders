@@ -9,8 +9,6 @@ export class LegoSetsController extends BaseController{
     .get('/tradable', this.getTradableSets)
     .get('/:legoSetId', this.getSetBySetId)
     .get('/:id/sets', this.getSetsByProfileId)
-    
-
   }
     async getSetsByProfileId(req, res, next) {
     try {
