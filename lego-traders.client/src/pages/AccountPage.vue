@@ -27,15 +27,16 @@
       <div class="col-12">
         <h3>Owned Sets:</h3>
         <div class="row">
-          <LegoSetCard v-for="l in legoSets" :key="l" :legoSet="l" />
-          <!-- TODO Component for My Sets  v-if="l.isOwned == true" -->
+          <!-- RouterLink to Set Details page -->
+          <LegoSetCard v-for="l in legoSets" :key="l" :legoSet="l" :account="account" />
+          <!-- TODO Component for My Sets  v-if="l.isOwned" -->
 
         </div>
         <div class="col-12">
           <h3>WishList:</h3>
           <div class="row">
             <LegoSetCard v-for="l in legoSets" :key="l" :legoSet="l" />
-            <!-- TODO Component for My Wishlist  v-if="l.isOwned == false" -->
+            <!-- TODO Component for My Wishlist  v-if="!l.isOwned" -->
           </div>
         </div>
       </div>

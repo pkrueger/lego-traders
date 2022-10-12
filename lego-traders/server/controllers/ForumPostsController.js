@@ -15,7 +15,8 @@ export class ForumPostsController extends BaseController{
   }
   async deletePost(req, res, next) {
 try {
-  req.body.creatorId = req.userInfo.id
+  const post = await forumPostsService.deletePost(req.params.id, req.userInfo)
+  res.send(post)
 } catch (error) {
   next(error)
 }
