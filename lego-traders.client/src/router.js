@@ -26,6 +26,16 @@ const routes = [
     path: '/collection',
     name: 'Collection',
     component: loadPage('CollectionPage')
+  },
+  {
+    path: '/forum',
+    name: 'Forum',
+    component: loadPage('ForumPage')
+  },
+  {
+    path: '/createyourown',
+    name: 'MOC',
+    component: loadPage('MOCPage')
   }
 ]
 
