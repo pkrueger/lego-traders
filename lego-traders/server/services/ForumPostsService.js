@@ -1,42 +1,47 @@
-import { dbContext } from "../db/DbContext.js"
-import { BadRequest, Forbidden } from "../utils/Errors.js"
+import { dbContext } from "../db/DbContext.js";
+import { BadRequest, Forbidden } from "../utils/Errors.js";
 
 class ForumPostsService {
   async deletePost(id, userInfo) {
-    const post = await this.getPostByPostId(id)
-    if(!post){
-      throw new BadRequest('Bad Post Id')
-    }
+    const post = await this.getPostByPostId(id);
+
     // NOTE look at this!!!!--v
-    if(post?.creatorId.toString() != userInfo.id){
-      throw new Forbidden('This is not your Post.')
+    if (post.creatorId != userInfo.id) {
+      throw new Forbidden("This is not your Post.");
     }
-    await dbContext.Posts.deleteOne(id)
-    return post
+    await dbContext.Posts.deleteOne(id);
+    return post;
   }
   async createPost(postData) {
-  const post = await dbContext.Posts.create(postData)  
-  await post.populate('creator', 'name picture')
-  return post
- }
+    const post = await dbContext.Posts.create(postData);
+    await post.populate("creator", "name picture");
+    return post;
+  }
   async getPostsByCreatorId(creatorId) {
-    const posts = await dbContext.Posts.find(creatorId).populate('creator', 'name picture')
-    
+    const posts = await dbContext.Posts.find(creatorId).populate(
+      "creator",
+      "name picture"
+    );
 
-    return posts
+    return posts;
   }
   async getPostByPostId(id) {
-    const post = await dbContext.Posts.findById(id).populate('creator', 'name picture')
-    if (!post){
-      throw new BadRequest('Bad Post Id')
+    const post = await dbContext.Posts.findById(id).populate(
+      "creator",
+      "name picture"
+    );
+    if (!post) {
+      throw new BadRequest("Bad Post Id");
     }
-    return post
+    return post;
   }
   async getAllPosts() {
-    const posts = await dbContext.Posts.find().populate('creator', 'name picture')
-    return posts
+    const posts = await dbContext.Posts.find().populate(
+      "creator",
+      "name picture"
+    );
+    return posts;
   }
-  
 }
 
-export const forumPostsService = new ForumPostsService()
+export const forumPostsService = new ForumPostsService();
