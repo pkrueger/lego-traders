@@ -14,7 +14,6 @@
           <h3>Name: Randy</h3>
           <h5>Description: </h5>
           <p>I'm a harry wizard</p>
-
         </div>
       </div>
       <div class="col-md-1">
@@ -24,8 +23,21 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-12">
+        <h3>Owned Sets:</h3>
+        <div>
+          <!-- TODO Component for My Sets -->
+        </div>
+      </div>
+      <div class="col-12">
+        <h3>WishList:</h3>
+        <div>
+          <!-- TODO Component for My Wishlist -->
+        </div>
+      </div>
+    </div>
   </div>
-  <!-- TODO probably need to move this to APP.vue later -->
   <AccountModal />
 </template>
 
@@ -43,7 +55,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+main {
+  background-color: var(--bs-grey);
+}
+
 .img-size {
   min-height: 30vh;
   min-width: 20vw;
