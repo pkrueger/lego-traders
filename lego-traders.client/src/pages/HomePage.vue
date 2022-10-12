@@ -20,9 +20,9 @@ export default {
 
 <style scoped lang="scss">
 .home {
-  background-image: url('https://wallpapers.com/images/hd/yellow-lego-inspired-background-cmi4skpi741gbpi6-cmi4skpi741gbpi6.webp');
+  background-image: url('blue-lego.webp');
   background-size: cover;
-  background-position: center;
+  background-position: top left;
   height: 100vh;
 }
 </style>
