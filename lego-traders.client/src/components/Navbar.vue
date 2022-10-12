@@ -54,7 +54,7 @@ export default {
 </script>
 
 <style scoped>
-.marketplace {
+/* .marketplace {
   background-image: url('red-lego.webp');
   background-position: top left;
 }
@@ -72,7 +72,7 @@ export default {
 .collections {
   background-image: url('grey-lego.webp');
   background-position: top left;
-}
+} */
 
 .yellow-lego {
   background-image: url('yellow-lego.webp');
@@ -82,7 +82,7 @@ export default {
 }
 
 .navbar {
-  background-color: #ffcd03 !important;
+  background-color: transparent !important;
 }
 
 li {
