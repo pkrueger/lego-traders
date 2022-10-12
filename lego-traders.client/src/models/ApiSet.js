@@ -6,6 +6,5 @@ export class ApiSet {
     this.theme_id = data.theme_id
     this.num_parts = data.num_parts
     this.set_img_url = data.set_img_url
-    this.set_url = data.set_url
   }
 }
