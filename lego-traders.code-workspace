@@ -54,6 +54,9 @@
       "activityBarBadge.background": "#ee90bb",
       "activityBarBadge.foreground": "#15202b"
     },
-    "peacock.color": "#1857a4"
+    "peacock.color": "#1857a4",
+    "cSpell.words": [
+      "Mocs"
+    ]
   }
 }
