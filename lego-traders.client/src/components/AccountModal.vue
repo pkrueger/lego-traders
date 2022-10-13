@@ -22,15 +22,7 @@
                 aria-describedby="Your email">
               <label id="email" for="email">Your email</label>
             </div>
-            <div class="form-floating mb-3">
-              <input v-model="editable.picture" type="url" class="form-control" id="picture"
-                aria-describedby="Your picture">
-              <label id="url" for="url">Your Picture as a URL</label>
-            </div>
-            <!-- TODO Add Account Description -->
-
             <div class="input-group mb-3">
-
               <label class="input-group-text" required for="theme">Select an Theme</label>
               <select class="form-select" v-model="editable.userTheme" id="theme">
                 <option value="starwars">Star Wars</option>
@@ -38,8 +30,60 @@
                 <option value="harrypotter">Harry Potter</option>
                 <option value="technic">Technic</option>
               </select>
+            </div>
+
+            <div class="input-group mb-3">
+              <label class="input-group-text" required for="picture">Select MiniFig Picture</label>
+              <select class="form-select" v-model="editable.picture" id="picture">
+
+                <option v-if="editable.userTheme == 'harrypotter'" value="HarryPotterMiniFigs/Dobby.jpg">Dobby</option>
+                <option v-if="editable.userTheme == 'harrypotter'" value="HarryPotterMiniFigs/Draco.jpg">Draco</option>
+                <option v-if="editable.userTheme == 'harrypotter'" value="HarryPotterMiniFigs/dumbledoor.jpg">Dumbledoor
+                </option>
+                <option v-if="editable.userTheme == 'harrypotter'" value="HarryPotterMiniFigs/ginny.jpg">Ginny</option>
+                <option v-if="editable.userTheme == 'harrypotter'" value="HarryPotterMiniFigs/harry.jpg">Harry</option>
+                <option v-if="editable.userTheme == 'harrypotter'" value="HarryPotterMiniFigs/HarryAdult.jpg">Harry
+                  Adult</option>
+                <option v-if="editable.userTheme == 'harrypotter'" value="HarryPotterMiniFigs/hermoine.jpg">Hermoine
+                </option>
+                <option v-if="editable.userTheme == 'harrypotter'" value="HarryPotterMiniFigs/severus.jpg">Severus
+                </option>
+                <option v-if="editable.userTheme == 'harrypotter'" value="HarryPotterMiniFigs/voldemort.jpg">Voldemort
+                </option>
+                <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/admiralThrawn.jpg">Admiral
+                  Thrawn
+                </option>
+                <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/AdmiralYularen.jpg">
+                  Admiral Yularen
+                </option>
+                <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/Anakin.jpg">Anakin</option>
+                <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/battleDroid.jpg">Battle Droid
+                </option>
+                <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/BobbaFet.jpg">BobbaFet</option>
+                <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/C3PORedArm.jpg">C3PORedArm
+                </option>
+                <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/Chewbaca.jpg">Chewbaca</option>
+                <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/CloneTrooperLieutenant.jpg">
+                  Clone Trooper Lieutenant</option>
+                <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/DarthRevan.jpg">Darth Revan
+                </option>
+                <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/FirstOrderTrooper.jpg">First
+                  Order Trooper</option>
+                <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/leia.jpg">Leia</option>
+                <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/LukeSkyDark.jpg">Luke Skywalker
+                </option>
+                <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/ObiWan.jpg">ObiWan</option>
+                <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/QuiGon Jinn.jpg">QuiGon Jinn
+                </option>
+                <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/Yoda.jpg">Yoda</option>
+
+
+              </select>
 
             </div>
+
+
+
 
 
 

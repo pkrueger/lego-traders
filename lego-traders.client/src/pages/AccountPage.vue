@@ -39,6 +39,7 @@
             <div class="col-3" v-for="l in wishListLegoSets">
 
               <LegoSetCard :key="l.id" :legoSet="l" />
+
             </div>
           </div>
           <!-- TODO Component for My Wishlist  v-if="!l.isOwned"  -->
@@ -67,7 +68,7 @@ export default {
     // })
     async function getMyLegoSets() {
       try {
-        await legoSetsService.getMyLegoSets(AppState.account.id)
+        await legoSetsService.getMyLegoSets(AppState.user.id)
       } catch (error) {
         Pop.error('[getMyLegoSets]', error)
       }
