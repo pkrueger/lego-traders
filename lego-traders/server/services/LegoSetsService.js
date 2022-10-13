@@ -11,12 +11,13 @@ class LegoSetsService {
     })
     return tradableSets
   }
-  async getAllSets(){
+  async getAllSets() {
     const legoSets = await dbContext.LegoSets.find()
     return legoSets
   }
 
-  async getSetsByProfileId(id){
+  async getSetsByProfileId(id) {
+    //REVIEW SHouldn't findById(id) instead be findbyId({ownerId}) because ownerId is an object
     const sets = await dbContext.LegoSets.findById(id)
     return sets
   }

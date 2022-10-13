@@ -5,9 +5,9 @@ import { api, legoApi } from "./AxiosService"
 
 class LegoSetsService {
   async getMyLegoSets(accountId) {
-    const res = await api.get(`api/${accountId}/sets`)
+    const res = await api.get(`api/sets/${accountId}/sets`)
     console.log('getMyLegoSets', res.data);
-    AppState.legoSet = res.data.map(l => new LegoSet(l))
+    // AppState.legoSet = res.data.map(l => new LegoSet(l))
   }
   async getSetsByThemeId(theme_id) {
     const res = await legoApi.get(`sets`, { params: { theme_id } })
