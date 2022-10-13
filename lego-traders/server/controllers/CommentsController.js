@@ -6,9 +6,9 @@ export class CommentsController extends BaseController {
   constructor() {
     super('api/comments')
     this.router
-    .get('/forum/:id', this.getCommentsByPostId)
+    .get('/forum/:postId', this.getCommentsByPostId)
     .get('/sets/:set_num', this.getCommentsBySetNum)
-    .get('/:id', this.getCommentById)
+    .get('/:commentId', this.getCommentById)
     .use(Auth0Provider.getAuthorizedUserInfo)
     .post('/forum/', this.createForumComment)
     .delete('/forum/:commentId', this.deleteForumComment)
@@ -26,7 +26,7 @@ export class CommentsController extends BaseController {
   }
   async getCommentById(req, res, next) {
 try {
-  const comment = await commentsService.getCommentById(req.params.id)
+  const comment = await commentsService.getCommentById(req.params.commentId)
   res.send(comment)
 } catch (error) {
   next(error)
@@ -66,7 +66,7 @@ try {
   }
   async getCommentsByPostId(req, res, next) {
     try {
-      const comments = await commentsService.getCommentsByPostId(req.params.id)
+      const comments = await commentsService.getCommentsByPostId(req.params.postId)
       res.send(comments)
     } catch (error) {
       next(error)

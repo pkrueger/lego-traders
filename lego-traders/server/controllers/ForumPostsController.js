@@ -7,15 +7,15 @@ export class ForumPostsController extends BaseController{
     super('api/forum/posts')
     this.router
     .get('', this.getAllPosts)
-    .get('', this.getPostByPostId)
-    .get(':creatorId', this.getPostsByCreatorId)
+    .get('/:postId', this.getPostByPostId)
+    .get('/:creatorId', this.getPostsByCreatorId)
     .use(Auth0Provider.getAuthorizedUserInfo)
     .post('', this.createPost)
-    .delete(':id', this.deletePost)
+    .delete(':postId', this.deletePost)
   }
   async deletePost(req, res, next) {
 try {
-  const post = await forumPostsService.deletePost(req.params.id, req.userInfo)
+  const post = await forumPostsService.deletePost(req.params.postId, req.userInfo)
   res.send(post)
 } catch (error) {
   next(error)
@@ -39,7 +39,7 @@ try {
   }
   async getPostByPostId(req, res, next) {
   try {
-    const posts = await forumPostsService.getPostByPostId(req.params.id)
+    const posts = await forumPostsService.getPostByPostId(req.params.postId)
     res.send(posts)
   } catch (error) {
     next(error)
