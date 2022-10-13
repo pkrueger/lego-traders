@@ -11,5 +11,7 @@ export const AppState = reactive({
   // StarWars 18, 158
   legoSetThemes: { starwars: 158 },
   /** @type {import('./models/ApiSet.js').ApiSet[]} */
-  apiSets: []
+  apiSets: [],
+  nextPage: 0,
+  previousPage: 0,
 })

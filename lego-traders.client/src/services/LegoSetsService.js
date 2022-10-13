@@ -10,8 +10,13 @@ class LegoSetsService {
     console.log('getMyLegoSets', res.data);
     // AppState.legoSet = res.data.map(l => new LegoSet(l))
   }
-  async getSetsByThemeId(theme_id) {
-    const res = await legoApi.get(`sets`, { params: { theme_id } })
+  async getSetsByThemeId(theme_id,) {
+    const res = await legoApi.get(`sets`, {
+      params: {
+        theme_id,
+        page_size: 20
+      },
+    })
     console.log('theme from api', res.data);
     AppState.apiSets = res.data.results
   }
