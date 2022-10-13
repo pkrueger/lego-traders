@@ -19,6 +19,14 @@ class LegoSetsService {
     })
     console.log('theme from api', res.data);
     AppState.apiSets = res.data.results
+    AppState.nextPage = res.data.next
+    AppState.previousPage = res.data.previous
+  }
+  async goPage(page) {
+    const res = await legoApi.get(page)
+    AppState.apiSets = res.data.results
+    AppState.nextPage = res.data.next
+    AppState.previousPage = res.data.previous
   }
 }
 export const legoSetsService = new LegoSetsService()
