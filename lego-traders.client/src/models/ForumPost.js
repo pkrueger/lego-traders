@@ -1,4 +1,4 @@
-export class Post {
+export class ForumPost {
   constructor(data) {
     this.id = data.id
     this.creatorId = data.creatorId
