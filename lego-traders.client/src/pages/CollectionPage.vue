@@ -28,10 +28,12 @@
         <LegoSetCard v-for="set in apiSets" :key="set._id" :legoSet="set" class="m-3 " />
       </div>
       <div class="d-flex justify-content-center gap-5">
-        <div v-if="previousPage">
-          <button class="btn btn-warning" @click="previousPage()">Previous</button>
+        <div v-show="previousPage">
+          <button class="btn btn-warning" @click="goPage(previousPage)">Previous</button>
         </div>
-        <button class="btn btn-warning" @click="goPage()">Next</button>
+        <div v-show="nextPage">
+          <button class="btn btn-warning" @click="goPage(nextPage)">Next</button>
+        </div>
       </div>
     </div>
   </div>
@@ -55,27 +57,29 @@ export default {
         Pop.error(error, "Getting Set Themes");
       }
     }
+
     return {
       legoSetThemes: computed(() => AppState.legoSetThemes),
       apiSets: computed(() => AppState.apiSets),
       nextPage: computed(() => AppState.nextPage),
       previousPage: computed(() => AppState.previousPage),
+      activeCollection: computed(() => AppState.activeCollection),
       getSetsByThemeId,
 
-      async goPage() {
+      async goPage(url) {
         try {
-          await legoSetsService.goPage(AppState.nextPage)
+          await legoSetsService.goPage(url)
         } catch (error) {
           Pop.error(error)
         }
       },
-      async previousPage() {
-        try {
-          await legoSetsService.goPage(AppState.previousPage)
-        } catch (error) {
-          Pop.error(error)
-        }
-      }
+      // async previousPage() {
+      //   try {
+      //     await legoSetsService.previousPage(AppState.previousPage)
+      //   } catch (error) {
+      //     Pop.error(error)
+      //   }
+      // }
     };
   },
   components: { LegoSetCard }
