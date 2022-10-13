@@ -1,4 +1,3 @@
-import { Auth0Provider } from "@bcwdev/auth0provider";
 import { legoSetsService } from "../services/LegoSetsService.js";
 import BaseController from "../utils/BaseController.js";
 
@@ -9,7 +8,7 @@ export class LegoSetsController extends BaseController {
       .get("", this.getAllSets)
       .get("/tradable", this.getTradableSets)
       .get("/:legoSetId", this.getSetBySetId)
-      .get("/:ownerId", this.getSetsByOwnerId);
+      .get("/profile/:ownerId", this.getSetsByOwnerId);
   }
   async getSetsByOwnerId(req, res, next) {
     try {
