@@ -13,9 +13,9 @@
               <label id="name" for="name">Enter the name you would like displayed</label>
             </div>
             <div class="form-floating mb-3">
-              <label id="description" for="description">User Bio</label>
-              <textarea v-model="editable.desc" class="form-control" aria-describedby="Description" id="description"
-                rows="3"></textarea>
+              <textarea v-model="editable.desc" type="description" class="form-control" aria-describedby="Description"
+                id="description" rows="3"></textarea>
+              <label id="description" for="description">User About</label>
             </div>
             <div class="form-floating mb-3">
               <input v-model="editable.email" type="email" class="form-control" id="email"
@@ -28,10 +28,11 @@
               <label id="url" for="url">Your Picture as a URL</label>
             </div>
             <!-- TODO Add Account Description -->
+
             <div class="input-group mb-3">
 
               <label class="input-group-text" required for="theme">Select an Theme</label>
-              <select class="form-select" v-model="editable.theme" id="theme">
+              <select class="form-select" v-model="editable.userTheme" id="theme">
                 <option value="starwars">Star Wars</option>
                 <option value="dc">DC</option>
                 <option value="harrypotter">Harry Potter</option>
