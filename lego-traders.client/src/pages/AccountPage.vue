@@ -50,9 +50,8 @@
 </template>
 
 <script>
-import { is } from '@babel/types';
 import { onAuthLoaded } from '@bcwdev/auth0provider-client';
-import { computed, onMounted } from 'vue'
+import { computed } from 'vue'
 import { AppState } from '../AppState'
 import AccountModal from '../components/AccountModal.vue';
 import LegoSetCard from '../components/LegoSetCard.vue';
@@ -75,8 +74,8 @@ export default {
     }
     return {
       account: computed(() => AppState.account),
-      wishlistLegoSets: computed(() => AppState.legoSet.filter(!isOwned)),
-      ownedLegoSets: computed(() => AppState.legoSet.filter(isOwned))
+      wishListLegoSets: computed(() => AppState.legoSet.filter(l => !l.isOwned)),
+      ownedLegoSets: computed(() => AppState.legoSet.filter(l => l.isOwned))
     };
   },
   components: { AccountModal, LegoSetCard }
