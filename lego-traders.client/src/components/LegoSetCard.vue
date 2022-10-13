@@ -1,6 +1,6 @@
 <template>
   <!-- When Adding a Set Card it needs to be inside a ROW for proper formating -->
-  <div class="col-3">
+  <div class="">
     <div class="card card-size">
       <img :src="legoSet.set_img_url" class="img-fluid p-2 img-size" alt="">
       <div class="card-body p-2">
@@ -48,7 +48,13 @@ export default {
       },
       async addSetToAccount(data) {
         try {
-          await legoSetsService.addSetToAccount(data)
+          const yes = await Pop.confirm('Do you own this?', '')
+          if (!yes) {
+            await legoSetsService.addSetToAccount(data)
+          } else {
+            data.isOwned = true
+            await legoSetsService.addSetToAccount(data)
+          }
         } catch (error) {
           Pop.error('[addToAccount]', error)
         }

@@ -26,15 +26,22 @@
         <h3>Owned Sets:</h3>
         <div class="row">
           <!-- RouterLink to Set Details page -->
-          <LegoSetCard v-for="l in legoSets" :key="l" :legoSet="l" />
-          <!-- TODO Component for My Sets  v-if="l.isOwned" -->
+          <div class="col-3" v-for="l in ownedLegoSets">
+
+            <LegoSetCard :key="l.id" :legoSet="l" />
+
+          </div>
+          <!-- TODO Component for My Sets  -->
         </div>
         <div class="col-12">
           <h3>WishList:</h3>
           <div class="row">
-            <LegoSetCard v-for="l in legoSets" :key="l" :legoSet="l" />
-            <!-- TODO Component for My Wishlist  v-if="!l.isOwned"  -->
+            <div class="col-3" v-for="l in wishListLegoSets">
+
+              <LegoSetCard :key="l.id" :legoSet="l" />
+            </div>
           </div>
+          <!-- TODO Component for My Wishlist  v-if="!l.isOwned"  -->
         </div>
       </div>
     </div>
@@ -43,6 +50,7 @@
 </template>
 
 <script>
+import { is } from '@babel/types';
 import { onAuthLoaded } from '@bcwdev/auth0provider-client';
 import { computed, onMounted } from 'vue'
 import { AppState } from '../AppState'
@@ -67,7 +75,8 @@ export default {
     }
     return {
       account: computed(() => AppState.account),
-      legoSets: computed(() => AppState.legoSet),
+      wishlistLegoSets: computed(() => AppState.legoSet.filter(!isOwned)),
+      ownedLegoSets: computed(() => AppState.legoSet.filter(isOwned))
     };
   },
   components: { AccountModal, LegoSetCard }
