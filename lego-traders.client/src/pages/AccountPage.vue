@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import { onAuthLoaded } from '@bcwdev/auth0provider-client';
 import { computed, onMounted } from 'vue'
 import { AppState } from '../AppState'
 import AccountModal from '../components/AccountModal.vue';
@@ -53,17 +54,18 @@ import { legoSetsService } from '../services/LegoSetsService.js';
 import Pop from '../utils/Pop.js';
 export default {
   setup() {
-    const id = AppState.account.id
     async function getMyLegoSets() {
       try {
-        await legoSetsService.getMyLegoSets(id)
+        await legoSetsService.getMyLegoSets()
       } catch (error) {
         Pop.error('[getMyLegoSets]', error)
       }
     }
-    onMounted(() => {
-      getMyLegoSets()
-    })
+    // REVIEW This should wait for Login to finish but its not....
+    onAuthLoaded(() => getMyLegoSets())
+    // onMounted(() => {
+    //   getMyLegoSets()
+    // })
     return {
       account: computed(() => AppState.account),
       legoSets: computed(() => AppState.legoSet)

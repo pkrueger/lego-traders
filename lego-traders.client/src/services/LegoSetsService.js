@@ -5,7 +5,8 @@ import { api, legoApi } from "./AxiosService"
 
 class LegoSetsService {
   async getMyLegoSets(accountId) {
-    const res = await api.get(`api/sets/${accountId}/sets`)
+    const res = await api.get(`api/sets/` + AppState.account.id + '/sets')
+    // TODO Change after server side gets updated
     console.log('getMyLegoSets', res.data);
     // AppState.legoSet = res.data.map(l => new LegoSet(l))
   }
