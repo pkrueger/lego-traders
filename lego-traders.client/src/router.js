@@ -33,6 +33,11 @@ const routes = [
     component: loadPage('ForumPage')
   },
   {
+    path: '/profile',
+    name: 'Profile',
+    component: loadPage('ProfilePage')
+  },
+  {
     path: '/createyourown',
     name: 'MOC',
     component: loadPage('MOCPage')
