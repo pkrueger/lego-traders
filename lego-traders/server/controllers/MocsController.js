@@ -9,16 +9,16 @@ export class MocsController extends BaseController {
     super('/api/mocs')
     this.router
       .get('', this.getAllMocs)
-      .get('/:creatorId', this.getMocsByCreatorId)
-      .get('/:set_num', this.getMocsBySetNum)
       .get('/:mocId', this.getMocById)
+      .get('/:creatorId/mocs', this.getMocsByCreatorId)
+      .get('/:set_num', this.getMocsBySetNum)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createMoc)
       .delete('/:mocId', this.removeMoc)
   }
   async removeMoc(req, res, next) {
     try {
-      await mocsService.removeMoc(req.params.mocid, req.userInfo)
+      await mocsService.removeMoc(req.params.mocId, req.userInfo)
       res.send('You Deleted Your MOC')
     } catch (error) {
       next(error)

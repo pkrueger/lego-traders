@@ -17,7 +17,7 @@ class MocsService {
     return moc
   }
   async getMocById(mocId) {
-    const moc = await dbContext.Mocs.findById(mocId)
+    const moc = await dbContext.Mocs.findById(mocId).populate('creator', 'name picture')
     if (!moc) {
       throw new BadRequest('Invalid or Bad Moc Id')
     }
@@ -32,7 +32,7 @@ class MocsService {
     return mocs
   }
   async getAllMocs() {
-    const mocs = await dbContext.Mocs.find()
+    const mocs = await dbContext.Mocs.find().populate('creator', 'name picture')
     return mocs
   }
 
