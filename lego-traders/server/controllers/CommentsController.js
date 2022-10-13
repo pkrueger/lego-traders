@@ -6,33 +6,35 @@ export class CommentsController extends BaseController {
   constructor() {
     super('api/comments')
     this.router
-    .get('/forum/:postId', this.getCommentsByPostId)
-    .get('/sets/:set_num', this.getCommentsBySetNum)
-    .get('/:commentId', this.getCommentById)
-    .use(Auth0Provider.getAuthorizedUserInfo)
-    .post('/forum/', this.createForumComment)
-    .delete('/forum/:commentId', this.deleteForumComment)
-    .post('/sets/', this.createSetComment)
-    .delete('/sets/:commentId', this.deleteSetComment)
+      .get('/forum/:postId', this.getCommentsByPostId)
+      .get('/sets/:set_num', this.getCommentsBySetNum)
+      .get('/:commentId', this.getCommentById)
+      .use(Auth0Provider.getAuthorizedUserInfo)
+      .post('/forum/', this.createForumComment)
+      .delete('/forum/:commentId', this.deleteForumComment)
+      .post('/sets/', this.createSetComment)
+      .delete('/sets/:commentId', this.deleteSetComment)
   }
   async deleteSetComment(req, res, next) {
     try {
       const comment = await commentsService.deleteComment(req.params.commentId)
       res.send(comment)
-      
+
     } catch (error) {
       next(error)
     }
   }
   async getCommentById(req, res, next) {
-try {
-  const comment = await commentsService.getCommentById(req.params.commentId)
-  res.send(comment)
-} catch (error) {
-  next(error)
-}  }
+    try {
+      const comment = await commentsService.getCommentById(req.params.commentId)
+      res.send(comment)
+    } catch (error) {
+      next(error)
+    }
+  }
   async createSetComment(req, res, next) {
     try {
+      req.body.creatorId = req.userInfo.id
       const comment = await commentsService.createComment(req.body)
       res.send(comment)
     } catch (error) {
@@ -46,7 +48,7 @@ try {
     } catch (error) {
       next(error)
     }
-    
+
   }
   async createForumComment(req, res, next) {
     try {
