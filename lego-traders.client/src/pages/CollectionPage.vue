@@ -11,8 +11,8 @@
         <LegoSetCard v-for="set in apiSets" :key="set._id" :legoSet="set" class="p-3" />
       </div>
       <div class="d-flex justify-content-center gap-5">
-        <button class="btn btn-warning">Previous</button>
-        <button class="btn btn-warning">Next--></button>
+        <button class="btn btn-warning" @click="goPage(-1)">Previous</button>
+        <button class="btn btn-warning" @click="goPage(1)">Next</button>
       </div>
     </div>
   </div>
@@ -28,9 +28,6 @@ import { onMounted } from "vue";
 import LegoSetCard from "../components/LegoSetCard.vue";
 export default {
   setup() {
-    // onMounted(() => {
-    //   getSetsByThemeId()
-    // })
     async function getSetsByThemeId(themeId) {
       try {
         await legoSetsService.getSetsByThemeId(themeId);
@@ -42,7 +39,17 @@ export default {
     return {
       legoSetThemes: computed(() => AppState.legoSetThemes),
       apiSets: computed(() => AppState.apiSets),
-      getSetsByThemeId
+      nextPage: computed(() => AppState.nextPage),
+      previousPage: computed(() => AppState.previousPage),
+      getSetsByThemeId,
+
+      async goPage() {
+        try {
+          await legoSetsService.goPage(n)
+        } catch (error) {
+          Pop.error(error)
+        }
+      }
     };
   },
   components: { LegoSetCard }
