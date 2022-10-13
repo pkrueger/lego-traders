@@ -5,9 +5,7 @@
       <div class="col-md-11 d-flex">
         <!-- TODO make set to account img -->
         <div>
-          <img class="img-size p-3"
-            src="https://cdn.shopify.com/s/files/1/0225/9107/8480/products/headgear_bluehatwizardlightbluishgrayhairLegobricks4cheapcastle_2048x2048.jpg?v=1653610672"
-            alt="User Name">
+          <img class="img-size p-3" :src="account.picture" alt="User Name">
         </div>
         <div class="border border-dark border-box p-2">
           <!-- Account Details -->
@@ -54,21 +52,21 @@ import { legoSetsService } from '../services/LegoSetsService.js';
 import Pop from '../utils/Pop.js';
 export default {
   setup() {
-    async function getMyLegoSets() {
-      try {
-        await legoSetsService.getMyLegoSets()
-      } catch (error) {
-        Pop.error('[getMyLegoSets]', error)
-      }
-    }
     // REVIEW This should wait for Login to finish but its not....
     onAuthLoaded(() => getMyLegoSets())
     // onMounted(() => {
     //   getMyLegoSets()
     // })
+    async function getMyLegoSets() {
+      try {
+        await legoSetsService.getMyLegoSets(AppState.account.id)
+      } catch (error) {
+        Pop.error('[getMyLegoSets]', error)
+      }
+    }
     return {
       account: computed(() => AppState.account),
-      legoSets: computed(() => AppState.legoSet)
+      legoSets: computed(() => AppState.legoSet),
     };
   },
   components: { AccountModal, LegoSetCard }

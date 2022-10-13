@@ -38,7 +38,7 @@
 
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Save changes</button>
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
             </div>
           </form>
         </div>
@@ -50,7 +50,8 @@
 
 
 <script>
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
+import { AppState } from '../AppState.js';
 import { accountService } from '../services/AccountService.js';
 import Pop from '../utils/Pop.js';
 
@@ -58,7 +59,9 @@ import Pop from '../utils/Pop.js';
 export default {
   setup() {
     const editable = ref({})
-
+    watchEffect(() => {
+      editable.value = { ...AppState.account }
+    })
     return {
       editable,
       async handleSubmit() {

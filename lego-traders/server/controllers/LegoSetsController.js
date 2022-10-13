@@ -10,7 +10,8 @@ export class LegoSetsController extends BaseController {
       .get('/:legoSetId', this.getSetBySetId)
       //'api/sets/:id/sets is a bit too much imo -Randy
       // Lets review PostMan Tower request for get Tickets by accountId the equivalant would be /api/account/sets
-      // Not to say this won't work for profile pages. It just doesn't work for what I've been working on.
+      // Not to say this won't work for profile pages. It just doesn't seem to work for what I've been working on.
+      // We really need to be able to add a set to an account
       .get('/:id/sets', this.getSetsByProfileId)
   }
   async getSetsByProfileId(req, res, next) {

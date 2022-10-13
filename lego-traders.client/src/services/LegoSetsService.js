@@ -5,10 +5,10 @@ import { api, legoApi } from "./AxiosService"
 
 class LegoSetsService {
   async getMyLegoSets(accountId) {
-    const res = await api.get(`api/sets/` + AppState.account.id + '/sets')
+    const res = await api.get(`api/sets/` + accountId + '/sets')
     // TODO Change after server side gets updated
     console.log('getMyLegoSets', res.data);
-    // AppState.legoSet = res.data.map(l => new LegoSet(l))
+    // AppState.legoSet = res.data.map(s => new LegoSet(s))
   }
   async getSetsByThemeId(theme_id,) {
     const res = await legoApi.get(`sets`, {
