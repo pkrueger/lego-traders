@@ -5,7 +5,7 @@
       <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
         <div class="d-flex gap-1 align-items-center">
           <img alt="logo" src="../assets/img/lego-logo.png" height="45" />
-          <img src="../assets/img/lego-trader.png" alt="logo-text" height="45">
+          <img class="img-fluid trader-img" src="../assets/img/lego-trader.png" alt="logo-text">
         </div>
       </router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -75,6 +75,10 @@ export default {
   /* background-image: url('green-lego.webp'); */
   /* background-position: top left; */
   border: 2px solid black;
+}
+
+.trader-img {
+  height: 2.8rem;
 }
 
 .collections {

@@ -85,7 +85,7 @@ export default {
 
 <style lang="scss" scoped>
 .collection {
-  background-image: url('https://wallpapers.com/images/hd/cool-lego-blue-background-vdbhk2korubq2jb0-vdbhk2korubq2jb0.webp');
+  background-image: url('grey-lego.webp');
   background-position: center;
   min-height: 100vh;
 }
