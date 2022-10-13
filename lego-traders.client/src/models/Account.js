@@ -6,6 +6,7 @@ export class Account {
     this.picture = data.picture
     this.nickname = data.nickname
     this.desc = data.desc
+    this.userTheme = data.userTheme
     // TODO add additional properties if needed
   }
 }

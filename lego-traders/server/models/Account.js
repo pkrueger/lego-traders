@@ -7,7 +7,8 @@ export const AccountSchema = new Schema(
     email: { type: String, lowercase: true, unique: true },
     name: { type: String, required: true },
     picture: { type: String },
-    desc: { type: String, maxlength: 1000}
+    desc: { type: String, maxlength: 1000 },
+    userTheme: { type: String }
     // NOTE If you wish to add additional properties do so here
   },
   { timestamps: true, toJSON: { virtuals: true } }

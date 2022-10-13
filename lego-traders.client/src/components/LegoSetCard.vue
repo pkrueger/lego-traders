@@ -20,6 +20,7 @@
         <button class="btn btn-primary" v-if="!legoSet.ownerId" @click="addSetToAccount(legoSet)">Add to
           Account</button>
       </div>
+      <!-- Add Offer Trade Button v-if="legoSet.ownerId != account.id && account.id" -->
     </div>
   </div>
 
