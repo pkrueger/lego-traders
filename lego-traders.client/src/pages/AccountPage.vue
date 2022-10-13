@@ -1,19 +1,18 @@
 <template>
   <div class="container-fluid">
-    <!-- Account Details -->
     <div class="row mt-3">
+      <!-- <UserDetails :account="account" /> -->
       <div class="col-md-11 d-flex">
-        <!-- TODO make set to account img -->
         <div>
           <img class="img-size p-3" :src="account.picture" alt="User Name">
         </div>
         <div class="border border-dark border-box p-2">
-          <!-- Account Details -->
           <h3>Name: {{account.name}}</h3>
           <h5>About: </h5>
           <p>{{account.desc}}</p>
         </div>
       </div>
+
       <div class="col-md-1">
         <div>
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#accountModal">Manage
@@ -39,6 +38,7 @@
             <div class="col-3" v-for="l in wishListLegoSets">
 
               <LegoSetCard :key="l.id" :legoSet="l" />
+
             </div>
           </div>
           <!-- TODO Component for My Wishlist  v-if="!l.isOwned"  -->
@@ -67,7 +67,7 @@ export default {
     // })
     async function getMyLegoSets() {
       try {
-        await legoSetsService.getMyLegoSets(AppState.account.id)
+        await legoSetsService.getMyLegoSets(AppState.user.id)
       } catch (error) {
         Pop.error('[getMyLegoSets]', error)
       }

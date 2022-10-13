@@ -18,6 +18,12 @@ class AccountService {
     console.log(res.data);
     AppState.account = new Account(res.data)
   }
+
+  async getProfile(id) {
+    const res = await api.get('/profiles/' + id)
+    console.log(res.data);
+    AppState.activeProfile = new Account(res.data)
+  }
 }
 
 export const accountService = new AccountService()

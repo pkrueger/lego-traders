@@ -19,19 +19,29 @@
         <img @click="getSetsByThemeId(52)" class="selectable mt-0 collection-image"
           src="https://www.brickfanatics.com/wp-content/uploads/LEGO-City-logo-featured-800-445.jpg" alt="">
       </div>
-      <!-- <button class="btn btn-warning" @click="getSetsByThemeId(158)">StarWars</button> -->
-      <!-- <button class="btn btn-warning" @click="getSetsByThemeId(1)">Technic</button> -->
-      <!-- <button class="btn btn-warning" @click="getSetsByThemeId(246)">Harry Potter</button> -->
-      <!-- <button class="btn btn-warning" @click="getSetsByThemeId(252)">Architecture</button> -->
-      <!-- <button class="btn btn-warning" @click="getSetsByThemeId(52)">City</button> -->
+      <!-- Search Input -->
+      <form @submit.prevent="handleSubmit">
+        <div class="form-floating col-12 mt-5">
+          <input type="search" class="form-control" minlength="1" required placeholder="search legos"
+            v-model="editable.term">
+          <label for="floatingInput">Search...</label>
+          <div class="text-end">
+            <button type="submit" class="btn btn-warning">Search</button>
+          </div>
+        </div>
+      </form>
+      <!-- Lego Set Cards -->
       <div class="d-flex flex-wrap justify-content-center mt-5">
         <LegoSetCard v-for="set in apiSets" :key="set._id" :legoSet="set" class="m-3 " />
       </div>
-      <div class="d-flex justify-content-center gap-5">
-        <div v-if="previousPage">
-          <button class="btn btn-warning" @click="previousPage()">Previous</button>
+      <!-- Pagination -->
+      <div class="col-12 d-flex justify-content-center gap-5">
+        <div v-show="previousPage">
+          <button class="btn btn-warning" @click="goPage(previousPage)">Previous</button>
         </div>
-        <button class="btn btn-warning" @click="goPage()">Next</button>
+        <div v-show="nextPage">
+          <button class="btn btn-warning" @click="goPage(nextPage)">Next</button>
+        </div>
       </div>
     </div>
   </div>
@@ -43,7 +53,6 @@ import Pop from "../utils/Pop";
 import { legoSetsService } from "../services/LegoSetsService"
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState";
-import { onMounted } from "vue";
 import LegoSetCard from "../components/LegoSetCard.vue";
 export default {
   setup() {
@@ -55,27 +64,31 @@ export default {
         Pop.error(error, "Getting Set Themes");
       }
     }
+
     return {
+      editable,
       legoSetThemes: computed(() => AppState.legoSetThemes),
       apiSets: computed(() => AppState.apiSets),
       nextPage: computed(() => AppState.nextPage),
       previousPage: computed(() => AppState.previousPage),
+      activeCollection: computed(() => AppState.activeCollection),
       getSetsByThemeId,
 
-      async goPage() {
+      async handleSubmit() {
         try {
-          await legoSetsService.goPage(AppState.nextPage)
+          await legoSetsService.getSetsBySetNum(editable.value.term)
         } catch (error) {
           Pop.error(error)
         }
       },
-      async previousPage() {
+
+      async goPage(url) {
         try {
-          await legoSetsService.goPage(AppState.previousPage)
+          await legoSetsService.goPage(url)
         } catch (error) {
           Pop.error(error)
         }
-      }
+      },
     };
   },
   components: { LegoSetCard }
