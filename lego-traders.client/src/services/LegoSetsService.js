@@ -32,7 +32,7 @@ class LegoSetsService {
   async getSetsBySetNum(term) {
     const res = await legoApi.get('sets/', {
       params: {
-        term
+        search: term,
       }
     })
     AppState.apiSets = res.data.results
