@@ -4,12 +4,11 @@ import { BadRequest, Forbidden } from "../utils/Errors.js"
 class MocsService {
   async removeMoc(mocId, userInfo) {
     const moc = await this.getMocById(mocId)
-    // @ts-ignore
     if (moc.creatorId != userInfo.id) {
       throw new Forbidden('This is Not your MOC you cannot delete this')
     }
     moc.remove()
-    await moc.save()
+    // await moc.save()
     return moc
   }
   async createMoc(MocData) {
@@ -25,11 +24,11 @@ class MocsService {
     return moc
   }
   async getMocsBySetNum(set_num) {
-    const mocs = await dbContext.Mocs.find(set_num)
+    const mocs = await dbContext.Mocs.find({ set_num })
     return mocs
   }
   async getMocsByCreatorId(creatorId) {
-    const mocs = await dbContext.Mocs.find(creatorId)
+    const mocs = await dbContext.Mocs.find({ creatorId })
     return mocs
   }
   async getAllMocs() {
