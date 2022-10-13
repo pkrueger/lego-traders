@@ -1,8 +1,8 @@
 import { dbContext } from "../db/DbContext.js";
 
 class LegoSetsService {
-  async getSetBySetId(id) {
-    const set = await dbContext.LegoSets.findById(id)
+  async getSetBySetId(legoSetId) {
+    const set = await dbContext.LegoSets.findById(legoSetId)
     return set
   }
   async getTradableSets() {
@@ -16,9 +16,9 @@ class LegoSetsService {
     return legoSets
   }
 
-  async getSetsByProfileId(id) {
+  async getSetsByOwnerId(ownerId) {
     //REVIEW SHouldn't findById(id) instead be findbyId({ownerId}) because ownerId is an object
-    const sets = await dbContext.LegoSets.findById(id)
+    const sets = await dbContext.LegoSets.find({ownerId})
     return sets
   }
 }

@@ -2,7 +2,7 @@ import { Schema } from "mongoose";
 import { ObjectId, SCHEMA_OPTIONS } from "../db/dbUtils.js";
 
 export const LegoSetSchema = new Schema({
-  ownerId: {  type: ObjectId, required: true },
+  ownerId: {  type: ObjectId, required: true, ref: 'Account' },
   set_num: { type: String, required: true },
   name: { type: String, required: true },
   year: { type: Number, required: true},

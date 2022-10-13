@@ -2,14 +2,14 @@ import { dbContext } from "../db/DbContext.js";
 import { BadRequest, Forbidden } from "../utils/Errors.js";
 
 class ForumPostsService {
-  async deletePost(id, userInfo) {
-    const post = await this.getPostByPostId(id);
+  async deletePost(postId, userInfo) {
+    const post = await this.getPostByPostId(postId);
 
     // NOTE look at this!!!!--v
     if (post.creatorId != userInfo.id) {
       throw new Forbidden("This is not your Post.");
     }
-    await dbContext.Posts.deleteOne(id);
+    await dbContext.Posts.findByIdAndDelete(postId);
     return post;
   }
   async createPost(postData) {
@@ -18,15 +18,15 @@ class ForumPostsService {
     return post;
   }
   async getPostsByCreatorId(creatorId) {
-    const posts = await dbContext.Posts.find(creatorId).populate(
+    const posts = await dbContext.Posts.find({creatorId}).populate(
       "creator",
       "name picture"
     );
 
     return posts;
   }
-  async getPostByPostId(id) {
-    const post = await dbContext.Posts.findById(id).populate(
+  async getPostByPostId(postId) {
+    const post = await dbContext.Posts.findById(postId).populate(
       "creator",
       "name picture"
     );
