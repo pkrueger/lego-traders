@@ -13,7 +13,7 @@ class LegoSetsService {
     const res = await api.get(`api/sets/profile/` + accountId)
     // TODO Change after server side gets updated
     console.log('getMyLegoSets', res);
-    AppState.legoSet = res.data.map(s => LegoSet(s))
+    AppState.legoSet = res.data.map(s => new LegoSet(s))
   }
   async getSetsByThemeId(theme_id,) {
     const res = await legoApi.get(`sets`, {
