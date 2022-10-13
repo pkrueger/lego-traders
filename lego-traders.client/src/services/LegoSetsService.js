@@ -10,7 +10,7 @@ class LegoSetsService {
     console.log('addSetToAccount', res.data);
   }
   async getMyLegoSets(accountId) {
-    const res = await api.get(`api/sets/` + accountId)
+    const res = await api.get(`api/sets/profile/` + accountId)
     // TODO Change after server side gets updated
     console.log('getMyLegoSets', res);
     AppState.legoSet = res.data.map(s => LegoSet(s))

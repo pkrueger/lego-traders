@@ -8,7 +8,8 @@
         <button class="btn btn-warning" @click="getSetsByThemeId(246)">Harry Potter</button>
       </div>
       <div class="d-flex flex-wrap">
-        <LegoSetCard v-for="set in apiSets" :key="set._id" :legoSet="set" class="p-3" />
+        <!-- Lego Set cards should be directly under a row -->
+        <LegoSetCard v-for="set in apiSets" :key="set.set_num" :legoSet="set" class="p-3" />
       </div>
       <div class="d-flex justify-content-center gap-5">
         <button class="btn btn-warning" @click="previousPage()">Previous</button>
