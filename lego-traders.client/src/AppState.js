@@ -14,4 +14,6 @@ export const AppState = reactive({
   apiSets: [],
   nextPage: 0,
   previousPage: 0,
+  /** @type {import('./models/ForumPost.js).ForumPost[]} */
+  forumPosts: [],
 })

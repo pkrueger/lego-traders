@@ -1,16 +1,10 @@
 <template>
   <div class="container-fluid forum-page">
     <div class="row justify-content-center p-4">
-      <div class="col-md-7">
-        <div class="card">
-          <div class="d-flex justify-content-between p-4">
-            <div>
-              <h4>BatMan</h4>
-            </div>
-            <div><img class="" src="http://thiscatdoesnotexist.com" alt="Profile Img"></div>
-          </div>
-          <div class="card-body">
-            post of duude
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-12" v-for="post in forumPosts">
+            <ForumPostCard class="w-100" :key="post.id" :post="post" />
           </div>
         </div>
       </div>
@@ -28,23 +22,30 @@
 
 <script>
 import { onMounted } from 'vue';
+import { forumPostsService } from '../services/ForumPostsService.js'
 import Pop from '../utils/Pop.js';
+import ForumPostCard from '../components/ForumPostCard.vue';
+import { computed } from '@vue/reactivity';
+import { AppState } from '../AppState.js';
 
 export default {
   setup() {
     async function getPosts() {
       try {
-      } catch (error) {
-        Pop.error('[getPosts]', error)
+        await forumPostsService.getPosts();
+      }
+      catch (error) {
+        Pop.error("[getPosts]", error);
       }
     }
     onMounted(() => {
-      getPosts()
-    })
+      getPosts();
+    });
     return {
-
-    }
-  }
+      forumPosts: computed(() => AppState.forumPosts)
+    };
+  },
+  components: { ForumPostCard }
 }
 </script>
 

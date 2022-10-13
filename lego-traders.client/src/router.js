@@ -36,6 +36,11 @@ const routes = [
     path: '/createyourown',
     name: 'MOC',
     component: loadPage('MOCPage')
+  },
+  {
+    path: '/forum/:postId',
+    name: 'ForumPost',
+    component: loadPage('ForumPostPage')
   }
 ]
 
