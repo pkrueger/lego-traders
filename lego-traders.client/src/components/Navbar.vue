@@ -90,7 +90,8 @@ export default {
 .yellow-lego {
   background-image: url('yellow-lego.webp');
   background-position: top left;
-  background-size: cover;
+  background-size: fill;
+  height: 100%;
 
 }
 

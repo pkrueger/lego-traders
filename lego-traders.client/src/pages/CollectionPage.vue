@@ -101,8 +101,9 @@ export default {
 <style lang="scss" scoped>
 .collection {
   background-image: url('grey-lego.webp');
-  background-position: center;
-  min-height: 100vh;
+  background-size: cover;
+  background-position: top left;
+  height: 100vh;
 }
 
 .collection-image {

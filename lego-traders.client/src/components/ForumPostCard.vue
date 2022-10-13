@@ -1,18 +1,20 @@
 <template>
-  <router-link :to="{name: 'ForumPost', params:{ postId:post.id }}">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex justify-content-start gap-3">
+  <div class="card">
+    <div class="card-body">
+      <div class="d-flex justify-content-start gap-3">
+        <router-link :to="{name: 'Profile', params:{profileId:post.creatorId}}">
           <div class="profile-picture-container"><img class="profile-picture img-fluid" :src="post.creator.picture"
               alt="Profile Img"></div>
+        </router-link>
+        <router-link :to="{name: 'ForumPost', params:{ postId:post.id }}">
           <div>
             <h4>{{post.creator.name}}</h4>
             <h5>{{post.title}}</h5>
           </div>
-        </div>
+        </router-link>
       </div>
     </div>
-  </router-link>
+  </div>
 </template>
 
 

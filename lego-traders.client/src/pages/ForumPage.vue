@@ -53,7 +53,7 @@ export default {
 <style lang="scss" scoped>
 .forum-page {
   background-image: url('blue-lego.webp');
-  background-size: cover;
+  background-size: fill;
   background-position: top left;
   height: 100vh;
 }
