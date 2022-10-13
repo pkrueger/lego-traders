@@ -17,7 +17,8 @@
           </label>
         </div>
         <div>
-          <button class="btn btn-primary" @click="addSetToAccount(legoSet)">Add to Account</button>
+          <button class="btn btn-primary" v-if="!legoSet.ownerId" @click="addSetToAccount(legoSet)">Add to
+            Account</button>
         </div>
       </div>
     </div>
@@ -71,8 +72,8 @@ export default {
 }
 
 .img-size {
-  min-height: 38vh;
-  max-height: 38vh;
+  width: 38vh;
+  height: 38vh;
   object-fit: contain;
 }
 </style>
