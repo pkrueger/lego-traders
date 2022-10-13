@@ -16,6 +16,7 @@ export class AccountController extends BaseController {
     try {
       req.body.ownerId = req.userInfo.id;
       const LegoSet = await legoSetsService.createLegoSet(req.body);
+      res.send(LegoSet)
     } catch (error) {
       next(error);
     }

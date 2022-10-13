@@ -17,7 +17,7 @@
           </label>
         </div>
         <div>
-          <button class="btn btn-primary" @click="addSetToAccount()">Add to Account</button>
+          <button class="btn btn-primary" @click="addSetToAccount(legoSet)">Add to Account</button>
         </div>
       </div>
     </div>
@@ -46,9 +46,9 @@ export default {
           Pop.error('[toggleIsUpForTrade]', error)
         }
       },
-      async addSetToAccount() {
+      async addSetToAccount(data) {
         try {
-          await legoSetsService.addSetToAccount(legoSet)
+          await legoSetsService.addSetToAccount(data)
         } catch (error) {
           Pop.error('[addToAccount]', error)
         }

@@ -33,7 +33,7 @@
           <h3>WishList:</h3>
           <div class="row">
             <LegoSetCard v-for="l in legoSets" :key="l" :legoSet="l" />
-            <!-- TODO Component for My Wishlist  v-if="!l.isOwned" -->
+            <!-- TODO Component for My Wishlist  v-if="!l.isOwned"  -->
           </div>
         </div>
       </div>
