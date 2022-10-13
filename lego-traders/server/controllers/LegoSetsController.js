@@ -3,44 +3,44 @@ import BaseController from "../utils/BaseController.js";
 
 export class LegoSetsController extends BaseController {
   constructor() {
-    super('api/sets')
+    super("api/sets");
     this.router
-      .get('', this.getAllSets)
-      .get('/tradable', this.getTradableSets)
-      .get('/:legoSetId', this.getSetBySetId)
+      .get("", this.getAllSets)
+      .get("/tradable", this.getTradableSets)
+      .get("/:legoSetId", this.getSetBySetId)
 
-      .get('/:ownerId', this.getSetsByOwnerId)
+      .get("/:ownerId", this.getSetsByOwnerId);
   }
   async getSetsByOwnerId(req, res, next) {
     try {
-      const sets = await legoSetsService.getSetsByOwnerId(req.param.ownerId)
-      res.send(sets)
+      const sets = await legoSetsService.getSetsByOwnerId(req.params.ownerId);
+      res.send(sets);
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
   async getSetBySetId(req, res, next) {
     try {
-      const set = await legoSetsService.getSetBySetId(req.params.legoSetId)
-      res.send(set)
+      const set = await legoSetsService.getSetBySetId(req.params.legoSetId);
+      res.send(set);
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
   async getTradableSets(req, res, next) {
     try {
-      const tradableSets = await legoSetsService.getTradableSets()
-      res.send(tradableSets)
+      const tradableSets = await legoSetsService.getTradableSets();
+      res.send(tradableSets);
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
   async getAllSets(req, res, next) {
     try {
-      const legoSets = await legoSetsService.getAllSets()
-      res.send(legoSets)
+      const legoSets = await legoSetsService.getAllSets();
+      res.send(legoSets);
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 }
