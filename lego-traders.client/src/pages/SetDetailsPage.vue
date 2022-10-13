@@ -1,16 +1,16 @@
 <template>
-  <h1>Hello</h1>
+  <h1>Hello from set details page</h1>
 </template>
 
 
 <script>
 import { onMounted } from "vue";
+import { legoSetsService } from "../services/LegoSetsService";
 
 export default {
   setup() {
-
-    onMounted({
-
+    onMounted(() => {
+      legoSetsService.getSetsBySetNum()
     })
     return {}
   }
