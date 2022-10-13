@@ -49,22 +49,24 @@ import { computed, onMounted } from 'vue'
 import { AppState } from '../AppState'
 import AccountModal from '../components/AccountModal.vue';
 import LegoSetCard from '../components/LegoSetCard.vue';
+import { legoSetsService } from '../services/LegoSetsService.js';
 import Pop from '../utils/Pop.js';
 export default {
   setup() {
+    const id = AppState.account.id
     async function getMyLegoSets() {
       try {
-        await legoSetsController.getMyLegoSets()
+        await legoSetsService.getMyLegoSets(id)
       } catch (error) {
         Pop.error('[getMyLegoSets]', error)
       }
     }
     onMounted(() => {
-      // getMyLegoSets()
+      getMyLegoSets()
     })
     return {
       account: computed(() => AppState.account),
-      legoSets: computed(() => AppState.legoSet || [])
+      legoSets: computed(() => AppState.legoSet)
     };
   },
   components: { AccountModal, LegoSetCard }

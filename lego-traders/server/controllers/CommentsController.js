@@ -2,18 +2,18 @@ import { Auth0Provider } from "@bcwdev/auth0provider";
 import { commentsService } from "../services/CommentsService.js";
 import BaseController from "../utils/BaseController.js";
 
-export class CommentsController extends BaseController{
-  constructor(){
+export class CommentsController extends BaseController {
+  constructor() {
     super('api/comments')
     this.router
-    .get('/forum/:id', this.getCommentsByPostId)
-    .get('/sets/:set_num', this.getCommentsBySetNum)
-    .use(Auth0Provider.getAuthorizedUserInfo)
-    .post('/forum/', this.createForumComment)
-    .delete('/forum/', this.deleteForumComment)
+      .get('/forum/:id', this.getCommentsByPostId)
+      .get('/sets/:set_num', this.getCommentsBySetNum)
+      .use(Auth0Provider.getAuthorizedUserInfo)
+      .post('/forum/', this.createForumComment)
+      .delete('/forum/', this.deleteForumComment)
   }
   async deleteForumComment(req, res, next) {
-    
+
   }
   async createForumComment(req, res, next) {
     try {
