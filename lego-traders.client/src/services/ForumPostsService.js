@@ -3,6 +3,9 @@ import { ForumPost } from "../models/ForumPost.js"
 import { api } from "./AxiosService.js"
 
 class ForumPostsService {
+  async getPostById(id) {
+    const res = await api.get(`/api/forum/posts/${id}`)
+  }
   async getPosts() {
     const res = await api.get('/api/forum/posts')
     console.log(res.data)

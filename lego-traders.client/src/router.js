@@ -38,7 +38,7 @@ const routes = [
     component: loadPage('ForumPage')
   },
   {
-    path: '/profile',
+    path: '/profile/:profileId',
     name: 'Profile',
     component: loadPage('ProfilePage')
   },
