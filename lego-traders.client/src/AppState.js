@@ -5,11 +5,13 @@ export const AppState = reactive({
   user: {},
   /** @type {import('./models/Account.js').Account} */
   account: {},
+  /** @type {import('./models/Account.js').Account | null} */
+  activeProfile: null,
   /** @type {import('./models/LegoSet.js').LegoSet[]} */
   // Our Database Items
   legoSet: [],
   // StarWars 18, 158
-  legoSetThemes: { },
+  legoSetThemes: {},
   /** @type {import('./models/ApiSet.js').ApiSet[]} */
   apiSets: [],
   nextPage: null,
