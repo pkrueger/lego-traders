@@ -13,11 +13,11 @@ export class CommentsController extends BaseController {
     .post('/forum/', this.createForumComment)
     .delete('/forum/:commentId', this.deleteForumComment)
     .post('/sets/', this.createSetComment)
-    .delete('/sets/', this.deleteSetComment)
+    .delete('/sets/:commentId', this.deleteSetComment)
   }
   async deleteSetComment(req, res, next) {
     try {
-      const comment = await commentsService.deleteComment(req.params.id)
+      const comment = await commentsService.deleteComment(req.params.commentId)
       res.send(comment)
       
     } catch (error) {
