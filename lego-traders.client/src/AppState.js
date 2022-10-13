@@ -15,6 +15,7 @@ export const AppState = reactive({
   /** @type {import('./models/ApiSet.js').ApiSet[]} */
   apiSets: [],
   activeLegoSet: {},
+  activeApiSet: [],
   nextPage: null,
   previousPage: null,
   activeCollection: null,

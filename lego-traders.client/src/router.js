@@ -28,12 +28,17 @@ const routes = [
     component: loadPage('CollectionPage')
   },
   {
+    path: '/collection/:set_num',
+    name: 'SetDetails',
+    component: loadPage('SetDetailsPage')
+  },
+  {
     path: '/forum',
     name: 'Forum',
     component: loadPage('ForumPage')
   },
   {
-    path: '/profile',
+    path: '/profile/:profileId',
     name: 'Profile',
     component: loadPage('ProfilePage')
   },
