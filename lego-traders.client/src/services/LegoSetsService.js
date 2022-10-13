@@ -4,6 +4,10 @@ import { LegoSet } from "../models/LegoSet.js";
 import { api, legoApi } from "./AxiosService"
 
 class LegoSetsService {
+  async addSetToAccount(legoSet) {
+    const res = await api.post('api/account/sets')
+
+  }
   async getMyLegoSets(accountId) {
     const res = await api.get(`api/sets/` + accountId)
     // TODO Change after server side gets updated
