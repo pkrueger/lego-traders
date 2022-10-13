@@ -54,8 +54,10 @@ import { legoSetsService } from "../services/LegoSetsService"
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState";
 import LegoSetCard from "../components/LegoSetCard.vue";
+import { ref } from 'vue';
 export default {
   setup() {
+    const editable = ref({})
     async function getSetsByThemeId(themeId) {
       try {
         await legoSetsService.getSetsByThemeId(themeId);
