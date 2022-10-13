@@ -10,7 +10,7 @@ export class ForumPostsController extends BaseController {
       .get('/:postId', this.getPostByPostId)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createPost)
-      .delete(':postId', this.deletePost)
+      .delete('/:postId', this.deletePost)
   }
   async deletePost(req, res, next) {
     try {
