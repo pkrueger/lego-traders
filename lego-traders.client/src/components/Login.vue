@@ -52,7 +52,7 @@ export default {
   user-select: none;
   display: block;
   transform: scale(0);
-  transition: all 0.15s linear;
+  // transition: all 0.15s linear;
 }
 
 
