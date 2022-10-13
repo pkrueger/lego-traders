@@ -12,7 +12,6 @@
           src="https://fs-prod-cdn.nintendo-europe.com/media/images/10_share_images/games_15/nintendo_switch_4/H2x1_NSwitch_LegoHarryPotterCollection_image1600w.jpg"
           alt="">
       </div>
-      <!-- <button class="btn btn-warning" @click="getSetsByThemeId(158)">StarWars</button> -->
       <div class="col-md-12 text-center">
         <img @click="getSetsByThemeId(252)" class="selectable mt-0 collection-image"
           src="https://m.media-amazon.com/images/S/stores-image-uploads-na-prod/7/AmazonStores/ATVPDKIKX0DER/42195ca33c3846624aa5fddd2618a01c.w1000.h1000.jpg"
@@ -20,21 +19,18 @@
         <img @click="getSetsByThemeId(52)" class="selectable mt-0 collection-image"
           src="https://www.brickfanatics.com/wp-content/uploads/LEGO-City-logo-featured-800-445.jpg" alt="">
       </div>
+      <!-- <button class="btn btn-warning" @click="getSetsByThemeId(158)">StarWars</button> -->
       <!-- <button class="btn btn-warning" @click="getSetsByThemeId(1)">Technic</button> -->
-
       <!-- <button class="btn btn-warning" @click="getSetsByThemeId(246)">Harry Potter</button> -->
-
       <!-- <button class="btn btn-warning" @click="getSetsByThemeId(252)">Architecture</button> -->
-
       <!-- <button class="btn btn-warning" @click="getSetsByThemeId(52)">City</button> -->
-
-
-
-      <div class="d-flex flex-wrap mt-5">
-        <LegoSetCard v-for="set in apiSets" :key="set._id" :legoSet="set" class="p-3" />
+      <div class="d-flex flex-wrap justify-content-center mt-5">
+        <LegoSetCard v-for="set in apiSets" :key="set._id" :legoSet="set" class="m-3 " />
       </div>
       <div class="d-flex justify-content-center gap-5">
-        <button class="btn btn-warning" @click="previousPage()">Previous</button>
+        <div v-if="previousPage">
+          <button class="btn btn-warning" @click="previousPage()">Previous</button>
+        </div>
         <button class="btn btn-warning" @click="goPage()">Next</button>
       </div>
     </div>
