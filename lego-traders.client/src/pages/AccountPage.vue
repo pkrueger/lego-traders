@@ -26,7 +26,7 @@
         <h3>Owned Sets:</h3>
         <div class="row">
           <!-- RouterLink to Set Details page -->
-          <LegoSetCard v-for="l in legoSets" :key="l" :legoSet="l" :accountId="account.id" />
+          <LegoSetCard v-for="l in legoSets" :key="l" :legoSet="l" />
           <!-- TODO Component for My Sets  v-if="l.isOwned" -->
         </div>
         <div class="col-12">

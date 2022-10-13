@@ -9,7 +9,7 @@
         <p class="m-0">Year: {{legoSet.year}}</p>
         <!-- <p class="m-0">Number of Parts: {{legoSet.num_parts}}</p> -->
 
-        <div v-if="accountId == legoSet.ownderId" class="form-check">
+        <div v-if="account.id == legoSet.ownerId" class="form-check">
           <input class="form-check-input" :checked="legoSet.toggleisUpForTrade" type="checkbox" id="isUpForTrade"
             @change="toggleisUpForTrade()">
           <label class="form-check-label" for="flexCheckDefault">
@@ -23,6 +23,8 @@
 
 
 <script>
+import { computed } from '@vue/reactivity';
+import { AppState } from '../AppState.js';
 import { legoSetsService } from '../services/LegoSetsService.js';
 import Pop from '../utils/Pop.js';
 
@@ -30,10 +32,10 @@ import Pop from '../utils/Pop.js';
 export default {
   props: {
     legoSet: { type: Object, required: true },
-    accountId: { type: String }
   },
   setup() {
     return {
+      account: computed(() => AppState.account),
       async toggleisUpForTrade() {
         try {
           await legoSetsService.toggleisUpForTrade(legoSet.id)
