@@ -26,8 +26,18 @@ class LegoSetsService {
     AppState.apiSets = res.data.results
     AppState.previousPage = res.data.previous
     AppState.nextPage = res.data.next
-    
+
   }
+
+  async getSetsBySetNum(term) {
+    const res = await legoApi.get('sets/', {
+      params: {
+        term
+      }
+    })
+    AppState.apiSets = res.data.results
+  }
+
   async goPage(url) {
     const res = await legoApi.get(url)
     AppState.apiSets = res.data.results
@@ -35,11 +45,5 @@ class LegoSetsService {
     AppState.previousPage = res.data.previous
   }
 
-  // async previousPage(page) {
-  //   const res = await legoApi.get(page)
-  //   AppState.apiSets = res.data.results
-  //   // AppState.nextPage = res.data.next
-  //   AppState.previousPage = res.data.previous
-  // }
 }
 export const legoSetsService = new LegoSetsService()
