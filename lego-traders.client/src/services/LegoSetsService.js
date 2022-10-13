@@ -4,6 +4,21 @@ import { LegoSet } from "../models/LegoSet.js";
 import { api, legoApi } from "./AxiosService"
 
 class LegoSetsService {
+  async toggleIsUpForTrade(id) {
+    const res = await api.put('/api/sets/' + id + '/tradable')
+    const update = res.data
+    const newLegoSet = AppState.legoSet.findIndex(l => l.id == id)
+    AppState.legoSet.splice(newLegoSet, 1, update)
+  }
+
+
+
+
+  async getLegoSetById(id) {
+    const res = await api.get('/api/sets/' + id)
+    console.log('[getLegoSetById]', res.data);
+    AppState.activeLegoSet = res.data
+  }
   async addSetToAccount(legoSet) {
     console.log(legoSet);
     const res = await api.post('/account/sets', legoSet)

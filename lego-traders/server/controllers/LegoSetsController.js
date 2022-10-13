@@ -1,3 +1,4 @@
+import { Auth0Provider } from "@bcwdev/auth0provider";
 import { legoSetsService } from "../services/LegoSetsService.js";
 import BaseController from "../utils/BaseController.js";
 
@@ -6,9 +7,18 @@ export class LegoSetsController extends BaseController {
     super("api/sets");
     this.router
       .get("", this.getAllSets)
-      .get("/tradable", this.getTradableSets)
       .get("/:legoSetId", this.getSetBySetId)
-      .get("/profile/:ownerId", this.getSetsByOwnerId);
+      .get("/profile/:ownerId", this.getSetsByOwnerId)
+      .use(Auth0Provider.getAuthorizedUserInfo)
+      .put("/:setId/tradable", this.setTradable)
+  }
+  async setTradable(req, res, next) {
+    try {
+      const set = await legoSetsService.setTradable(req.params.setId)
+      res.send(set)
+    } catch (error) {
+      next(error)
+    }
   }
   async getSetsByOwnerId(req, res, next) {
     try {

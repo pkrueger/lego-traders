@@ -85,7 +85,7 @@ export default {
       account: computed(() => AppState.activeProfile),
     };
   },
-  components: { UserDetails }
+
 }
 </script>
 

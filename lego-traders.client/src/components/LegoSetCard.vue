@@ -10,8 +10,8 @@
       <!-- <p class="m-0">Number of Parts: {{legoSet.num_parts}}</p> -->
 
       <div v-if="account.id == legoSet.ownerId && account.id" class="form-check">
-        <input class="form-check-input" :checked="legoSet.toggleisUpForTrade" type="checkbox" id="isUpForTrade"
-          @change="toggleisUpForTrade()">
+        <input class="form-check-input" :checked="legoSet.isUpForTrade" type="checkbox" id="isUpForTrade"
+          @change="toggleIsUpForTrade(legoSet)">
         <label class="form-check-label" for="flexCheckDefault">
           Check is this set is up for trade
         </label>
@@ -41,9 +41,9 @@ export default {
   setup() {
     return {
       account: computed(() => AppState.account),
-      async toggleisUpForTrade() {
+      async toggleIsUpForTrade(legoSet) {
         try {
-          await legoSetsService.toggleisUpForTrade(legoSet.id)
+          await legoSetsService.toggleIsUpForTrade(legoSet.id)
         } catch (error) {
           Pop.error('[toggleIsUpForTrade]', error)
         }

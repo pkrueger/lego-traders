@@ -1,4 +1,5 @@
 import { dbContext } from "../db/DbContext.js";
+import { BadRequest } from "../utils/Errors.js";
 
 class LegoSetsService {
   async createLegoSet(data) {
@@ -23,6 +24,13 @@ class LegoSetsService {
   async getSetsByOwnerId(ownerId) {
     const sets = await dbContext.LegoSets.find({ ownerId });
     return sets;
+  }
+  async setTradable(legoSetId) {
+    const set = await dbContext.LegoSets.findById(legoSetId)
+    if (!set) { throw new BadRequest('Invalid Set ID'); }
+    set.isUpForTrade = !set.isUpForTrade
+    set.save()
+    return set
   }
 }
 
