@@ -27,6 +27,7 @@
                 aria-describedby="Your picture">
               <label id="url" for="url">Your Picture as a URL</label>
             </div>
+            <!-- TODO Add Account Description -->
             <div class="input-group mb-3">
 
               <label class="input-group-text" required for="theme">Select an Theme</label>

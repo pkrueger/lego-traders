@@ -10,7 +10,7 @@
         <div class="border border-dark border-box p-2">
           <!-- Account Details -->
           <h3>Name: {{account.name}}</h3>
-          <h5>Description: </h5>
+          <h5>About: </h5>
           <p>{{account.desc}}</p>
         </div>
       </div>
@@ -26,15 +26,22 @@
         <h3>Owned Sets:</h3>
         <div class="row">
           <!-- RouterLink to Set Details page -->
-          <LegoSetCard v-for="l in legoSets" :key="l" :legoSet="l" />
-          <!-- TODO Component for My Sets  v-if="l.isOwned" -->
+          <div class="col-3" v-for="l in ownedLegoSets">
+
+            <LegoSetCard :key="l.id" :legoSet="l" />
+
+          </div>
+          <!-- TODO Component for My Sets  -->
         </div>
         <div class="col-12">
           <h3>WishList:</h3>
           <div class="row">
-            <LegoSetCard v-for="l in legoSets" :key="l" :legoSet="l" />
-            <!-- TODO Component for My Wishlist  v-if="!l.isOwned" -->
+            <div class="col-3" v-for="l in wishListLegoSets">
+
+              <LegoSetCard :key="l.id" :legoSet="l" />
+            </div>
           </div>
+          <!-- TODO Component for My Wishlist  v-if="!l.isOwned"  -->
         </div>
       </div>
     </div>
@@ -44,7 +51,7 @@
 
 <script>
 import { onAuthLoaded } from '@bcwdev/auth0provider-client';
-import { computed, onMounted } from 'vue'
+import { computed } from 'vue'
 import { AppState } from '../AppState'
 import AccountModal from '../components/AccountModal.vue';
 import LegoSetCard from '../components/LegoSetCard.vue';
@@ -67,7 +74,8 @@ export default {
     }
     return {
       account: computed(() => AppState.account),
-      legoSets: computed(() => AppState.legoSet),
+      wishListLegoSets: computed(() => AppState.legoSet.filter(l => !l.isOwned)),
+      ownedLegoSets: computed(() => AppState.legoSet.filter(l => l.isOwned))
     };
   },
   components: { AccountModal, LegoSetCard }
