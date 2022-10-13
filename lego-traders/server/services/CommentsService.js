@@ -5,10 +5,10 @@ class CommentsService {
   async deleteComment(commentId, userInfo) {
     const comment = await this.getCommentById(commentId)
     // NOTE again with the red squiggles!
-     if (comment.creatorId != userInfo.id) {
+     if (comment.creatorId != userInfo) {
       throw new Forbidden("This is not your Post.");
     }
-    await dbContext.Comments.deleteOne(commentId)
+    await dbContext.Comments.findByIdAndDelete(commentId)
     return comment
   }
   async createComment(commentData) {

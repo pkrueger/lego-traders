@@ -53,6 +53,7 @@ import Pop from '../utils/Pop.js';
 export default {
   setup() {
     // REVIEW This should wait for Login to finish but its not....
+
     onAuthLoaded(() => getMyLegoSets())
     // onMounted(() => {
     //   getMyLegoSets()

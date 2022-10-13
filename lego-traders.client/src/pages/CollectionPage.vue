@@ -11,8 +11,8 @@
         <LegoSetCard v-for="set in apiSets" :key="set._id" :legoSet="set" class="p-3" />
       </div>
       <div class="d-flex justify-content-center gap-5">
-        <button class="btn btn-warning" @click="goPage(-1)">Previous</button>
-        <button class="btn btn-warning" @click="goPage(1)">Next</button>
+        <button class="btn btn-warning" @click="previousPage()">Previous</button>
+        <button class="btn btn-warning" @click="goPage()">Next</button>
       </div>
     </div>
   </div>
@@ -45,7 +45,14 @@ export default {
 
       async goPage() {
         try {
-          await legoSetsService.goPage(n)
+          await legoSetsService.goPage(AppState.nextPage)
+        } catch (error) {
+          Pop.error(error)
+        }
+      },
+      async previousPage() {
+        try {
+          await legoSetsService.goPage(AppState.previousPage)
         } catch (error) {
           Pop.error(error)
         }
