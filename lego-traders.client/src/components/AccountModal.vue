@@ -13,6 +13,11 @@
               <label id="name" for="name">Enter the name you would like displayed</label>
             </div>
             <div class="form-floating mb-3">
+              <label id="description" for="description">User Bio</label>
+              <textarea v-model="editable.desc" class="form-control" aria-describedby="Description" id="description"
+                rows="3"></textarea>
+            </div>
+            <div class="form-floating mb-3">
               <input v-model="editable.email" type="email" class="form-control" id="email"
                 aria-describedby="Your email">
               <label id="email" for="email">Your email</label>
