@@ -8,7 +8,6 @@ export class ForumPostsController extends BaseController {
     this.router
       .get('', this.getAllPosts)
       .get('/:postId', this.getPostByPostId)
-      .get('/:creatorId/mocs', this.getPostsByCreatorId)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createPost)
       .delete(':postId', this.deletePost)
@@ -26,14 +25,6 @@ export class ForumPostsController extends BaseController {
       req.body.creatorId = req.userInfo.id
       const post = await forumPostsService.createPost(req.body)
       res.send(post)
-    } catch (error) {
-      next(error)
-    }
-  }
-  async getPostsByCreatorId(req, res, next) {
-    try {
-      const posts = await forumPostsService.getPostsByCreatorId(req.params.creatorId)
-      res.send(posts)
     } catch (error) {
       next(error)
     }

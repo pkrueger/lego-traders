@@ -1,17 +1,13 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import { mocsService } from "../services/MocsService.js";
 import BaseController from "../utils/BaseController.js";
-
-// NOTE the MOC Schema is not set up yet!!!
-
 export class MocsController extends BaseController {
   constructor() {
     super('/api/mocs')
     this.router
       .get('', this.getAllMocs)
       .get('/:mocId', this.getMocById)
-      .get('/:creatorId/mocs', this.getMocsByCreatorId)
-      .get('/:set_num', this.getMocsBySetNum)
+      .get('/set/:set_num', this.getMocsBySetNum)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createMoc)
       .delete('/:mocId', this.removeMoc)
@@ -44,14 +40,6 @@ export class MocsController extends BaseController {
   async getMocsBySetNum(req, res, next) {
     try {
       const mocs = await mocsService.getMocsBySetNum(req.params.set_num)
-      res.send(mocs)
-    } catch (error) {
-      next(error)
-    }
-  }
-  async getMocsByCreatorId(req, res, next) {
-    try {
-      const mocs = await mocsService.getMocsByCreatorId(req.params.creatorId)
       res.send(mocs)
     } catch (error) {
       next(error)
