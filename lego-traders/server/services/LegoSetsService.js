@@ -1,6 +1,10 @@
 import { dbContext } from "../db/DbContext.js";
 
 class LegoSetsService {
+  async createLegoSet(data) {
+    const set = await dbContext.LegoSets.create(data);
+    return set;
+  }
   async getSetBySetId(legoSetId) {
     const set = await dbContext.LegoSets.findById(legoSetId);
     return set;
