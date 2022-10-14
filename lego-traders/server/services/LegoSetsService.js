@@ -2,6 +2,9 @@ import { dbContext } from "../db/DbContext.js";
 import { BadRequest } from "../utils/Errors.js";
 
 class LegoSetsService {
+  async getAllOwners() {
+
+  }
   async createLegoSet(data) {
     const set = await dbContext.LegoSets.create(data);
     return set;
@@ -13,7 +16,8 @@ class LegoSetsService {
   async getTradableSets() {
     const tradableSets = await dbContext.LegoSets.find({
       isUpForTrade: true,
-    });
+    }).populate('owner', 'name picture');
+    
     return tradableSets;
   }
   async getAllSets() {

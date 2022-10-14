@@ -1,11 +1,12 @@
 <template>
   <div class="d-flex p-2 align-items-center">
     <div>
-      <img :src="comment.creator.picture" alt="Im the profile picture" :title="comment.creator.name">
+      <img class="profile-picture" :src="comment.creator?.picture" alt="Im the profile picture"
+        :title="comment.creator?.name">
     </div>
     <div class="comment-text ms-2 bg-info d-flex flex-grow-1 p-3 justify-content-between">
       <div>
-        <h5>{{comment.creator.name}}</h5>
+        <h5>{{comment.creator?.name}}</h5>
         <p>{{comment.body}}</p>
       </div>
       <div>
@@ -20,6 +21,11 @@
 
 
 <script>
+import { computed } from '@vue/reactivity';
+import { AppState } from '../AppState.js';
+import { forumPostsService } from '../services/ForumPostsService.js';
+import Pop from '../utils/Pop.js';
+
 export default {
   props: {
     comment: {
@@ -28,12 +34,36 @@ export default {
     }
   },
   setup() {
-    return {}
+    return {
+      account: computed(() => AppState.account),
+      async romoveComment() {
+        try {
+          const yes = await Pop.comfirm('Delete Your Comment')
+          if (!yes) { return }
+          await forumPostsService.removeComment(comment.id)
+        } catch (error) {
+          Pop.error('[Remove Comment]', error)
+        }
+      }
+    }
   }
 }
 </script>
 
 
 <style lang="scss" scoped>
+.profile-picture {
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
+  object-fit: fill;
+}
 
+.comment-text {
+  border-radius: .3rem;
+
+  p {
+    margin: unset;
+  }
+}
 </style>

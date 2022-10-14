@@ -4,6 +4,7 @@ import { CommentSchema } from "../models/Comment.js";
 import { LegoSetSchema } from "../models/LegoSet.js";
 import { MocSchema } from "../models/Moc.js";
 import { PostSchema } from "../models/Post.js";
+import { TradeRequestSchema } from "../models/TradeRequest.js";
 
 class DbContext {
   Account = mongoose.model("Account", AccountSchema);
@@ -12,7 +13,8 @@ class DbContext {
 
   Posts = mongoose.model('Post', PostSchema)
   Comments = mongoose.model('Comment', CommentSchema)
-  Mocs= mongoose.model('Moc', MocSchema)
+  Mocs = mongoose.model('Moc', MocSchema)
+  TradeRequest = mongoose.model('TradeRequest', TradeRequestSchema)
 }
 
 export const dbContext = new DbContext();

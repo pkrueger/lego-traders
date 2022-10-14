@@ -10,19 +10,8 @@ export class CommentsController extends BaseController {
       .get('/sets/:set_num', this.getCommentsBySetNum)
       .get('/:commentId', this.getCommentById)
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .post('/forum/', this.createForumComment)
-      .delete('/forum/:commentId', this.deleteForumComment)
-      .post('/sets/', this.createSetComment)
-      .delete('/sets/:commentId', this.deleteSetComment)
-  }
-  async deleteSetComment(req, res, next) {
-    try {
-      const comment = await commentsService.deleteComment(req.params.commentId)
-      res.send(comment)
-
-    } catch (error) {
-      next(error)
-    }
+      .post('', this.createComment)
+      .delete('/:commentId', this.deleteComment)
   }
   async getCommentById(req, res, next) {
     try {
@@ -32,16 +21,7 @@ export class CommentsController extends BaseController {
       next(error)
     }
   }
-  async createSetComment(req, res, next) {
-    try {
-      req.body.creatorId = req.userInfo.id
-      const comment = await commentsService.createComment(req.body)
-      res.send(comment)
-    } catch (error) {
-      next(error)
-    }
-  }
-  async deleteForumComment(req, res, next) {
+  async deleteComment(req, res, next) {
     try {
       const comment = await commentsService.deleteComment(req.params.commentId, req.userInfo.id)
       res.send(comment)
@@ -50,7 +30,7 @@ export class CommentsController extends BaseController {
     }
 
   }
-  async createForumComment(req, res, next) {
+  async createComment(req, res, next) {
     try {
       const comment = await commentsService.createComment(req.body)
       res.send(comment)

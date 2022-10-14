@@ -1,29 +1,33 @@
 <template>
   <div class="component banner-img">
-    <div class="row justify-content-center p-3">
-      <div class="col-md-12 text-center mb-3">
-        <h1>Welcome Traders!</h1>
+    <div class="row p-3">
+      <h1>Welcome Traders!</h1>
+      <div class="col-md-10 d-flex flex-wrap text-center mb-3">
+        <div class="col-3 m-3" v-for="l in tradableSet">
+          <TradeSetCard :key="l.id" :tradableSet="l" />
+        </div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bd-example-modal-lg">Offer
+          Trade</button>
       </div>
-      <div class="col-md-10 mt-3">
-        <MarketSearchForm />
+      <div class="col-md-2">
+        <div class="search-field d-flex">
+
+          <button class="btn btn-primary">Set Number</button>
+          <button class="btn btn-primary">Name</button>
+          <button class="btn btn-primary">Theme</button>
+          <button class="btn btn-primary me-5">Year</button>
+
+        </div>
+        <div class="mt-3 d-md-block sidebar">
+          <MarketSearchForm />
+        </div>
       </div>
-      <div class="search-field d-flex justify-content-between mx-5 mt-3">
-        <h5 class="ms-5">Organize By: </h5>
-        <button class="btn btn-primary">Set Number</button>
-        <button class="btn btn-primary">Name</button>
-        <button class="btn btn-primary">Theme</button>
-        <button class="btn btn-primary me-5">Year</button>
-
-      </div>
 
 
-      <div class="col-3 mt-3" v-for="l in tradableSets">
 
-        <LegoSetCard :key="l.id" :legoSet="l" />
-      </div>
+      <TradeModal />
 
     </div>
-
   </div>
 </template>
 
@@ -36,6 +40,8 @@ import LegoSetCard from '../components/LegoSetCard.vue';
 import { legoSetsService } from '../services/LegoSetsService.js';
 import Pop from '../utils/Pop.js';
 import MarketSearchForm from '../components/MarketSearchForm.vue';
+import TradeSetCard from '../components/TradeSetCard.vue';
+import TradeModal from '../components/TradeModal.vue';
 export default {
   setup() {
     onMounted(() => {
@@ -44,15 +50,16 @@ export default {
     async function getTradableSets() {
       try {
         await legoSetsService.getTradableSets()
+
       } catch (error) {
         Pop.error(error, '[gettingTradableSets]')
       }
     }
     return {
-      tradableSets: computed(() => AppState.legoSet.filter(l => l.isUpForTrade))
+      tradableSet: computed(() => AppState.tradableSet)
     };
   },
-  components: { LegoSetCard, MarketSearchForm }
+  components: { LegoSetCard, MarketSearchForm, TradeSetCard, TradeModal }
 }
 </script>
 
