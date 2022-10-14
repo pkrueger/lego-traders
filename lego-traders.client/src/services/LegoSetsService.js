@@ -1,5 +1,4 @@
 import { AppState } from "../AppState"
-import { ApiSet } from "../models/ApiSet";
 import { LegoSet } from "../models/LegoSet.js";
 import { api, legoApi } from "./AxiosService"
 
@@ -10,9 +9,6 @@ class LegoSetsService {
     const newLegoSet = AppState.legoSet.findIndex(l => l.id == id)
     AppState.legoSet.splice(newLegoSet, 1, update)
   }
-
-
-
 
   async getLegoSetById(id) {
     const res = await api.get('/api/sets/' + id)
@@ -51,6 +47,12 @@ class LegoSetsService {
       }
     })
     AppState.apiSets = res.data.results
+  }
+
+  async getSetAlternates() {
+    const res = await legoApi.get('sets/10211-1/alternates')
+    console.log(res.data);
+    AppState.activeApiSet = res.data.results
   }
 
   async goPage(url) {
