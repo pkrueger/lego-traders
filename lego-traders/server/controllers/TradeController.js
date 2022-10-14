@@ -32,7 +32,9 @@ export class TradeController extends BaseController {
   }
   async makeTradeRequest(req, res, next) {
     try {
-      req.body.
+      req.body.ownerId = req.userInfo.id
+      req.body.requestedAccountId = req.body.requestedSetId.ownerId
+
       const trade = await tradeService.makeTradeRequest(req.body)
       res.send(trade)
     } catch (error) {
@@ -41,7 +43,7 @@ export class TradeController extends BaseController {
   }
   async tradeResponse(req, res, next) {
     try {
-      const trade = await tradeService.tradeResponse(req.params.tradeId)
+      const trade = await tradeService.tradeResponse(req.params.tradeId, req.body)
       res.send(trade)
     } catch (error) {
       next(error)
