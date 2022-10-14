@@ -1,14 +1,24 @@
 <template>
+  <!-- Set Details -->
   <div class="container-fluid">
     <div class="row">
-      <div class="col-12">
-        <h1>set details</h1>
-        {{legoSet}}
+      <div class="col-md-6">
+        <img :src="legoSet.set_img_url" class="img-fluid set-img" :title="legoSet.name">
       </div>
+      <div class="col-md-5">
+        <div class="text-center">
+          <h4>{{legoSet.name}}</h4>
+          <h4>Realease Year: {{legoSet.year}}</h4>
+          <h4>{{legoSet.num_parts}} pcs</h4>
+        </div>
+      </div>
+    </div>
+    <!-- MOC sets -->
+    <div class="row">
       <h1>Alternate MOC's</h1>
       <div class="col-3 d-flex justify-content-center" v-for="m in mocSets">
         <div class="card">
-          <img :src="m.moc_img_url" class="img-fluid moc-img">
+          <img :src="m.moc_img_url" class="img-fluid moc-img pointer" :href="m.moc_url">
           <div class="card-body">
             <h5>{{m.name}} || {{m.num_parts}} pcs</h5>
             <h6>Designed by: <i>{{m.designer_name}}</i></h6>
@@ -65,7 +75,11 @@ export default {
   max-width: 25vh;
 }
 
-.card {
-  max-width: 45vh;
+.set-img {
+  min-width: 75vh;
+}
+
+.pointer {
+  cursor: pointer;
 }
 </style>
