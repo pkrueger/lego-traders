@@ -9,7 +9,7 @@ export class TradeController extends BaseController {
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('/sent', this.getSentTrades)
-      .get('/recieved', this.getRecievedTrades)
+      .get('/received', this.getReceivedTrades)
       .post('', this.makeTradeRequest)
       .put('/:tradeId', this.tradeResponse)
   }
@@ -22,9 +22,9 @@ export class TradeController extends BaseController {
       next(error)
     }
   }
-  async getRecievedTrades(req, res, next) {
+  async getReceivedTrades(req, res, next) {
     try {
-      const trades = await tradeService.getRecievedTrades(req.userinfo.id)
+      const trades = await tradeService.getReceivedTrades(req.userinfo.id)
       res.send(trades)
     } catch (error) {
       next(error)
@@ -33,7 +33,6 @@ export class TradeController extends BaseController {
   async makeTradeRequest(req, res, next) {
     try {
       req.body.ownerId = req.userInfo.id
-      req.body.requestedAccountId = req.body.requestedSetId.ownerId
 
       const trade = await tradeService.makeTradeRequest(req.body)
       res.send(trade)

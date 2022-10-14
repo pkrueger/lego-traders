@@ -39,8 +39,10 @@ export default {
       async offerTrade(legoSet) {
         try {
           let formData = {}
-          formData.requestedSetId = AppState.activeLegoSet
-          formData.offeredSetId = legoSet
+
+          formData.requestedSetId = AppState.activeLegoSet.id
+          formData.offeredSetId = legoSet.id
+          formData.requestedAccountId = AppState.activeLegoSet.ownerId
           await marketplaceService.offerTrade(formData)
         } catch (error) {
           Pop.error(error, '[offeringTrade]')
