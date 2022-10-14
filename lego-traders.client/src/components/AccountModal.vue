@@ -62,7 +62,7 @@
                 <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/BobbaFet.jpg">BobbaFet</option>
                 <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/C3PORedArm.jpg">C3PORedArm
                 </option>
-                <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/Chewbaca.jpg">Chewbaca</option>
+                <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/Chewbaca.jpg">Chewbacca</option>
                 <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/CloneTrooperLieutenant.jpg">
                   Clone Trooper Lieutenant</option>
                 <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/DarthRevan.jpg">Darth Revan
