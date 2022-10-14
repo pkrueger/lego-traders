@@ -53,6 +53,7 @@ export default {
 
     async function getSetAlternates() {
       try {
+        AppState.activeMOCset = []
         await legoSetsService.getSetAlternates(route.params.set_num)
       } catch (error) {
         Pop.error(error, 'geting set alternates')
@@ -61,6 +62,7 @@ export default {
 
     async function getSetBySetNum() {
       try {
+        AppState.activeApiSet = []
         await legoSetsService.getSetBySetNum(route.params.set_num)
       } catch (error) {
         Pop.error(error, 'get set by setNum')
