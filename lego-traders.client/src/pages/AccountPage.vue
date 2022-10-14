@@ -50,32 +50,17 @@
 </template>
 
 <script>
-import { onAuthLoaded } from '@bcwdev/auth0provider-client';
 import { computed } from 'vue'
 import { AppState } from '../AppState'
 import AccountModal from '../components/AccountModal.vue';
 import LegoSetCard from '../components/LegoSetCard.vue';
-import { legoSetsService } from '../services/LegoSetsService.js';
-import Pop from '../utils/Pop.js';
 export default {
   setup() {
-    // REVIEW This should wait for Login to finish but its not....
 
-    onAuthLoaded(() => getMyLegoSets())
-    // onMounted(() => {
-    //   getMyLegoSets()
-    // })
-    async function getMyLegoSets() {
-      try {
-        await legoSetsService.getMyLegoSets(AppState.user.id)
-      } catch (error) {
-        Pop.error('[getMyLegoSets]', error)
-      }
-    }
     return {
       account: computed(() => AppState.account),
-      wishListLegoSets: computed(() => AppState.legoSet.filter(l => !l.isOwned)),
-      ownedLegoSets: computed(() => AppState.legoSet.filter(l => l.isOwned))
+      wishListLegoSets: computed(() => AppState.myLegoSets.filter(l => !l.isOwned)),
+      ownedLegoSets: computed(() => AppState.myLegoSets.filter(l => l.isOwned))
     };
   },
   components: { AccountModal, LegoSetCard }
