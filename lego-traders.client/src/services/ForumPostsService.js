@@ -13,5 +13,10 @@ class ForumPostsService {
     console.log(res.data)
     AppState.forumPosts = res.data.map(p => new ForumPost(p))
   }
+  async getPostComments(id) {
+    const res = await api.get(`/api/comments/forum/${id}`)
+    console.log(res.data)
+    AppState.comments = res.data
+  }
 }
 export const forumPostsService = new ForumPostsService()
