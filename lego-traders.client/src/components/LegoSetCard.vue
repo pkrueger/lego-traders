@@ -11,7 +11,7 @@
       <p class="m-0">Year: {{legoSet.year}}</p>
       <!-- <p class="m-0">Number of Parts: {{legoSet.num_parts}}</p> -->
 
-      <div v-if="account.id == legoSet.ownerId && account.id" class="form-check">
+      <div v-if="account.id == legoSet.ownerId && account.id && legoSet.isOwned" class="form-check">
         <input class="form-check-input" :checked="legoSet.isUpForTrade" type="checkbox" id="isUpForTrade"
           @change="toggleIsUpForTrade(legoSet)">
         <label class="form-check-label" for="flexCheckDefault">
