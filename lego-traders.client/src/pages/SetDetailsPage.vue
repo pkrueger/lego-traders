@@ -14,7 +14,7 @@
       </div>
     </div>
     <!-- MOC sets -->
-    <div class="row" v-if="mocSets.count">
+    <div class="row" v-if="mocSets.length">
       <h1>Alternate MOC's</h1>
       <div class="col-3 d-flex justify-content-center p-3" v-for="m in mocSets">
         <div class="card">

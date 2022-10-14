@@ -20,7 +20,6 @@
           src="https://www.brickfanatics.com/wp-content/uploads/LEGO-City-logo-featured-800-445.jpg" alt="">
       </div>
       <!-- Search Input -->
-      <!-- TODO add functional pagination when searching -->
       <form @submit.prevent="handleSubmit">
         <div class="form-floating col-12 mt-5">
           <input type="search" class="form-control" minlength="1" required placeholder="search legos"

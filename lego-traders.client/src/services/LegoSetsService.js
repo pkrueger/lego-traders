@@ -47,6 +47,8 @@ class LegoSetsService {
       }
     })
     AppState.apiSets = res.data.results
+    AppState.nextPage = res.data.next
+    AppState.previousPage = res.data.previous
   }
 
   async getSetBySetNum(set_num) {
