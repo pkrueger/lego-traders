@@ -9,17 +9,20 @@ class TradeService {
     if (!trade) { throw new BadRequest('Bad Trade ID') }
 
     if (trade.status == 'accepted') {
-      const offered = await dbContext.LegoSets.findById(trade.offeredSetId)
-      if (!offered) { throw new BadRequest('Bad LegoSet ID') }
-      const requested = await dbContext.LegoSets.findById(trade.requestedSetId)
-      if (!requested) { throw new BadRequest('Bad LegoSet ID') }
 
+      const offeredSet = await dbContext.LegoSets.findById(trade.offeredSetId)
+      if (!offeredSet) { throw new BadRequest('Bad LegoSet ID') }
+      const requestedSet = await dbContext.LegoSets.findById(trade.requestedSetId)
+      if (!requestedSet) { throw new BadRequest('Bad LegoSet ID') }
 
-      offered.ownerId = trade.requestedAccountId
-      requested.ownerId = trade.ownerId
+      offeredSet.ownerId = trade.requestedAccountId
+      requestedSet.ownerId = trade.ownerId
 
-      offered.save()
-      requested.save()
+      offeredSet.save()
+      requestedSet.save()
+      //if there is a status of pending on any other trade requests iwth the same requestedSetId set them too rejected
+      // also check offeredSetID and set other trades to rejected
+
     }
     trade.save()
     return trade

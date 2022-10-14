@@ -5,6 +5,15 @@
       <div class="col-md-10 d-flex flex-wrap text-center mb-3">
         <div class="col-3 m-3" v-for="l in tradableSet">
           <TradeSetCard :key="l.id" :legoSet="l" />
+          <button
+            type="button"
+            class="btn btn-primary"
+            @click="makeSetActive(l)"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            Make Offer
+          </button>
         </div>
       </div>
       <div class="col-md-2">
@@ -46,6 +55,9 @@ export default {
       }
     }
     return {
+      async makeSetActive(legoSet) {
+        AppState.activeLegoSet = legoSet;
+      },
       tradableSet: computed(() =>
         AppState.tradableSet.filter((s) => s.ownerId != AppState.account.id)
       ),

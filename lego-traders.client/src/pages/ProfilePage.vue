@@ -61,7 +61,7 @@ export default {
     const route = useRoute()
     async function getLegoSetsById() {
       try {
-        await legoSetsService.getMyLegoSets(route.params.profileId)
+        await legoSetsService.getProfileLegoSets(route.params.profileId)
       } catch (error) {
         Pop.error('[getLegoSetsById]')
       }

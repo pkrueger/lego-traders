@@ -16,12 +16,11 @@
       <div class="dropdown-menu p-0 list-group w-100" aria-labelledby="authDropdown">
         <router-link :to="{ name: 'Account' }">
           <div class="list-group-item list-group-item-action hoverable">
-            Manage Account
+            <h6 class="text-end">Manage Account</h6>
           </div>
         </router-link>
         <div class="list-group-item list-group-item-action hoverable text-danger" @click="logout">
-          <i class="mdi mdi-logout"></i>
-          logout
+          <h6 class="text-end mdi mdi-logout">logout</h6>
         </div>
       </div>
     </div>
@@ -51,12 +50,8 @@ export default {
 <style lang="scss" scoped>
 .dropdown-menu {
   user-select: none;
-  display: block;
   transform: scale(0);
-  // transition: all 0.15s linear;
 }
-
-
 
 .dropdown-menu.show {
   transform: scale(1);
