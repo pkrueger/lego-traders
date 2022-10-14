@@ -1,9 +1,9 @@
 <template>
-  <div class="container-fluid">
+  <div v-if="account" class="container-fluid">
     <div class="row mt-3">
       <div class="col-md-11 d-flex">
         <div>
-          <img class="img-size p-3" :src="account.picture" alt="User Name">
+          <img class="img-size p-3 img-fluid" :src="account.picture" alt="User Name">
         </div>
         <div class="border border-dark border-box p-2">
           <h3>Name: {{account.name}}</h3>
@@ -53,7 +53,6 @@ import { computed } from '@vue/reactivity';
 import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { AppState } from '../AppState.js';
-import UserDetails from '../components/UserDetails.vue';
 import { accountService } from '../services/AccountService.js';
 import { legoSetsService } from '../services/LegoSetsService.js';
 import Pop from '../utils/Pop.js';
@@ -62,14 +61,14 @@ export default {
     const route = useRoute()
     async function getLegoSetsById() {
       try {
-        await legoSetsService.getMyLegoSets(route.params.id)
+        await legoSetsService.getMyLegoSets(route.params.profileId)
       } catch (error) {
         Pop.error('[getLegoSetsById]')
       }
     }
     async function getProfilebyId() {
       try {
-        await accountService.getProfile(route.params.id)
+        await accountService.getProfile(route.params.profileId)
       } catch (error) {
         Pop.error('[GetProfilebyId]')
       }
@@ -91,5 +90,21 @@ export default {
 
 
 <style lang="scss" scoped>
+main {
+  background-color: var(--bs-grey);
+}
 
+.img-size {
+  min-height: 30vh;
+  min-width: 20vw;
+}
+
+.border-box {
+  min-width: 70vw;
+  min-height: 30vh;
+}
+
+img {
+  max-width: 100px;
+}
 </style>
