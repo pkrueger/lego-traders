@@ -15,6 +15,8 @@
       <div class="d-flex justify-content-end">
         <button class="btn btn-primary" v-if="!legoSet.ownerId" @click="addSetToAccount(legoSet)">Add to
           Account</button>
+        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+          aria-controls="offcanvasRight">Toggle right offcanvas</button>
       </div>
     </div>
     <!-- MOC sets -->
@@ -33,6 +35,18 @@
       </div>
     </div>
   </div>
+
+
+  <!-- OffCanvas -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasRightLabel">Parts List</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body" v-for="s in setParts">
+      <p>{{s.part.name}} || {{s.quantity}}</p>
+    </div>
+  </div>
 </template>
 
 
@@ -49,6 +63,7 @@ export default {
     onMounted(() => {
       getSetAlternates()
       getSetBySetNum()
+      getPartsBySetNum()
     })
 
     async function getSetAlternates() {
@@ -68,10 +83,18 @@ export default {
         Pop.error(error, 'get set by setNum')
       }
     }
+    async function getPartsBySetNum() {
+      try {
+        await legoSetsService.getPartsBySetNum(route.params.set_num)
+      } catch (error) {
+        Pop.error(error, 'getting parts list')
+      }
+    }
+
     return {
       legoSet: computed(() => AppState.activeApiSet),
       mocSets: computed(() => AppState.activeMOCset),
-
+      setParts: computed(() => AppState.activeApiSetParts),
       async addSetToAccount(data) {
         try {
           const yes = await Pop.confirm('Do you own this?', '')
@@ -84,7 +107,7 @@ export default {
         } catch (error) {
           Pop.error('[addToAccount]', error)
         }
-      }
+      },
     }
   }
 }

@@ -74,6 +74,11 @@ class LegoSetsService {
     AppState.activeMOCset = res.data.results
   }
 
+  async getPartsBySetNum(set_num) {
+    const res = await legoApi.get(`sets/${set_num}/parts`)
+    console.log(res.data);
+    AppState.activeApiSetParts = res.data.results
+  }
   async goPage(url) {
     const res = await legoApi.get(url)
     AppState.apiSets = res.data.results
