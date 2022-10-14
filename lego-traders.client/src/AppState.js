@@ -28,4 +28,6 @@ export const AppState = reactive({
   tradableSet: [],
   customMOCSets: [],
   activeCustomMOCSet: null,
+
+  myLegoSets: []
 });

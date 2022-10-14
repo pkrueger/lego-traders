@@ -26,7 +26,7 @@ class LegoSetsService {
   }
 
   async getSetsByOwnerId(ownerId) {
-    const sets = await dbContext.LegoSets.find({ ownerId });
+    const sets = await dbContext.LegoSets.find({ ownerId }).populate('owner', 'name picture');
     return sets;
   }
   async setTradable(legoSetId) {

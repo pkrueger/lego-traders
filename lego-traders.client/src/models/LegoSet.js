@@ -10,5 +10,6 @@ export class LegoSet {
     this.set_img_url = data.set_img_url;
     this.isOwned = data.isOwned;
     this.isUpForTrade = data.isUpForTrade;
+    this.owner = data.owner
   }
 }

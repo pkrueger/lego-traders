@@ -1,5 +1,6 @@
 import { AppState } from "../AppState"
 import { LegoSet } from "../models/LegoSet.js";
+import { logger } from "../utils/Logger.js";
 import { api, legoApi } from "./AxiosService"
 
 class LegoSetsService {
@@ -20,12 +21,22 @@ class LegoSetsService {
     const res = await api.post('/account/sets', legoSet)
     console.log('addSetToAccount', res.data);
   }
-  async getMyLegoSets(accountId) {
+  async getProfileLegoSets(accountId) {
     const res = await api.get(`api/sets/profile/` + accountId)
     // TODO Change after server side gets updated
     console.log('getMyLegoSets', res);
     AppState.legoSet = res.data.map(s => new LegoSet(s))
   }
+
+  async getMyLegoSets(accountId) {
+    const res = await api.get(`api/sets/profile/` + accountId)
+    // TODO Change after server side gets updated
+    console.log('getMyLegoSets', res);
+    AppState.myLegoSets = res.data.map(s => new LegoSet(s))
+    logger.log('appstate my legos', AppState.myLegoSets)
+  }
+
+
   async getSetsByThemeId(theme_id) {
     const res = await legoApi.get(`sets`, {
       params: {

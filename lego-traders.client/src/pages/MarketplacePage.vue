@@ -4,10 +4,10 @@
       <h1>Welcome Traders!</h1>
       <div class="col-md-10 d-flex flex-wrap text-center mb-3">
         <div class="col-3 m-3" v-for="l in tradableSet">
-          <TradeSetCard :key="l.id" :tradableSet="l" />
+          <TradeSetCard :key="l.id" :legoSet="l" />
+
         </div>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bd-example-modal-lg">Offer
-          Trade</button>
+
       </div>
       <div class="col-md-2">
         <div class="search-field d-flex">
@@ -25,10 +25,13 @@
 
 
 
-      <TradeModal />
 
     </div>
   </div>
+
+
+  <TradeModal />
+
 </template>
 
 
@@ -36,7 +39,6 @@
 import { computed } from '@vue/reactivity';
 import { onMounted } from 'vue';
 import { AppState } from '../AppState.js';
-import LegoSetCard from '../components/LegoSetCard.vue';
 import { legoSetsService } from '../services/LegoSetsService.js';
 import Pop from '../utils/Pop.js';
 import MarketSearchForm from '../components/MarketSearchForm.vue';
@@ -56,10 +58,10 @@ export default {
       }
     }
     return {
-      tradableSet: computed(() => AppState.tradableSet)
+      tradableSet: computed(() => AppState.tradableSet.filter(s => s.ownerId != AppState.account.id))
     };
   },
-  components: { LegoSetCard, MarketSearchForm, TradeSetCard, TradeModal }
+  components: { MarketSearchForm, TradeSetCard, TradeModal }
 }
 </script>
 
