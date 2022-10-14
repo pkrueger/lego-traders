@@ -32,7 +32,7 @@
       </form>
       <!-- Lego Set Cards -->
       <div class="d-flex flex-wrap justify-content-center mt-5">
-        <LegoSetCard v-for="set in apiSets" :key="set._id" :legoSet="set" class="m-3 " />
+        <LegoSetCard v-for="set in apiSets" :key="set.set_num" :legoSet="set" class="m-3 " />
       </div>
       <!-- Pagination -->
       <div class="col-12 d-flex justify-content-center gap-5">
@@ -78,7 +78,7 @@ export default {
 
       async handleSubmit() {
         try {
-          await legoSetsService.getSetsBySetNum(editable.value.term)
+          await legoSetsService.getSetsBySearch(editable.value.term)
         } catch (error) {
           Pop.error(error)
         }

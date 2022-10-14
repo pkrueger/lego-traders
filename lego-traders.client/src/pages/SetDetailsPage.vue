@@ -3,15 +3,15 @@
     <div class="row">
       <div class="col-12">
         <h1>set details</h1>
-        <!-- Set Details -->
+        {{legoSet}}
       </div>
       <h1>Alternate MOC's</h1>
-      <div class="col-3 d-flex justify-content-center" v-for="l in legoSet">
+      <div class="col-3 d-flex justify-content-center" v-for="m in mocSets">
         <div class="card">
-          <img :src="l.moc_img_url" class="img-fluid moc-img">
+          <img :src="m.moc_img_url" class="img-fluid moc-img">
           <div class="card-body">
-            <h5>{{l.name}} || {{l.num_parts}} pcs</h5>
-            <h6>Designed by: <i>{{l.designer_name}}</i></h6>
+            <h5>{{m.name}} || {{m.num_parts}} pcs</h5>
+            <h6>Designed by: <i>{{m.designer_name}}</i></h6>
           </div>
         </div>
       </div>
@@ -32,6 +32,7 @@ export default {
     const route = useRoute()
     onMounted(() => {
       getSetAlternates()
+      getSetBySetNum()
     })
     async function getSetAlternates() {
       try {
@@ -40,8 +41,18 @@ export default {
         Pop.error(error, 'geting set alternates')
       }
     }
+
+    async function getSetBySetNum() {
+      try {
+        await legoSetsService.getSetBySetNum(route.params.set_num)
+      } catch (error) {
+        Pop.error(error, 'get set by setNum')
+      }
+    }
     return {
-      legoSet: computed(() => AppState.activeApiSet)
+      legoSet: computed(() => AppState.activeApiSet),
+      mocSets: computed(() => AppState.activeMOCset)
+
     }
   }
 }
