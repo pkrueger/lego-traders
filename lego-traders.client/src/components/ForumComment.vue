@@ -40,7 +40,7 @@ export default {
         try {
           const yes = await Pop.comfirm('Delete Your Comment')
           if (!yes) { return }
-          await forumPostsService.removeComment()
+          await forumPostsService.removeComment(comment.id)
         } catch (error) {
           Pop.error('[Remove Comment]', error)
         }
