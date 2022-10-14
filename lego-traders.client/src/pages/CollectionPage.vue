@@ -87,6 +87,7 @@ export default {
       async goPage(url) {
         try {
           await legoSetsService.goPage(url)
+          window.scrollTo(0, 500)
         } catch (error) {
           Pop.error(error)
         }
