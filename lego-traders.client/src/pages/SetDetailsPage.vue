@@ -5,12 +5,16 @@
       <div class="col-md-6">
         <img :src="legoSet.set_img_url" class="img-fluid set-img" :title="legoSet.name">
       </div>
-      <div class="col-md-5">
+      <div class="col-md-6">
         <div class="text-center">
           <h4>{{legoSet.name}}</h4>
           <h4>Realease Year: {{legoSet.year}}</h4>
           <h4>{{legoSet.num_parts}} pcs</h4>
         </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-primary" v-if="!legoSet.ownerId" @click="addSetToAccount(legoSet)">Add to
+          Account</button>
       </div>
     </div>
     <!-- MOC sets -->
@@ -46,6 +50,7 @@ export default {
       getSetAlternates()
       getSetBySetNum()
     })
+
     async function getSetAlternates() {
       try {
         await legoSetsService.getSetAlternates(route.params.set_num)
@@ -63,8 +68,21 @@ export default {
     }
     return {
       legoSet: computed(() => AppState.activeApiSet),
-      mocSets: computed(() => AppState.activeMOCset)
+      mocSets: computed(() => AppState.activeMOCset),
 
+      async addSetToAccount(data) {
+        try {
+          const yes = await Pop.confirm('Do you own this?', '')
+          if (!yes) {
+            await legoSetsService.addSetToAccount(data)
+          } else {
+            data.isOwned = true
+            await legoSetsService.addSetToAccount(data)
+          }
+        } catch (error) {
+          Pop.error('[addToAccount]', error)
+        }
+      }
     }
   }
 }
