@@ -51,13 +51,14 @@ class LegoSetsService {
 
   async getSetBySetNum(set_num) {
     const res = await legoApi.get(`sets/${set_num}`)
-    AppState.activeApiSet = res.data.results
+    console.log(res.data);
+    AppState.activeApiSet = res.data
   }
 
   async getSetAlternates(set_num) {
     const res = await legoApi.get(`sets/${set_num}/alternates`)
     console.log(res.data);
-    AppState.activeApiSet = res.data.results
+    AppState.activeMOCset = res.data.results
   }
 
   async goPage(url) {
