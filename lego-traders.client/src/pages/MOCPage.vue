@@ -16,5 +16,10 @@ export default {
 
 
 <style lang="scss" scoped>
-
+.component {
+  background-image: url('green-lego.webp');
+  background-size: fill;
+  background-position: top left;
+  height: 90vh;
+}
 </style>
