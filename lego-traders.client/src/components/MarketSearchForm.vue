@@ -16,6 +16,7 @@
 <script>
 import { ref } from 'vue'
 import { legoSetsService } from '../services/LegoSetsService.js'
+import { logger } from '../utils/Logger.js'
 import Pop from '../utils/Pop.js'
 
 export default {
@@ -27,6 +28,7 @@ export default {
         try {
           await legoSetsService.getSetsBySearchTerm(editable.value.term)
         } catch (error) {
+          logger.error('[Search]', error)
           Pop.error(error)
         }
       }

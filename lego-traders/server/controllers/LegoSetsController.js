@@ -7,6 +7,7 @@ export class LegoSetsController extends BaseController {
     super("api/sets");
     this.router
       .get("", this.getAllSets)
+      .get('/tradable', this.getTradableSets)
       .get("/:legoSetId", this.getSetBySetId)
       .get("/profile/:ownerId", this.getSetsByOwnerId)
       .use(Auth0Provider.getAuthorizedUserInfo)
@@ -52,4 +53,12 @@ export class LegoSetsController extends BaseController {
       next(error);
     }
   }
+  // async getAllOwners(req, res, next) {
+  //   try {
+  //     const owners = await legoSetsService.getAllOwners()
+  //     res.send(owners)
+  //   } catch (error) {
+  //     next(error)
+  //   }
+  // }
 }

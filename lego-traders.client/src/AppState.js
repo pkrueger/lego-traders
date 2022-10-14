@@ -24,6 +24,8 @@ export const AppState = reactive({
   forumPosts: [],
   activePost: {},
   comments: [],
+  ownersOfSet: [],
+  tradableSet: [],
   customMOCSets: [],
   activeCustomMOCSet: null,
 });
