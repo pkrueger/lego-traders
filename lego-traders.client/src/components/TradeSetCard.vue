@@ -30,7 +30,7 @@ export default {
   },
   setup() {
     return {
-      state,
+
       account: computed(() => AppState.account),
     };
   },
