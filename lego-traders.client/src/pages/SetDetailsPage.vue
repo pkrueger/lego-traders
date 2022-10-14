@@ -40,6 +40,14 @@ export default {
         Pop.error(error, 'geting set alternates')
       }
     }
+
+    async function getSetBySetNum() {
+      try {
+        await legoSetsService.getSetBySetNum(route.params.set_num)
+      } catch (error) {
+        Pop.error(error, 'get set by setNum')
+      }
+    }
     return {
       legoSet: computed(() => AppState.activeApiSet)
     }

@@ -2,9 +2,9 @@
   <!-- When Adding a Set Card it needs to be inside a ROW for proper formating -->
 
   <div class="card card-size">
-    <!-- <router-link :to="{name: 'SetDetails'}"> -->
-    <img :src="legoSet.set_img_url" class="img-fluid p-2 img-size" alt="">
-    <!-- </router-link> -->
+    <router-link :to="{name: 'SetDetails', params:{set_num: legoSet.set_num}}">
+      <img :src="legoSet.set_img_url" class="img-fluid p-2 img-size" alt="">
+    </router-link>
     <div class="card-body p-2">
       <h5>{{legoSet.name}}</h5>
       <p class="m-0">Set ID: {{legoSet.set_num}}</p>

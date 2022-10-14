@@ -40,7 +40,7 @@ class LegoSetsService {
 
   }
 
-  async getSetsBySetNum(term) {
+  async getSetsBySearch(term) {
     const res = await legoApi.get('sets/', {
       params: {
         search: term,
@@ -49,8 +49,13 @@ class LegoSetsService {
     AppState.apiSets = res.data.results
   }
 
-  async getSetAlternates() {
-    const res = await legoApi.get('sets/10211-1/alternates')
+  async getSetBySetNum(set_num) {
+    const res = await legoApi.get(`sets/${set_num}`)
+    AppState.activeApiSet = res.data.results
+  }
+
+  async getSetAlternates(set_num) {
+    const res = await legoApi.get(`sets/${set_num}/alternates`)
     console.log(res.data);
     AppState.activeApiSet = res.data.results
   }
@@ -61,16 +66,16 @@ class LegoSetsService {
     AppState.nextPage = res.data.next
     AppState.previousPage = res.data.previous
   }
-  async getTradableSets(isUpForTrade){
+  async getTradableSets(isUpForTrade) {
     const res = await api.get(`api/sets`, {
       params: {
         isUpForTrade
       }
     })
-    AppState.legoSet = res.data.map(l=> new LegoSet(l))
+    AppState.legoSet = res.data.map(l => new LegoSet(l))
   }
 
-  async getSetsBySearchTerm(term){
+  async getSetsBySearchTerm(term) {
     const res = await api.get('api/sets/tradable', {
       params: {
         query: term
