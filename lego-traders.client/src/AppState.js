@@ -20,5 +20,6 @@ export const AppState = reactive({
   previousPage: null,
   activeCollection: null,
   /** @type {import('./models/ForumPost.js).ForumPost[]} */
-  forumPosts: []
+  forumPosts: [],
+  activePost: {}
 })

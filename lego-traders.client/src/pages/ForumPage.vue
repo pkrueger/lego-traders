@@ -3,7 +3,7 @@
     <div class="row justify-content-center p-4">
       <div class="col-md-6">
         <div class="row">
-          <div class="col-12" v-for="post in forumPosts">
+          <div class="col-12 mb-3" v-for="post in forumPosts">
             <ForumPostCard class="w-100" :key="post.id" :post="post" />
           </div>
         </div>
