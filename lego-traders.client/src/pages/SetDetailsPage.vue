@@ -1,6 +1,6 @@
 <template>
   <!-- Set Details -->
-  <div class="container-fluid">
+  <div class="container-fluid bg text-shadow">
     <div class="row">
       <div class="col-md-6">
         <img :src="legoSet.set_img_url" class="img-fluid set-img" :title="legoSet.name">
@@ -18,7 +18,9 @@
       <h1>Alternate MOC's</h1>
       <div class="col-3 d-flex justify-content-center" v-for="m in mocSets">
         <div class="card">
-          <img :src="m.moc_img_url" class="img-fluid moc-img pointer" :href="m.moc_url">
+          <a :href="m.moc_url" target="_blank">
+            <img :src="m.moc_img_url" class="img-fluid moc-img pointer">
+          </a>
           <div class="card-body">
             <h5>{{m.name}} || {{m.num_parts}} pcs</h5>
             <h6>Designed by: <i>{{m.designer_name}}</i></h6>
@@ -81,5 +83,18 @@ export default {
 
 .pointer {
   cursor: pointer;
+}
+
+.bg {
+  background-image: url('grey-lego.webp');
+  background-position: top left;
+  height: 100vh;
+}
+
+.text-shadow {
+  color: #000000;
+  text-shadow: 0px 0px 5px #ff7777d7;
+  font-weight: bold;
+  letter-spacing: 0.08rem;
 }
 </style>
