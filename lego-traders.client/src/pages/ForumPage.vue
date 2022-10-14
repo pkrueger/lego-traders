@@ -1,17 +1,27 @@
 <template>
   <div class="container-fluid forum-page">
     <div class="row justify-content-center p-4">
-      <div class="col-md-6">
+      <div class="col-md-8">
         <div class="row">
           <div class="col-12 mb-3" v-for="post in forumPosts">
             <ForumPostCard class="w-100" :key="post.id" :post="post" />
           </div>
         </div>
       </div>
-      <div class="col-md-2">
-        <div class="card">
-          <div class="card-body">
-
+      <div class="col-md-4">
+        <div class="bg-dark p-3 rounded">
+          <div class="">
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+              Make a Post!
+            </button>
+          </div>
+          <div style="min-height: 120px;">
+            <div class="collapse collapse-horizontal" id="collapseWidthExample">
+              <div class="bg-warning rounded p-3" style="width: 300px;">
+                <ForumPostForm />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -27,6 +37,7 @@ import Pop from '../utils/Pop.js';
 import ForumPostCard from '../components/ForumPostCard.vue';
 import { computed } from '@vue/reactivity';
 import { AppState } from '../AppState.js';
+import ForumPostForm from '../components/ForumPostForm.vue';
 
 export default {
   setup() {
@@ -45,7 +56,7 @@ export default {
       forumPosts: computed(() => AppState.forumPosts)
     };
   },
-  components: { ForumPostCard }
+  components: { ForumPostCard, ForumPostForm }
 }
 </script>
 

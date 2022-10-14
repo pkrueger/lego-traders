@@ -33,14 +33,14 @@ export default {
       required: true
     }
   },
-  setup() {
+  setup(props) {
     return {
       account: computed(() => AppState.account),
-      async romoveComment() {
+      async removeComment() {
         try {
-          const yes = await Pop.comfirm('Delete Your Comment')
+          const yes = await Pop.confirm('Delete Your Comment')
           if (!yes) { return }
-          await forumPostsService.removeComment(comment.id)
+          await forumPostsService.removeComment(props.comment.id)
         } catch (error) {
           Pop.error('[Remove Comment]', error)
         }

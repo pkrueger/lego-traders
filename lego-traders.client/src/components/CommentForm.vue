@@ -29,9 +29,9 @@ export default {
       editable,
       async handleSubmit() {
         try {
-          if (!AppState.account.id) {
-            return AuthService.loginWithRedirect()
-          }
+          // if (!AppState.account.id) {
+          //   return AuthService.loginWithRedirect()
+          // }
           editable.value.postId = route.params.postId
           await forumPostsService.createComment(editable.value)
           Pop.success('You made a Post!')

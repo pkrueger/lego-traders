@@ -33,7 +33,9 @@
       </div>
       <div class="col-md-3 my-3">
         <div class="bg-dark w-100 p-3 rounded">
+          <!-- <router-link :to="{name: 'Profile', params:{ profileId: post?.creatorId }}"> -->
           <img :src="post.creator?.picture" alt="" class="img-fluid">
+          <!-- </router-link> -->
         </div>
       </div>
     </div>
@@ -85,7 +87,10 @@ export default {
 
 
 <style lang="scss" scoped>
-.component {
-  background-image: url();
+.post-detail-page {
+  background-image: url('blue-lego.webp');
+  height: 100vh;
+  background-position: top left;
+  background-size: fill;
 }
 </style>
