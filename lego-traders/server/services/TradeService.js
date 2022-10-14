@@ -35,7 +35,7 @@ class TradeService {
     const trades = await dbContext.TradeRequest.find({ ownerId })
     return trades
   }
-  async getRecievedTrades(requestedAccountId) {
+  async getReceivedTrades(requestedAccountId) {
     const trades = await dbContext.TradeRequest.find({ requestedAccountId })
     return trades
   }

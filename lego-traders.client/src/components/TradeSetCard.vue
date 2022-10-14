@@ -7,11 +7,12 @@
 
         <img :src="legoSet.owner.picture" class="owner-img" alt="">
         <p class="pt-3">{{legoSet.owner.name}}'s</p>
-        <button type="button" v-if="legoSet.ownerId != account.id" class="btn btn-primary" data-bs-toggle="modal"
-          data-bs-target="#exampleModal">
+        <!-- <button type="button" v-if="legoSet.ownerId != account.id" class="btn btn-primary"
+          @click="makeSetActive(legoSet)" data-bs-toggle="modal" data-bs-target="#exampleModal">
           Make Offer
-        </button>
-        <button v-if="legoSet.ownerId == account.id" type="button" data-bs-dismiss="modal" @click="offerTrade">Offer
+        </button> -->
+        <button v-if="legoSet.ownerId == account.id" type="button" data-bs-dismiss="modal"
+          @click="offerTrade(legoSet)">Offer
           Set</button>
 
       </div>
@@ -23,6 +24,8 @@
 <script>
 import { computed } from '@vue/reactivity';
 import { AppState } from '../AppState.js';
+import { marketplaceService } from '../services/MarketplaceService.js'
+import Pop from '../utils/Pop.js';
 
 export default {
   props: {
@@ -30,8 +33,21 @@ export default {
   },
   setup() {
     return {
-
       account: computed(() => AppState.account),
+
+
+      async offerTrade(legoSet) {
+        try {
+          let formData = {}
+
+          formData.requestedSetId = AppState.activeLegoSet.id
+          formData.offeredSetId = legoSet.id
+          formData.requestedAccountId = AppState.activeLegoSet.ownerId
+          await marketplaceService.offerTrade(formData)
+        } catch (error) {
+          Pop.error(error, '[offeringTrade]')
+        }
+      }
     };
   },
 }

@@ -7,13 +7,14 @@ import { ObjectId, SCHEMA_OPTIONS } from "../db/dbUtils.js";
 export const TradeRequestSchema = new Schema(
   {
     //Creator of the Trade
-    ownerId: { type: ObjectId, required: true, ref: 'Account' },
-    offeredSetId: { type: ObjectId, required: true, ref: "LegoSet" },
+    ownerId: { type: String, required: true},
+    offeredSetId: { type: String, required: true},
     //Owner of the requested set 
-    requestedAccountId: { type: ObjectId, required: true, ref: 'Account' },
-    requestedSetId: { type: ObjectId, required: true, ref: "LegoSet" },
-    status: { type: String, enum: ['pending', 'accepted', 'rejected', 'recieved'], default: 'pending' },
-    body: { type: String, minLenght: 1, maxLength: 3000, required: true },
+    requestedAccountId: { type: String, required: true},
+    requestedSetId: { type: String, required: true},
+    status: { type: String, enum: ['pending', 'accepted', 'rejected', 'received'], default: 'pending' },
+    //TODO Set body back to required true
+    body: { type: String, minlength: 1, maxLength: 3000},
     confirmed: { type: Boolean, default: false }
   }, SCHEMA_OPTIONS
 )
