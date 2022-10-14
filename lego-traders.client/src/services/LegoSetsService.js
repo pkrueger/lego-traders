@@ -61,6 +61,24 @@ class LegoSetsService {
     AppState.nextPage = res.data.next
     AppState.previousPage = res.data.previous
   }
+  async getTradableSets(isUpForTrade){
+    const res = await api.get(`api/sets`, {
+      params: {
+        isUpForTrade
+      }
+    })
+    AppState.legoSet = res.data.map(l=> new LegoSet(l))
+  }
+
+  async getSetsBySearchTerm(term){
+    const res = await api.get('api/sets/tradable', {
+      params: {
+        query: term
+      }
+    })
+    AppState.legoSet = res.data.map(l => new LegoSet(l))
+
+  }
 
 }
 export const legoSetsService = new LegoSetsService()
