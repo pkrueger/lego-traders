@@ -1,14 +1,30 @@
 <template>
-  <div class="container-fluid">
+  <!-- Set Details -->
+  <div class="container-fluid bg text-shadow">
     <div class="row">
-      <div class="col-12">
-        <h1>set details</h1>
-        {{legoSet}}
+      <div class="col-md-6">
+        <img :src="legoSet.set_img_url" class="img-fluid set-img" :title="legoSet.name">
       </div>
+      <div class="col-md-6">
+        <div class="text-center">
+          <h4>{{legoSet.name}}</h4>
+          <h4>Realease Year: {{legoSet.year}}</h4>
+          <h4>{{legoSet.num_parts}} pcs</h4>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-primary" v-if="!legoSet.ownerId" @click="addSetToAccount(legoSet)">Add to
+          Account</button>
+      </div>
+    </div>
+    <!-- MOC sets -->
+    <div class="row" v-if="mocSets.length">
       <h1>Alternate MOC's</h1>
-      <div class="col-3 d-flex justify-content-center" v-for="m in mocSets">
+      <div class="col-3 d-flex justify-content-center p-3" v-for="m in mocSets">
         <div class="card">
-          <img :src="m.moc_img_url" class="img-fluid moc-img">
+          <a :href="m.moc_url" target="_blank">
+            <img :src="m.moc_img_url" class="img-fluid moc-img pointer">
+          </a>
           <div class="card-body">
             <h5>{{m.name}} || {{m.num_parts}} pcs</h5>
             <h6>Designed by: <i>{{m.designer_name}}</i></h6>
@@ -34,8 +50,10 @@ export default {
       getSetAlternates()
       getSetBySetNum()
     })
+
     async function getSetAlternates() {
       try {
+        AppState.activeMOCset = []
         await legoSetsService.getSetAlternates(route.params.set_num)
       } catch (error) {
         Pop.error(error, 'geting set alternates')
@@ -44,6 +62,7 @@ export default {
 
     async function getSetBySetNum() {
       try {
+        AppState.activeApiSet = []
         await legoSetsService.getSetBySetNum(route.params.set_num)
       } catch (error) {
         Pop.error(error, 'get set by setNum')
@@ -51,8 +70,21 @@ export default {
     }
     return {
       legoSet: computed(() => AppState.activeApiSet),
-      mocSets: computed(() => AppState.activeMOCset)
+      mocSets: computed(() => AppState.activeMOCset),
 
+      async addSetToAccount(data) {
+        try {
+          const yes = await Pop.confirm('Do you own this?', '')
+          if (!yes) {
+            await legoSetsService.addSetToAccount(data)
+          } else {
+            data.isOwned = true
+            await legoSetsService.addSetToAccount(data)
+          }
+        } catch (error) {
+          Pop.error('[addToAccount]', error)
+        }
+      }
     }
   }
 }
@@ -65,7 +97,24 @@ export default {
   max-width: 25vh;
 }
 
-.card {
-  max-width: 45vh;
+.set-img {
+  min-width: 75vh;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.bg {
+  background-image: url('grey-lego.webp');
+  background-position: top left;
+  min-height: 100vh;
+}
+
+.text-shadow {
+  color: #000000;
+  text-shadow: 0px 0px 5px #ff7777d7;
+  font-weight: bold;
+  letter-spacing: 0.08rem;
 }
 </style>

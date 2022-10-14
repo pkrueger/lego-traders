@@ -26,7 +26,7 @@ class LegoSetsService {
     console.log('getMyLegoSets', res);
     AppState.legoSet = res.data.map(s => new LegoSet(s))
   }
-  async getSetsByThemeId(theme_id,) {
+  async getSetsByThemeId(theme_id) {
     const res = await legoApi.get(`sets`, {
       params: {
         theme_id,
@@ -47,6 +47,8 @@ class LegoSetsService {
       }
     })
     AppState.apiSets = res.data.results
+    AppState.nextPage = res.data.next
+    AppState.previousPage = res.data.previous
   }
 
   async getSetBySetNum(set_num) {
