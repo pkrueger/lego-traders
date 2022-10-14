@@ -22,7 +22,7 @@ class CommentsService {
     return comments
   }
   async getCommentsByPostId(postId) {
-    const comments = await dbContext.Comments.find({ postId })
+    const comments = await dbContext.Comments.find({ postId }).populate('creator', 'name picture')
     if (!comments) {
       throw new BadRequest('Invalid or Bad PostId')
     }
