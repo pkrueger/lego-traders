@@ -24,7 +24,7 @@ class LegoSetsService {
   async getProfileLegoSets(accountId) {
     const res = await api.get(`api/sets/profile/` + accountId)
     // TODO Change after server side gets updated
-    console.log('getMyLegoSets', res);
+    console.log('getProfileLegoSets', res.data);
     AppState.legoSet = res.data.map(s => new LegoSet(s))
   }
 
@@ -80,13 +80,13 @@ class LegoSetsService {
     AppState.nextPage = res.data.next
     AppState.previousPage = res.data.previous
   }
-  async getTradableSets(){
+  async getTradableSets() {
     const res = await api.get(`api/sets/tradable`)
     AppState.tradableSet = res.data
     console.log(AppState.tradableSet);
   }
 
-  async getSetsBySearchTerm(term){
+  async getSetsBySearchTerm(term) {
     const res = await api.get('api/sets/', {
       params: {
         query: term
