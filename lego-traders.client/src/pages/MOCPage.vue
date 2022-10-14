@@ -3,7 +3,7 @@
     <div class="row justify-content-center p-4">
       <div class="col-md-9">
         <div class="row">
-          <div class="col-4 mb-3" v-for="m in state.mocSets">
+          <div class="col-4 mb-3" v-for="m in mocSets">
             <!-- MOC cards go here -->
             <MOCCard :key="m.id" :mocSet="m" />
           </div>
@@ -20,16 +20,27 @@
 
 <script>
 import { computed } from "@vue/reactivity";
-import { reactive } from "vue";
+import { mocsService } from "../services/MocsService.js";
 import MOCCard from "../components/MOCCard.vue";
 import { AppState } from "../AppState.js";
+import Pop from "../utils/Pop.js";
+import { onMounted } from "vue";
 
 export default {
   setup() {
-    const state = reactive({
+    async function getMocSets() {
+      try {
+        await mocsService.getMocSets()
+      } catch (error) {
+        Pop.error('[GetMOCSets]')
+      }
+    }
+    onMounted(() => {
+      getMocSets()
+    })
+    return {
       mocSets: computed(() => AppState.customMOCSets),
-    });
-    return { state };
+    };
   },
   components: { MOCCard },
 };
