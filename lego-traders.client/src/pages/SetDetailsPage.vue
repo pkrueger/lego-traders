@@ -35,7 +35,7 @@ export default {
     })
     async function getSetAlternates() {
       try {
-        await legoSetsService.getSetAlternates(route.params.id)
+        await legoSetsService.getSetAlternates(route.params.set_num)
       } catch (error) {
         Pop.error(error, 'geting set alternates')
       }
