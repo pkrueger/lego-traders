@@ -59,7 +59,7 @@
           v-for="set in apiSets"
           :key="set.set_num"
           :legoSet="set"
-          class="m-3"
+          class="m-3 border-test"
         />
       </div>
       <!-- Pagination -->
@@ -151,5 +151,13 @@ export default {
   transform: scale(1.1);
   box-shadow: 0px 0px 20px yellow;
   transition: 0.3s;
+}
+
+.border-test {
+  border: 1.5rem solid;
+  border-image-slice: 33 0 0 33;
+  border-image-outset: 0px 1.5rem 1.5rem 0px;
+  border-image-repeat: repeat repeat;
+  border-image-source: url("blue-lego.webp");
 }
 </style>
