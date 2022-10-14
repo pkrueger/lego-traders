@@ -8,7 +8,7 @@
     <div class="dropstart my-2 my-lg-0" v-else>
       <div class="dropdown-toggle selectable" data-bs-toggle="dropdown" aria-expanded="false" id="authDropdown">
         <div v-if="account.picture || user.picture">
-          <img :src="account.picture || user.picture" alt="account photo" height="40" class="rounded" />
+          <img :src="account.picture || user.picture" alt="account photo" height="65" class="rounded" />
           <!-- <span class="mx-3 text-success lighten-30">{{ account.name || user.name }}</span> -->
         </div>
       </div>
