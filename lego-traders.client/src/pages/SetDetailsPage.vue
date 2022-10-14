@@ -14,9 +14,9 @@
       </div>
     </div>
     <!-- MOC sets -->
-    <div class="row">
+    <div class="row" v-if="mocSets.count">
       <h1>Alternate MOC's</h1>
-      <div class="col-3 d-flex justify-content-center" v-for="m in mocSets">
+      <div class="col-3 d-flex justify-content-center p-3" v-for="m in mocSets">
         <div class="card">
           <a :href="m.moc_url" target="_blank">
             <img :src="m.moc_img_url" class="img-fluid moc-img pointer">
@@ -88,7 +88,7 @@ export default {
 .bg {
   background-image: url('grey-lego.webp');
   background-position: top left;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .text-shadow {
