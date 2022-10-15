@@ -14,12 +14,52 @@
             <p>{{account.desc}}</p>
           </div>
           <div class="col-4">
-            <div>
-              <!-- Sent Trades -->
+            <div class="card">
+              <div class="card-header">
+                <h5>Trades</h5>
+              </div>
+              <div class="card-body">
+                <div>
+                  <strong>Sent</strong>
+                  <div v-for="t in sentTrades" class="d-flex justify-content-around">
+
+                    <p>
+                      Requested Set: <img class="me-auto" height="30" :src="t.requestedSet.set_img_url"
+                        :alt="t.requestedSet.name" :title="t.requestedSet.name">
+                    </p>
+                    <p>
+                      Status: {{t.status}}
+
+                    </p>
+                    <p>
+                      Offered Set: <img class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
+                        :title="t.offeredSet.name">
+                    </p>
+
+                  </div>
+                </div>
+                <div>
+                  <strong>Requested</strong>
+                  <div v-for="t in receivedTrades" class="d-flex justify-content-around">
+
+                    <p>
+                      Requested Set: <img class="me-auto" height="30" :src="t.requestedSet.set_img_url"
+                        :alt="t.requestedSet.name" :title="t.requestedSet.name">
+                    </p>
+                    <p>
+                      <button @click="changeStatus(t.id, 'accepted')">Accept</button>
+                      <button @click="changeStatus(t.id, 'rejected')">Reject</button>
+                    </p>
+                    <p>
+                      Offered Set: <img class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
+                        :title="t.offeredSet.name">
+                    </p>
+
+                  </div>
+                </div>
+              </div>
             </div>
-            <div>
-              <!-- received trades -->
-            </div>
+
           </div>
 
         </div>
@@ -95,6 +135,17 @@ export default {
       ownedLegoSets: computed(() => AppState.myLegoSets.filter(l => l.isOwned)),
       sentTrades: computed(() => AppState.sentTrades),
       receivedTrades: computed(() => AppState.receivedTrades),
+
+
+
+      async changeStatus(id, status) {
+        try {
+          Pop.success('You Responded to a trade request')
+          await marketplaceService.changeStatus(id, status)
+        } catch (error) {
+          Pop.error('[changeStatus]', error)
+        }
+      }
     };
   },
   components: { AccountModal, LegoSetCard }
