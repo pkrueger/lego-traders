@@ -5,6 +5,7 @@ import { router } from '../router'
 import { accountService } from './AccountService'
 import { api } from './AxiosService'
 import { legoSetsService } from './LegoSetsService.js'
+import { marketplaceService } from './MarketplaceService.js'
 import { socketService } from './SocketService'
 
 export const AuthService = initialize({
@@ -21,7 +22,7 @@ export const AuthService = initialize({
   }
 })
 
-AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async function() {
+AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async function () {
   api.defaults.headers.authorization = AuthService.bearer
   api.interceptors.request.use(refreshAuthToken)
   AppState.user = AuthService.user
@@ -29,6 +30,8 @@ AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async function() {
   socketService.authenticate(AuthService.bearer)
   // NOTE if there is something you want to do once the user is authenticated, place that here
   await legoSetsService.getMyLegoSets(AppState.account.id)
+  // await marketplaceService.getSentTrades()
+  // await marketplaceService.getReceivedTrades(AppState.user.id)
 })
 
 async function refreshAuthToken(config) {

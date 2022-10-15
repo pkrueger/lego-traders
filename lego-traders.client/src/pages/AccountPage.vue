@@ -3,13 +3,25 @@
     <div class="row mt-3">
       <!-- <UserDetails :account="account" /> -->
       <div class="col-md-11 d-flex">
-        <div>
-          <img class="img-size p-3" :src="account.picture" alt="User Name">
-        </div>
-        <div class="border border-dark border-box p-2">
-          <h3>Name: {{account.name}}</h3>
-          <h5>About: </h5>
-          <p>{{account.desc}}</p>
+        <div class="row">
+
+          <div class="col-4">
+            <img class="img-fluid p-3" :src="account.picture" alt="User Name">
+          </div>
+          <div class="col-4 border border-dark p-2">
+            <h3>Name: {{account.name}}</h3>
+            <h5>About: </h5>
+            <p>{{account.desc}}</p>
+          </div>
+          <div class="col-4">
+            <div>
+              <!-- Sent Trades -->
+            </div>
+            <div>
+              <!-- received trades -->
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -50,17 +62,39 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { AppState } from '../AppState'
 import AccountModal from '../components/AccountModal.vue';
 import LegoSetCard from '../components/LegoSetCard.vue';
+import Pop from '../utils/Pop.js';
+import { marketplaceService } from '../services/MarketplaceService.js'
 export default {
   setup() {
+    async function getSentTrades() {
+      try {
+        await marketplaceService.getSentTrades()
+      } catch (error) {
+        Pop.error('[getSentTrades]', error)
+      }
+    }
+    async function getReceivedTrades() {
+      try {
+        await marketplaceService.getReceivedTrades()
+      } catch (error) {
+        Pop.error('[getSentTrades]', error)
+      }
+    }
+    onMounted(() => {
+      getSentTrades()
+      getReceivedTrades()
+    })
 
     return {
       account: computed(() => AppState.account),
       wishListLegoSets: computed(() => AppState.myLegoSets.filter(l => !l.isOwned)),
-      ownedLegoSets: computed(() => AppState.myLegoSets.filter(l => l.isOwned))
+      ownedLegoSets: computed(() => AppState.myLegoSets.filter(l => l.isOwned)),
+      sentTrades: computed(() => AppState.sentTrades),
+      receivedTrades: computed(() => AppState.receivedTrades),
     };
   },
   components: { AccountModal, LegoSetCard }
@@ -73,8 +107,8 @@ main {
 }
 
 .img-size {
-  min-height: 30vh;
-  min-width: 20vw;
+  min-height: 20vh;
+  min-width: 15vw;
 }
 
 .border-box {

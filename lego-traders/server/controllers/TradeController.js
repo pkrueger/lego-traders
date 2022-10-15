@@ -16,7 +16,7 @@ export class TradeController extends BaseController {
 
   async getSentTrades(req, res, next) {
     try {
-      const trades = await tradeService.getSentTrades(req.userinfo.id)
+      const trades = await tradeService.getSentTrades(req.userInfo.id)
       res.send(trades)
     } catch (error) {
       next(error)
@@ -24,7 +24,7 @@ export class TradeController extends BaseController {
   }
   async getReceivedTrades(req, res, next) {
     try {
-      const trades = await tradeService.getReceivedTrades(req.userinfo.id)
+      const trades = await tradeService.getReceivedTrades(req.userInfo.id)
       res.send(trades)
     } catch (error) {
       next(error)
