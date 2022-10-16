@@ -16,7 +16,7 @@
         <button class="btn btn-primary" v-if="!legoSet.ownerId" @click="addSetToAccount(legoSet)">Add to
           Account</button>
         <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-          aria-controls="offcanvasRight">Toggle right offcanvas</button>
+          aria-controls="offcanvasRight">Parts List</button>
       </div>
     </div>
     <!-- MOC sets -->
@@ -29,7 +29,7 @@
           </a>
           <div class="card-body">
             <h5>{{m.name}} || {{m.num_parts}} pcs</h5>
-            <h6>Designed by: <i>{{m.designer_name}}</i></h6>
+            <h>Designed by: <i>{{m.designer_name}}</i></h>
           </div>
         </div>
       </div>
@@ -38,13 +38,24 @@
 
 
   <!-- OffCanvas -->
-  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas offcanvas-end overflow2 w-50" tabindex="-1" id="offcanvasRight"
+    aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="offcanvasRightLabel">Parts List</h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body" v-for="s in setParts">
-      <p>{{s.part.name}} || {{s.quantity}}</p>
+    <div class="offcanvas-body overflow my-1" v-for="s in setParts">
+      <h6>{{s.part.name}} || {{s.quantity}}</h6>
+    </div>
+    <div>
+      <button class="btn btn-warning" @click="goPageParts(previousPage)">
+        Previous
+      </button>
+    </div>
+    <div>
+      <button class="btn btn-warning" @click="goPageParts(nextPage)">
+        Next
+      </button>
     </div>
   </div>
 </template>
@@ -95,6 +106,8 @@ export default {
       legoSet: computed(() => AppState.activeApiSet),
       mocSets: computed(() => AppState.activeMOCset),
       setParts: computed(() => AppState.activeApiSetParts),
+      nextPage: computed(() => AppState.nextPage),
+      previousPage: computed(() => AppState.previousPage),
       async addSetToAccount(data) {
         try {
           const yes = await Pop.confirm('Do you own this?', '')
@@ -108,7 +121,16 @@ export default {
           Pop.error('[addToAccount]', error)
         }
       },
-    }
+      async goPageParts(url) {
+        try {
+          debugger
+          await legoSetsService.goPageParts(url);
+          window.scrollTo(0, 500);
+        } catch (error) {
+          Pop.error(error);
+        }
+      },
+    };
   }
 }
 </script>
@@ -139,5 +161,13 @@ export default {
   text-shadow: 0px 0px 5px #ff7777d7;
   font-weight: bold;
   letter-spacing: 0.08rem;
+}
+
+.overflow {
+  overflow-y: hidden;
+}
+
+.overflow2 {
+  overflow-y: scroll;
 }
 </style>

@@ -78,6 +78,14 @@ class LegoSetsService {
     const res = await legoApi.get(`sets/${set_num}/parts`)
     console.log(res.data);
     AppState.activeApiSetParts = res.data.results
+    AppState.nextPage = res.data.next
+    AppState.previousPage = res.data.previous
+  }
+  async goPageParts(url) {
+    const res = await legoApi.get(url)
+    AppState.activeApiSetParts = res.data.results
+    AppState.nextPage = res.data.next
+    AppState.previousPage = res.data.previous
   }
   async goPage(url) {
     const res = await legoApi.get(url)
