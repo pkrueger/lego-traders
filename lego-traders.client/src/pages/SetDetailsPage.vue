@@ -44,18 +44,23 @@
       <h5 class="offcanvas-title" id="offcanvasRightLabel">Parts List</h5>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body overflow my-1" v-for="s in setParts">
-      <h6>{{s.part.name}} || {{s.quantity}}</h6>
+    <div class="offcanvas-body overflow my-1 d-flex" v-for="s in setParts">
+      <a :href="s.part.part_url" target="_blank" class="pointer-parts w-100">
+        <h6>{{s.part.name}} || {{s.quantity}}x</h6>
+        <img :src="s.part.part_img_url" class="part-img">
+      </a>
     </div>
-    <div>
-      <button class="btn btn-warning" @click="goPageParts(previousPage)">
-        Previous
-      </button>
-    </div>
-    <div>
-      <button class="btn btn-warning" @click="goPageParts(nextPage)">
-        Next
-      </button>
+    <div class="d-flex gap-5">
+      <div v-show="previousPage">
+        <button class="btn btn-warning" @click="goPageParts(previousPage)">
+          Previous
+        </button>
+      </div>
+      <div v-show="nextPage">
+        <button class="btn btn-warning" @click="goPageParts(nextPage)">
+          Next-->
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -146,8 +151,23 @@ export default {
   min-width: 75vh;
 }
 
+.part-img {
+  max-width: 15vh;
+}
+
 .pointer {
   cursor: pointer;
+}
+
+.pointer-parts {
+  cursor: pointer;
+  width: fit-content;
+}
+
+.pointer-parts:hover {
+  // content: url(https://cdn.rebrickable.com/media/parts/elements/301026.jpg);
+  display: block;
+  position: absolute;
 }
 
 .bg {
