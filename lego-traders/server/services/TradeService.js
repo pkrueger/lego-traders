@@ -9,9 +9,9 @@ class TradeService {
   async tradeResponse(id, status) {
     const trade = await dbContext.TradeRequest.findById(id)
     if (!trade) { throw new BadRequest('Bad Trade ID') }
-    logger.log(status)
+    logger.log(status.toString())
 
-    trade.status = status
+    trade.status = status.toString()
 
     if (trade.status == 'accepted') {
 
