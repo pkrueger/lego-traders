@@ -42,12 +42,14 @@
     aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="offcanvasRightLabel">Parts List</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" title="close"></button>
     </div>
     <div class="offcanvas-body overflow my-1 d-flex" v-for="s in setParts">
       <a :href="s.part.part_url" target="_blank" class="pointer-parts w-100">
         <h6>{{s.part.name}} || {{s.quantity}}x</h6>
-        <img :src="s.part.part_img_url" class="part-img">
+        <div>
+          <img :src="s.part.part_img_url" class="part-img">
+        </div>
       </a>
     </div>
     <div class="d-flex gap-5">
@@ -128,9 +130,7 @@ export default {
       },
       async goPageParts(url) {
         try {
-          debugger
           await legoSetsService.goPageParts(url);
-          window.scrollTo(0, 500);
         } catch (error) {
           Pop.error(error);
         }
