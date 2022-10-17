@@ -19,5 +19,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+// TODO MAKE A ONHOVER EFFECT TO SHOW THE CREATOR OR NAME
 </style>

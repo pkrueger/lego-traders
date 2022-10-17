@@ -10,8 +10,28 @@
         </div>
       </div>
       <div class="col-md-2">
-        <div class="card">
-          <div class="card-body"></div>
+        <div class="bg-dark p-3 rounded">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#MOCModel">
+            Make Your Own Creation!
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="MOCModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="MOCModelLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="MOCModelLabel">Show Everyone How To Make Your Creation!</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <MocForm />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Understood</button>
         </div>
       </div>
     </div>
@@ -25,6 +45,7 @@ import MOCCard from "../components/MOCCard.vue";
 import { AppState } from "../AppState.js";
 import Pop from "../utils/Pop.js";
 import { onMounted } from "vue";
+import MocForm from "../components/MocForm.vue";
 
 export default {
   setup() {
@@ -42,7 +63,7 @@ export default {
       mocSets: computed(() => AppState.customMOCSets),
     };
   },
-  components: { MOCCard },
+  components: { MOCCard, MocForm },
 };
 </script>
 
