@@ -3,7 +3,10 @@ import { api } from "./AxiosService.js"
 
 class MarketplaceService {
   async offerTrade(formData) {
+    formData.requestedSetId = AppState.activeLegoSet.id
+    formData.requestedAccountId = AppState.activeLegoSet.ownerId
     await api.post('api/trade', formData)
+    console.log(formData);
   }
   async getSentTrades() {
     const res = await api.get('api/trade/sent')

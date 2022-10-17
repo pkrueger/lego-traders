@@ -5,8 +5,8 @@
 
 
       <img :src="legoSet.set_img_url" class="img-fluid set-img" alt="">
-      <div v-if="account.id != legoSet.ownerId" class="justify-content-center">
-        <p class="mb-0">Owned by</p>
+      <div v-if="account.id != legoSet.ownerId" class="d-flex align-items-center justify-content-center">
+        <p class="mb-0 me-2">Owned by</p>
         <img :src="legoSet.owner.picture" :title="legoSet.owner.name" class="owner-img" alt="">
       </div>
 
@@ -18,7 +18,8 @@
         <label class="form-check-label me-5" for="flexCheckDefault">
           Mark for trade
         </label>
-        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
+          @change="$emit('passSet', legoSet.id)">
       </div>
 
     </div>
@@ -34,7 +35,8 @@ import Pop from '../utils/Pop.js';
 
 export default {
   props: {
-    legoSet: { type: Object, required: true }
+    legoSet: { type: Object, required: true },
+
   },
   setup() {
     return {
