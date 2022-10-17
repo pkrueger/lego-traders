@@ -19,18 +19,25 @@
           <!-- another way is a front end filter on the array legoSets, so isUpTrade, name, year, themeIDm set_num -->
           <div>
             <div class="form-check">
-              <input class="form-check-input" v-model="checked" type="checkbox" name="setName" id="name">
+              <input @click="getChecked" class="form-check-input" type="checkbox" name="setName" id="setName">
               <label class="form-check-label" for="name">
                 By name
               </label>
             </div>
-            <div v-if="checked">
+            <div>
+              <div class="input-group input-group-sm mb-4">
+                <input id="nameSearchBar" v-model="editable.name" style="display: none" type="text" class="form-control"
+                  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                <!-- <span class="input-group-text" id="inputGroup-sizing-sm">Name</span> -->
+              </div>
+            </div>
+            <!-- <div v-if="checked" >
               <div class="input-group input-group-sm mb-4">
                 <span class="input-group-text" id="inputGroup-sizing-sm">Name</span>
                 <input type="text" class="form-control" v-model="editable.name" aria-label="Sizing example input"
                   aria-describedby="inputGroup-sizing-sm">
               </div>
-            </div>
+            </div> -->
           </div>
 
 
@@ -92,11 +99,13 @@ import { ref } from 'vue'
 export default {
   setup() {
     const editable = ref({})
+
     onMounted(() => {
       getTradableSets();
     });
     async function getTradableSets() {
       try {
+
         await legoSetsService.getTradableSets();
       } catch (error) {
         Pop.error(error, "[gettingTradableSets]");
@@ -104,11 +113,23 @@ export default {
     }
     return {
       editable,
+      getChecked() {
+        let checkBox = document.getElementById('setName');
+        let nameSearch = document.getElementById('nameSearchBar');
+        if (checkBox.checked == true) {
+          nameSearch.style.display = "block";
+        } else {
+          nameSearch.style.display = 'none'
+        }
+      },
+
       // tradableSet: computed(() =>
       //   AppState.tradableSet.filter((s) => (s.ownerId != AppState.account.id)) && AppState.tradableSet.includes(editable.value))
       // ,
-      tradableSet: computed(() => AppState.tradableSet.filter((s) => (s.ownerId != AppState.account.id))
-      ),
+      tradableSet: computed(() => AppState.tradableSet.filter((s) => s.ownerId != AppState.account.id)),
+
+      // tradableSearchSet: computed(() => tradableSet.includes(editable.value)),
+      account: computed(() => AppState.account),
       // async handleSubmit() {
       //   try {
       //     await legoSetsService.getSetsBySearchTerm(editable.value)
