@@ -28,14 +28,18 @@
                         :alt="t.requestedSet.name" :title="t.requestedSet.name">
                     </p>
                     <p>
-                      Status: {{t.status}} <i class="mdi mdi-note"></i>
+                      Status: {{t.status}}
+                      <span v-if="t.body" class="field-tip">
+                        <i class="mdi mdi-note"></i>
+                        <span class="tip-content">{{t.body}}</span>
+                      </span>
 
                     </p>
                     <p>
                       Offered Set: <img class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
                         :title="t.offeredSet.name">
                     </p>
-                    <i class="mdi mdi-close text-danger" @click="removeTrade(t.id)"></i>
+                    <i v-if="t.status != 'pending'" class="mdi mdi-close text-danger" @click="removeTrade(t.id)"></i>
                   </div>
                 </div>
                 <div>
@@ -52,13 +56,18 @@
                     </p>
                     <p v-else>
                       Status: {{t.status}}
+                      <span v-if="t.body" class="field-tip">
+                        <i class="mdi mdi-note"></i>
+                        <span class="tip-content">{{t.body}}</span>
+                      </span>
                     </p>
                     <p>
                       Requested Set:
                       <img class="me-auto" height="30" :src="t.requestedSet.set_img_url" :alt="t.requestedSet.name"
                         :title="t.requestedSet.name">
                     </p>
-                    <i v-if="t.status != 'pending'" class="mdi mdi-close text-danger" @click="removeTrade(t.id)"></i>
+                    <i v-if="t.status != 'pending'" class="mdi mdi-close text-danger selectable"
+                      @click="removeTrade(t.id)"></i>
                   </div>
                 </div>
               </div>
@@ -140,7 +149,13 @@ export default {
       sentTrades: computed(() => AppState.sentTrades),
       receivedTrades: computed(() => AppState.receivedTrades),
 
-
+      async removeTrade(id) {
+        try {
+          await marketplaceService.removeTrade(id)
+        } catch (error) {
+          Pop.error('[removeTrade]', error)
+        }
+      },
 
       async changeStatus(id, status) {
         try {
@@ -173,5 +188,53 @@ main {
 
 img {
   max-width: 100px;
+}
+
+.field-tip {
+  position: relative;
+  cursor: pointer;
+}
+
+.field-tip .tip-content {
+  position: absolute;
+  top: -22px;
+  /* - top padding */
+  right: 9999px;
+  width: 200px;
+  margin-right: -220px;
+  /* width + left/right padding */
+  padding: 10px;
+  color: #fff;
+  background: #333;
+  -webkit-box-shadow: 2px 2px 5px #aaa;
+  -moz-box-shadow: 2px 2px 5px #aaa;
+  box-shadow: 2px 2px 5px #aaa;
+  opacity: 0;
+  -webkit-transition: opacity 250ms ease-out;
+  -moz-transition: opacity 250ms ease-out;
+  -ms-transition: opacity 250ms ease-out;
+  -o-transition: opacity 250ms ease-out;
+  transition: opacity 250ms ease-out;
+}
+
+/* <http://css-tricks.com/snippets/css/css-triangle/> */
+.field-tip .tip-content:before {
+  content: ' ';
+  /* Must have content to display */
+  position: absolute;
+  top: 50%;
+  left: -16px;
+  /* 2 x border width */
+  width: 0;
+  height: 0;
+  margin-top: -8px;
+  /* - border width */
+  border: 8px solid transparent;
+  border-right-color: #333;
+}
+
+.field-tip:hover .tip-content {
+  right: -20px;
+  opacity: 1;
 }
 </style>

@@ -10,7 +10,6 @@ class TradeService {
   async tradeResponse(id, status) {
     const trade = await dbContext.TradeRequest.findById(id)
     if (!trade) { throw new BadRequest('Bad Trade ID') }
-    logger.log(status)
 
     trade.status = status.status
 
@@ -20,8 +19,8 @@ class TradeService {
       if (!offeredSet) { throw new BadRequest('Bad LegoSet ID') }
       const requestedSet = await dbContext.LegoSets.findById(trade.requestedSetId)
       if (!requestedSet) { throw new BadRequest('Bad LegoSet ID') }
-      // this.rejectOtherOffered(trade.offeredSetId, trade.id)
-      // this.rejectOtherRequested(trade.requestedSetId)
+      this.rejectOtherOffered(trade.offeredSetId, trade.id)
+      this.rejectOtherRequested(trade.requestedSetId, trade.id)
 
       offeredSet.ownerId = trade.requestedAccountId
       offeredSet.isUpForTrade = false
@@ -40,25 +39,25 @@ class TradeService {
 
   async rejectOtherOffered(offeredSetId, id) {
     let trades = await dbContext.TradeRequest.find({ offeredSetId })
-    trades = trades.filter(t => t.id != id)
+    trades = trades.filter(t => t.id != id && t.status == 'pending')
     if (!trades) { return }
 
     for (let i = 0; i <= trades.length; i++) {
       let trade = trades[i]
+
       trade.status = 'rejected'
       trade.save()
     }
   }
   async rejectOtherRequested(requestedSetId, id) {
     let trades = await dbContext.TradeRequest.find({ requestedSetId })
-    trades = trades.filter(t => t.id != id)
+    trades = trades.filter(t => t.id != id && t.status == 'pending')
     if (!trades) { return }
 
     for (let i = 0; i <= trades.length; i++) {
       let trade = trades[i]
-      trade.status = 'rejected'
+      trade.status = "rejected"
       trade.save()
-
     }
   }
   async makeTradeRequest(formData) {
@@ -80,6 +79,15 @@ class TradeService {
       .populate('offeredSet', 'name set_img_url')
       .populate('requestedSet', 'name set_img_url')
     return trades
+  }
+  async deleteTrade(id) {
+    const trade = await dbContext.TradeRequest.findById(id)
+    logger.log(trade)
+    // @ts-ignore
+    trade.remove()
+    return trade
+    // const trade = await dbContext.TradeRequest.deleteOne({ id })
+    // return trade
   }
 
 }

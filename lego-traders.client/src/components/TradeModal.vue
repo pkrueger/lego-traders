@@ -63,9 +63,9 @@ import { marketplaceService } from '../services/MarketplaceService.js';
 import Pop from '../utils/Pop.js';
 import TradeSetCard from './TradeSetCard.vue';
 export default {
-  props: {
-    legoSet: { type: Object, required: true }
-  },
+  // props: {
+  //   legoSet: { type: Object, required: true }
+  // },
   setup() {
     const editable = ref({})
 

@@ -12,8 +12,16 @@ export class TradeController extends BaseController {
       .get('/received', this.getReceivedTrades)
       .post('', this.makeTradeRequest)
       .put('/:tradeId', this.tradeResponse)
+      .delete('/:tradeId', this.deleteTrade)
   }
-
+  async deleteTrade(req, res, next) {
+    try {
+      const trade = await tradeService.deleteTrade(req.params.tradeId)
+      res.send(trade)
+    } catch (error) {
+      next(error)
+    }
+  }
   async getSentTrades(req, res, next) {
     try {
       const trades = await tradeService.getSentTrades(req.userInfo.id)
