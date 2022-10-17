@@ -22,5 +22,8 @@ class MarketplaceService {
     const res = await api.put(`api/trade/` + id, { status })
     console.log('changeStatus', res.data);
   }
+  async removeTrade(id) {
+    const res = await api.delete('api/trade/' + id)
+  }
 }
 export const marketplaceService = new MarketplaceService()
