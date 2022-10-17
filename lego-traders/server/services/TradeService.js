@@ -19,14 +19,14 @@ class TradeService {
       if (!offeredSet) { throw new BadRequest('Bad LegoSet ID') }
       const requestedSet = await dbContext.LegoSets.findById(trade.requestedSetId)
       if (!requestedSet) { throw new BadRequest('Bad LegoSet ID') }
-      this.rejectOtherOffered(trade.offeredSetId, trade.id)
-      this.rejectOtherRequested(trade.requestedSetId, trade.id)
 
       offeredSet.ownerId = trade.requestedAccountId
       offeredSet.isUpForTrade = false
       requestedSet.ownerId = trade.ownerId
       requestedSet.isUpForTrade = false
 
+      this.rejectOtherOffered(trade.offeredSetId, trade.id)
+      this.rejectOtherRequested(trade.requestedSetId, trade.id)
       offeredSet.save()
       requestedSet.save()
     }
@@ -39,25 +39,38 @@ class TradeService {
 
   async rejectOtherOffered(offeredSetId, id) {
     let trades = await dbContext.TradeRequest.find({ offeredSetId })
-    trades = trades.filter(t => t.id != id && t.status == 'pending')
-    if (!trades) { return }
-
-    for (let i = 0; i <= trades.length; i++) {
-      let trade = trades[i]
-
-      trade.status = 'rejected'
-      trade.save()
+    let trade = trades.filter(t => t.id != id && t.status == 'pending')
+    // @ts-ignore
+    if (trade.length) {
+      // Server shuts down if <=
+      for (let i = 0; i < trade.length; i++) {
+        let t = trade[i]
+        if (!t) { throw new BadRequest('bad t') }
+        t.status = 'rejected'
+        t.save()
+      }
+    }
+    else {
+      return
     }
   }
   async rejectOtherRequested(requestedSetId, id) {
     let trades = await dbContext.TradeRequest.find({ requestedSetId })
-    trades = trades.filter(t => t.id != id && t.status == 'pending')
-    if (!trades) { return }
+    let trade = trades.filter(t => t.id != id && t.status == 'pending')
+    // @ts-ignore
+    if (trade.length) {
+      for (let i = 0; i < trade.length; i++) {
+        let t = trade[i]
+        if (!t) { throw new BadRequest('bad trade') }
 
-    for (let i = 0; i <= trades.length; i++) {
-      let trade = trades[i]
-      trade.status = "rejected"
-      trade.save()
+        t.status = 'rejected'
+
+        t.save()
+      }
+    }
+    else {
+      return
+
     }
   }
   async makeTradeRequest(formData) {
@@ -82,7 +95,6 @@ class TradeService {
   }
   async deleteTrade(id) {
     const trade = await dbContext.TradeRequest.findById(id)
-    logger.log(trade)
     // @ts-ignore
     trade.remove()
     return trade
