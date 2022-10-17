@@ -16,7 +16,7 @@ class MarketplaceService {
     AppState.receivedTrades = res.data
   }
   async changeStatus(id, status) {
-    const res = await api.put(`api/trade/` + id, status)
+    const res = await api.put(`api/trade/` + id, { status })
     console.log('changeStatus', res.data);
   }
 }

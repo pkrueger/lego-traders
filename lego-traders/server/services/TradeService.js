@@ -1,4 +1,5 @@
 
+
 import { dbContext } from "../db/DbContext.js"
 import { BadRequest } from "../utils/Errors.js"
 import { logger } from "../utils/Logger.js"
@@ -9,9 +10,9 @@ class TradeService {
   async tradeResponse(id, status) {
     const trade = await dbContext.TradeRequest.findById(id)
     if (!trade) { throw new BadRequest('Bad Trade ID') }
-    logger.log(status.toString())
+    logger.log(status)
 
-    trade.status = status.toString()
+    trade.status = status.status
 
     if (trade.status == 'accepted') {
 
@@ -19,12 +20,13 @@ class TradeService {
       if (!offeredSet) { throw new BadRequest('Bad LegoSet ID') }
       const requestedSet = await dbContext.LegoSets.findById(trade.requestedSetId)
       if (!requestedSet) { throw new BadRequest('Bad LegoSet ID') }
-
-      this.rejectOtherOffered(trade.offeredSetId)
-      this.rejectOtherRequested(trade.requestedSetId)
+      // this.rejectOtherOffered(trade.offeredSetId, trade.id)
+      // this.rejectOtherRequested(trade.requestedSetId)
 
       offeredSet.ownerId = trade.requestedAccountId
+      offeredSet.isUpForTrade = false
       requestedSet.ownerId = trade.ownerId
+      requestedSet.isUpForTrade = false
 
       offeredSet.save()
       requestedSet.save()
@@ -36,21 +38,23 @@ class TradeService {
   //if there is a status of pending on any other trade requests iwth the same requestedSetId set them too rejected
   // also check offeredSetID and set other trades to rejected
 
-  async rejectOtherOffered(offeredSetId) {
-    const trades = await dbContext.TradeRequest.find({ offeredSetId })
+  async rejectOtherOffered(offeredSetId, id) {
+    let trades = await dbContext.TradeRequest.find({ offeredSetId })
+    trades = trades.filter(t => t.id != id)
     if (!trades) { return }
-    let i = 0
-    for (i; i <= trades.length; i++) {
+
+    for (let i = 0; i <= trades.length; i++) {
       let trade = trades[i]
       trade.status = 'rejected'
       trade.save()
     }
   }
-  async rejectOtherRequested(requestedSetId) {
-    const trades = await dbContext.TradeRequest.find({ requestedSetId })
+  async rejectOtherRequested(requestedSetId, id) {
+    let trades = await dbContext.TradeRequest.find({ requestedSetId })
+    trades = trades.filter(t => t.id != id)
     if (!trades) { return }
-    let i = 0
-    for (i; i <= trades.length; i++) {
+
+    for (let i = 0; i <= trades.length; i++) {
       let trade = trades[i]
       trade.status = 'rejected'
       trade.save()

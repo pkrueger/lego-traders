@@ -28,14 +28,14 @@
                         :alt="t.requestedSet.name" :title="t.requestedSet.name">
                     </p>
                     <p>
-                      Status: {{t.status}}
+                      Status: {{t.status}} <i class="mdi mdi-note"></i>
 
                     </p>
                     <p>
                       Offered Set: <img class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
                         :title="t.offeredSet.name">
                     </p>
-
+                    <i class="mdi mdi-close text-danger" @click="removeTrade(t.id)"></i>
                   </div>
                 </div>
                 <div>
@@ -43,18 +43,22 @@
                   <div v-for="t in receivedTrades" class="d-flex justify-content-around">
 
                     <p>
-                      Requested Set: <img class="me-auto" height="30" :src="t.requestedSet.set_img_url"
-                        :alt="t.requestedSet.name" :title="t.requestedSet.name">
-                    </p>
-                    <p>
-                      <button @click="changeStatus(t.id, 'accepted')">Accept</button>
-                      <button @click="changeStatus(t.id, 'rejected')">Reject</button>
-                    </p>
-                    <p>
                       Offered Set: <img class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
                         :title="t.offeredSet.name">
                     </p>
-
+                    <p v-if="t.status == 'pending'">
+                      <button @click="changeStatus(t.id, 'accepted')">Accept</button>
+                      <button @click="changeStatus(t.id, 'rejected')">Reject</button>
+                    </p>
+                    <p v-else>
+                      Status: {{t.status}}
+                    </p>
+                    <p>
+                      Requested Set:
+                      <img class="me-auto" height="30" :src="t.requestedSet.set_img_url" :alt="t.requestedSet.name"
+                        :title="t.requestedSet.name">
+                    </p>
+                    <i v-if="t.status != 'pending'" class="mdi mdi-close text-danger" @click="removeTrade(t.id)"></i>
                   </div>
                 </div>
               </div>
