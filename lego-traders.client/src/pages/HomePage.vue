@@ -3,6 +3,7 @@
     <div class="row justify-content-center">
       <div class="col-10 my-5 text-center bg-light p-5">
         <img src="../assets/img/welcome banner.png" alt="welcome banner">
+        <h1 class="text-dark">I Know this sucks dont judge</h1>
       </div>
     </div>
     <div class="row">

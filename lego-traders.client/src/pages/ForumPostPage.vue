@@ -26,7 +26,7 @@
           <div class="col-md-2">
             <div class="my-3"><button class="btn btn-warning" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapseCommentForm" aria-expanded="false" aria-controls="collapseCommentForm">
-                Button with data-bs-target
+                Post a Comment
               </button></div>
           </div>
         </div>
