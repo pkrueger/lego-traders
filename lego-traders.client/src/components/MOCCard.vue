@@ -1,9 +1,8 @@
 <template>
-  <div class="card">
-    <router-link
-      :to="{ name: 'MOCSteps', params: { mocId: mocSet.id } }"
-    ></router-link>
-    <img :src="mocSet.moc_img" :alt="mocSet.name" class="card-img-top" />
+  <div class="p-3 bg-dark rounded">
+    <router-link :to="{ name: 'MOCSteps', params: { mocId: mocSet.id } }">
+      <img :src="mocSet.moc_img" :alt="mocSet.name" class="card-img-top" />
+    </router-link>
   </div>
 </template>
 
@@ -19,4 +18,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>

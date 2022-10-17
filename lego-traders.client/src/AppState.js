@@ -17,7 +17,7 @@ export const AppState = reactive({
   activeLegoSet: {},
   activeApiSet: [],
   activeApiSetParts: [],
-  activeMOCset: [],
+  activeMOCset: {},
   nextPage: null,
   previousPage: null,
   activeCollection: null,
