@@ -15,7 +15,7 @@ class MarketplaceService {
   }
   async getReceivedTrades() {
     const res = await api.get('api/trade/received')
-    console.log('getreceivedTrades', res.data);
+    console.log('getReceivedTrades', res.data);
     AppState.receivedTrades = res.data
   }
   async changeStatus(id, status) {
