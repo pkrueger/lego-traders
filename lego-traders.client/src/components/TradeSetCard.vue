@@ -2,20 +2,25 @@
   <div class="trade-set card">
     <div class="card-header">{{legoSet.name}}</div>
     <div class="card-body">
-      <img :src="legoSet.set_img_url" class="img-fluid set-img" alt="">
-      <div class="card-footer d-flex align-items-center justify-content-between">
 
-        <img :src="legoSet.owner.picture" class="owner-img" alt="">
-        <p class="pt-3">{{legoSet.owner.name}}'s</p>
-        <!-- <button type="button" v-if="legoSet.ownerId != account.id" class="btn btn-primary"
+
+      <img :src="legoSet.set_img_url" class="img-fluid set-img" alt="">
+      <div v-if="account.id != legoSet.ownerId" class="justify-content-center">
+        <p class="mb-0">Owned by</p>
+        <img :src="legoSet.owner.picture" :title="legoSet.owner.name" class="owner-img" alt="">
+      </div>
+
+      <!-- <button type="button" v-if="legoSet.ownerId != account.id" class="btn btn-primary"
           @click="makeSetActive(legoSet)" data-bs-toggle="modal" data-bs-target="#exampleModal">
           Make Offer
         </button> -->
-        <button v-if="legoSet.ownerId == account.id" type="button" data-bs-dismiss="modal"
-          @click="offerTrade(legoSet)">Offer
-          Set</button>
-
+      <div v-if="legoSet.ownerId == account.id" class="form-check d-flex justify-content-between align-items-center">
+        <label class="form-check-label me-5" for="flexCheckDefault">
+          Mark for trade
+        </label>
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
       </div>
+
     </div>
   </div>
 </template>
@@ -36,18 +41,7 @@ export default {
       account: computed(() => AppState.account),
 
 
-      async offerTrade(legoSet) {
-        try {
-          let formData = {}
 
-          formData.requestedSetId = AppState.activeLegoSet.id
-          formData.offeredSetId = legoSet.id
-          formData.requestedAccountId = AppState.activeLegoSet.ownerId
-          await marketplaceService.offerTrade(formData)
-        } catch (error) {
-          Pop.error(error, '[offeringTrade]')
-        }
-      }
     };
   },
 }
@@ -63,5 +57,9 @@ export default {
 .set-img {
   height: 10vh;
   margin-bottom: 1rem;
+}
+
+.trade-set {
+  height: 25vh
 }
 </style>
