@@ -2,6 +2,13 @@ import { dbContext } from "../db/DbContext.js"
 import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class MocsService {
+  async addStep(body, mocId, userInfo) {
+    const moc = await this.getMocById(mocId)
+    if (moc.creatorId != userInfo.id) {
+      throw new Forbidden('This is Not your Moc you cannot add a step')
+    }
+    moc.moc_steps.push(body)
+  }
   async removeMoc(mocId, userInfo) {
     const moc = await this.getMocById(mocId)
     if (moc.creatorId != userInfo.id) {

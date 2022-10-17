@@ -15,10 +15,29 @@
       </div>
       <MOCStepCard v-for="step in mocSet.moc_steps" :key="step.text" :step="step" />
       <div class="col-12 my-4">
+        <div class="bg-dark p-4 rounded">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Create a Step
+          </button>
+        </div>
+      </div>
+
+      <div class="col-12 my-4">
         <div class="bg-dark p-4 rounded d-flex justify-content-around align-items-center">
           <h1>By: {{mocSet.creator?.name}}</h1>
           <img :src="mocSet.creator?.picture" alt="Creator Picture" class="img-fluid profile-img">
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Add a Picture and Directions</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <MOCFormStep />
       </div>
     </div>
   </div>
@@ -32,6 +51,7 @@ import { AppState } from '../AppState.js';
 import { mocsService } from '../services/MocsService.js';
 import Pop from '../utils/Pop.js';
 import MOCStepCard from '../components/MOCStepCard.vue';
+import MOCFormStep from '../components/MOCFormStep.vue';
 
 export default {
   setup() {
@@ -51,7 +71,7 @@ export default {
       mocSet: computed(() => AppState.activeMOCset)
     };
   },
-  components: { MOCStepCard }
+  components: { MOCStepCard, MOCFormStep }
 };
 </script>
 

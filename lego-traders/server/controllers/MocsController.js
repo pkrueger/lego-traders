@@ -10,7 +10,16 @@ export class MocsController extends BaseController {
       .get('/set/:set_num', this.getMocsBySetNum)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createMoc)
+      .put('/:mocId', this.addStep)
       .delete('/:mocId', this.removeMoc)
+  }
+  async addStep(req, res, next) {
+    try {
+      const moc = await mocsService.addStep(req.body, req.params.mocId, req.userInfo)
+      res.send(moc)
+    } catch (error) {
+      next(error)
+    }
   }
   async removeMoc(req, res, next) {
     try {

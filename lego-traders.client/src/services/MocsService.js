@@ -3,8 +3,13 @@ import { Moc } from "../models/Moc.js"
 import { api } from "./AxiosService.js"
 
 class MocsService {
-  async createMoc(MocData) {
-    const res = await api.post(`/api/mocs`, MocData)
+  async createStep(id, stepData) {
+    const res = await api.put(`/api/mocs/${id}`, stepData)
+    console.log(res.data)
+    AppState.activeMOCset = res.data
+  }
+  async createMoc(mocData) {
+    const res = await api.post(`/api/mocs`, mocData)
     console.log(res.data)
     AppState.customMOCSets.unshift(res.data)
   }

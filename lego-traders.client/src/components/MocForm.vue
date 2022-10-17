@@ -1,6 +1,6 @@
 <template>
-  <div class="modal-body">
-    <form @submit.prevent="handleSubmit()">
+  <form @submit.prevent="handleSubmit()">
+    <div class="modal-body">
       <div class="mb-3">
         <div class="flex-grow-1">
           <input type="text" class="form-control" id="name" v-model="editable.name"
@@ -17,30 +17,12 @@
         <textarea type="text" class="form-control" id="desc" v-model="editable.desc" placeholder="description" rows="3"
           required aria-label="comment body"></textarea>
       </div>
-      <!-- STEPS -->
-
-      <div class="moc-steps">
-        <div hidden>
-          <MOCFormStep @saveStep="editable.moc_steps.push($event)" />
-
-        </div>
-        <MOCFormStep @saveStep="editable.moc_steps.push($event)" />
-        <MOCFormStep @saveStep="editable.moc_steps.push($event)" />
-        <MOCFormStep @saveStep="editable.moc_steps.push($event)" />
-        <MOCFormStep @saveStep="editable.moc_steps.push($event)" />
-      </div>
-      <div class="mb-3 d-flex justify-content-end">
-        <button @click="addStep()" type="button" class="btn btn-success" aria-label="AddStep">Add Step</button>
-      </div>
-
-
-
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-    <button type="button" class="btn btn-primary">Understood</button>
-  </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Create</button>
+    </div>
+  </form>
 </template>
 
 
