@@ -19,71 +19,56 @@
           <!-- another way is a front end filter on the array legoSets, so isUpTrade, name, year, themeIDm set_num -->
           <div>
             <div class="form-check">
-              <input @click="getChecked" class="form-check-input" type="checkbox" name="setName" id="setName">
-              <label class="form-check-label" for="name">
+              <input @click="getNameChecked" class="form-check-input" type="checkbox" name="setName" id="setName">
+              <label class="form-check-label" for="setName">
                 By name
               </label>
             </div>
             <div>
               <div class="input-group input-group-sm mb-4">
-                <input id="nameSearchBar" v-model="editable.name" style="display: none" type="text" class="form-control"
+                <input id="nameSearchBar" v-model="editable" style="display: none" type="text" class="form-control"
                   aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                <!-- <span class="input-group-text" id="inputGroup-sizing-sm">Name</span> -->
               </div>
             </div>
-            <!-- <div v-if="checked" >
+          </div>
+          <div>
+            <div class="form-check">
+              <input @click="getYearChecked" class="form-check-input" type="checkbox" name="setYear" id="setYear">
+              <label class="form-check-label" for="setYear">
+                By year
+              </label>
+            </div>
+            <div>
               <div class="input-group input-group-sm mb-4">
-                <span class="input-group-text" id="inputGroup-sizing-sm">Name</span>
-                <input type="text" class="form-control" v-model="editable.name" aria-label="Sizing example input"
-                  aria-describedby="inputGroup-sizing-sm">
+                <input id="yearSearchBar" v-model="editable.year" style="display: none" type="text" class="form-control"
+                  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
               </div>
-            </div> -->
+            </div>
+          </div>
+          <div>
+            <div class="form-check">
+              <input @click="getNumChecked" class="form-check-input" type="checkbox" name="setNum" id="setNum">
+              <label class="form-check-label" for="setNum">
+                By set number
+              </label>
+            </div>
+            <div>
+              <div class="input-group input-group-sm mb-4">
+                <input id="numSearchBar" v-model="editable.set_num" style="display: none" type="text"
+                  class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+              </div>
+            </div>
           </div>
 
 
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="setYear" id="year">
-            <label class="form-check-label" for="year">
-              By year
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="setNum" id="year">
-            <label class="form-check-label" for="year">
-              By set number
-            </label>
-          </div>
 
+          <button type="submit"> search</button>
+          <!-- </form> -->
         </div>
-
-        <!-- row of radio buttons -->
-        <!-- v-if label of name radio button is checked -->
-
-        <!-- v-if label of theme radio button is checked -->
-        <div class="input-group input-group-sm mb-4">
-          <span class="input-group-text" id="inputGroup-sizing-sm">Theme</span>
-          <input type="text" class="form-control" v-model="editable.themeId" aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-sm">
-        </div>
-        <!-- v-if label of set_num radio button is checked -->
-        <div class="input-group input-group-sm mb-4">
-          <span class="input-group-text" id="inputGroup-sizing-sm">Set #</span>
-          <input type="text" class="form-control" v-model="editable.set_num" aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-sm">
-        </div>
-        <!-- v-if label of year radio button is checked -->
-        <div class="input-group input-group-sm mb-4">
-          <span class="input-group-text" id="inputGroup-sizing-sm">Year</span>
-          <input type="text" class="form-control" v-model="editable.year" aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-sm">
-        </div>
-        <button type="submit"> search</button>
-        <!-- </form> -->
       </div>
     </div>
+    <TradeModal />
   </div>
-
-  <TradeModal />
 </template>
 
 <script>
@@ -113,7 +98,7 @@ export default {
     }
     return {
       editable,
-      getChecked() {
+      getNameChecked() {
         let checkBox = document.getElementById('setName');
         let nameSearch = document.getElementById('nameSearchBar');
         if (checkBox.checked == true) {
@@ -122,6 +107,25 @@ export default {
           nameSearch.style.display = 'none'
         }
       },
+      getYearChecked() {
+        let checkBox = document.getElementById('setYear');
+        let yearSearch = document.getElementById('yearSearchBar');
+        if (checkBox.checked == true) {
+          yearSearch.style.display = "block";
+        } else {
+          yearSearch.style.display = 'none'
+        }
+      },
+      getNumChecked() {
+        let checkBox = document.getElementById('setNum');
+        let numSearch = document.getElementById('numSearchBar');
+        if (checkBox.checked == true) {
+          numSearch.style.display = "block";
+        } else {
+          numSearch.style.display = 'none'
+        }
+      },
+
 
       // tradableSet: computed(() =>
       //   AppState.tradableSet.filter((s) => (s.ownerId != AppState.account.id)) && AppState.tradableSet.includes(editable.value))
