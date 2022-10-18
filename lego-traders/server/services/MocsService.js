@@ -3,11 +3,13 @@ import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class MocsService {
   async addStep(body, mocId, userInfo) {
-    const moc = await this.getMocById(mocId)
-    if (moc.creatorId != userInfo.id) {
+    const thisMoc = await this.getMocById(mocId)
+    if (thisMoc.creatorId != userInfo.id) {
       throw new Forbidden('This is Not your Moc you cannot add a step')
     }
-    moc.moc_steps.push(body)
+    thisMoc.moc_steps.push(body)
+    await thisMoc.save()
+    return thisMoc
   }
   async removeMoc(mocId, userInfo) {
     const moc = await this.getMocById(mocId)
