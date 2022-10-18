@@ -1,7 +1,6 @@
 <template>
   <div class="container-fluid">
     <div class="row mt-3">
-      <!-- <UserDetails :account="account" /> -->
       <div class="col-md-11 d-flex">
         <div class="row">
 
@@ -26,14 +25,13 @@
                     <p>
                       Requested Set: <img class="me-auto" height="30" :src="t.requestedSet.set_img_url"
                         :alt="t.requestedSet.name" :title="t.requestedSet.name">
+                      <span v-if="t.body" class="field-tip">
+                        <i class="mdi mdi-note-outline"></i>
+                        <span class="tip-content">{{t.body}}</span>
+                      </span>
                     </p>
                     <p>
                       Status: {{t.status}}
-                      <span v-if="t.body" class="field-tip">
-                        <i class="mdi mdi-note"></i>
-                        <span class="tip-content">{{t.body}}</span>
-                      </span>
-
                     </p>
                     <p>
                       Offered Set: <img class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
@@ -49,6 +47,10 @@
                     <p>
                       Offered Set: <img class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
                         :title="t.offeredSet.name">
+                      <span v-if="t.body" class="field-tip">
+                        <i class="mdi mdi-note-outline"></i>
+                        <span class="tip-content">{{t.body}}</span>
+                      </span>
                     </p>
                     <p v-if="t.status == 'pending'">
                       <button @click="changeStatus(t.id, 'accepted')">Accept</button>
@@ -56,10 +58,6 @@
                     </p>
                     <p v-else>
                       Status: {{t.status}}
-                      <span v-if="t.body" class="field-tip">
-                        <i class="mdi mdi-note"></i>
-                        <span class="tip-content">{{t.body}}</span>
-                      </span>
                     </p>
                     <p>
                       Requested Set:
@@ -115,7 +113,7 @@
 </template>
 
 <script>
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, watchEffect } from 'vue'
 import { AppState } from '../AppState'
 import AccountModal from '../components/AccountModal.vue';
 import LegoSetCard from '../components/LegoSetCard.vue';
@@ -137,6 +135,12 @@ export default {
         Pop.error('[getSentTrades]', error)
       }
     }
+    watchEffect(() => {
+      AppState.sentTrades
+      AppState.receivedTrades
+      AppState.myLegoSets
+
+    })
     onMounted(() => {
       getSentTrades()
       getReceivedTrades()
