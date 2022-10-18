@@ -5,12 +5,15 @@
         <h5 class="offcanvas-title" id="offcanvasRightLabel">Trade Chat</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
-      <div class="offcanvas-body">
+      <div class="offcanvas-body d-flex flex-column justify-content-between">
         <!-- NOTE chat comments go here -->
-        <ChatComment v-for="c in comments" :key="c.id" :comment="c" />
-        <form @submit.prevent="handleSubmit()">
+        <div>
+          <ChatComment v-for="c in comments" :key="c.id" :comment="c" />
 
-          <div class="input-group mb-3 align-self-end">
+        </div>
+        <form class="flex-end" @submit.prevent="handleSubmit()">
+
+          <div class="input-group mb-3">
             <input type="text" class="form-control" v-model="editable.body" placeholder="What you say?!"
               aria-label="Recipient's username" aria-describedby="button-addon2">
             <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Button</button>
