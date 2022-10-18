@@ -9,5 +9,12 @@ class NotificationsService {
     logger.log(res.data);
     AppState.notifications = res.data.map((n) => new Notification(n));
   }
+  async sendPendingTradeNote(trade) {
+    const res = await api.post("/api/notifications", {
+      receiverId: trade.requestedAccountId,
+      type: "trade-pending",
+      body: `${trade.owner.name} has requested a trade with you.`,
+    });
+  }
 }
 export const notificationsService = new NotificationsService();
