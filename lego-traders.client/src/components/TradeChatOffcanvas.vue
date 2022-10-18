@@ -10,31 +10,29 @@
         <ChatComment v-for="c in comments" :key="c.id" :comment="c" />
       </div>
     </div>
+    <div class="offcanvas-footer">
+      Test!
+    </div>
 
   </div>
 </template>
 
 
 <script>
+import { computed } from '@vue/reactivity';
 import { onMounted } from 'vue';
+import { AppState } from '../AppState.js';
 import { commentsService } from '../services/CommentsService.js';
 import Pop from '../utils/Pop.js';
 import ChatComment from './ChatComment.vue';
 export default {
   setup() {
-    onMounted(() => {
-      getTradeChatComments()
-    })
 
-    async function getTradeChatComments() {
-      try {
-        await commentsService.getTradeChatComments(route.params.tradeId)
-      } catch (error) {
-        Pop.error(error, '[gettingTradeComments]')
+    return {
+      activeTrade: computed(() => AppState.activeTrade),
+      comments: computed(() => AppState.comments)
 
-      }
-    }
-    return {};
+    };
   },
   components: { ChatComment }
 }

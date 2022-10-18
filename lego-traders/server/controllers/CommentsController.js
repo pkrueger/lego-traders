@@ -8,10 +8,20 @@ export class CommentsController extends BaseController {
     this.router
       .get('/forum/:postId', this.getCommentsByPostId)
       .get('/sets/:set_num', this.getCommentsBySetNum)
+      .get('trade/:tradeId', this.getCommentsByTradeId)
       .get('/:commentId', this.getCommentById)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createComment)
       .delete('/:commentId', this.deleteComment)
+  }
+  async getCommentsByTradeId(req, res, next) {
+    try {
+      const comments = await commentsService.getCommentByTradeId(req.params.tradeId)
+      res.send(comments)
+    } catch (error) {
+      next(error)
+    }
+
   }
   async getCommentById(req, res, next) {
     try {

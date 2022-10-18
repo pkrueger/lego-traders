@@ -10,7 +10,7 @@ export class AccountController extends BaseController {
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get("", this.getUserAccount)
-      .get("/notifications")
+      .get("/notifications", this.getNotificationsByAccountId)
       .put("", this.updateUserAccount)
       .post("/sets", this.createLegoSet);
   }
@@ -33,7 +33,7 @@ export class AccountController extends BaseController {
     }
   }
 
-  async getNotifcationsByAccountId(req, res, next) {
+  async getNotificationsByAccountId(req, res, next) {
     try {
       const notifications =
         await notificationsService.getNotificationsByAccountId(req.userInfo.id);

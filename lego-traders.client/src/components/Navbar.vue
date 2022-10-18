@@ -60,9 +60,25 @@
           </li>
         </ul>
         <!-- NOTIFICATIONS GO HERE-->
-        <button class="btn text-white me-3">
-          <i class="fa-solid fa-bell fs-2 text-shadow"></i>
-        </button>
+        <div class="dropdown">
+          <button
+            class="btn text-white me-3"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i
+              class="fa-solid fa-bell fs-2 text-shadow"
+              title="Notifications"
+              aria-label="Notification tray"
+            ></i>
+          </button>
+          <ul class="dropdown-menu">
+            <li v-for="n in state.notifications">
+              <Notification :key="n.id" :notification="n" />
+            </li>
+          </ul>
+        </div>
         <!-- LOGIN COMPONENT GO HERE -->
         <Login />
       </div>
@@ -74,6 +90,7 @@
 import { computed, reactive } from "@vue/reactivity";
 import { AppState } from "../AppState.js";
 import Login from "./Login.vue";
+import Notification from "./Notification.vue";
 export default {
   setup() {
     const state = reactive({
@@ -81,7 +98,7 @@ export default {
     });
     return { state };
   },
-  components: { Login },
+  components: { Login, Notification },
 };
 </script>
 

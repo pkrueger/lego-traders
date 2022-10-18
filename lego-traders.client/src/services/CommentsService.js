@@ -19,7 +19,11 @@ class CommentsService {
     const res = await api.get(`/api/comments/forum/${id}`)
     AppState.comments = res.data
   }
-  
+ async getTradeComments(id){
+  const res = await api.get(`/api/comments/trade/${id}`)
+  AppState.comments = res.data
+ }
+
 }
 
 export const commentsService = new CommentsService()

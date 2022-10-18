@@ -18,6 +18,17 @@ class CommentsService {
     await comment.save()
     return comment
   }
+
+  //TODO We could combine these gets to one get using params
+  async getCommentByTradeId(tradeId) {
+    const comments = await dbContext.Comments.find({ tradeId }).populate('creator', 'name picture')
+    if (!comments) {
+      throw new BadRequest('Invalid or Bad SetNum')
+    }
+    return comments
+  }
+
+
   async getCommentsBySetNum(set_num) {
     const comments = await dbContext.Comments.find({ set_num }).populate('creator', 'name picture')
     if (!comments) {
