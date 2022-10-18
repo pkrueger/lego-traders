@@ -15,10 +15,14 @@ class CommentsService {
   async createComment(commentData) {
     const comment = await dbContext.Comments.create(commentData)
     await comment.populate('creator', 'name picture')
+    await comment.save()
     return comment
   }
   async getCommentsBySetNum(set_num) {
-    const comments = await dbContext.Comments.find({ set_num })
+    const comments = await dbContext.Comments.find({ set_num }).populate('creator', 'name picture')
+    if (!comments) {
+      throw new BadRequest('Invalid or Bad SetNum')
+    }
     return comments
   }
   async getCommentsByPostId(postId) {

@@ -18,7 +18,7 @@ import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { AppState } from '../AppState.js';
 import { AuthService } from '../services/AuthService.js';
-import { forumPostsService } from '../services/ForumPostsService.js';
+import { commentsService } from '../services/commentsService.js';
 import Pop from '../utils/Pop.js';
 
 export default {
@@ -33,7 +33,7 @@ export default {
           //   return AuthService.loginWithRedirect()
           // }
           editable.value.postId = route.params.postId
-          await forumPostsService.createComment(editable.value)
+          await commentsService.createComment(editable.value)
           Pop.success('You made a Post!')
         } catch (error) {
           Pop.error('[CreateComment]', error)
