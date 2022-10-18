@@ -16,25 +16,23 @@
 
 
 <script>
+import { computed } from '@vue/reactivity';
 import { onMounted } from 'vue';
+import { AppState } from '../AppState.js';
 import { commentsService } from '../services/CommentsService.js';
 import Pop from '../utils/Pop.js';
 import ChatComment from './ChatComment.vue';
 export default {
   setup() {
     onMounted(() => {
-      getTradeChatComments()
+      getTradeComments()
     })
+    async function getTradeComments() {
 
-    // async function getTradeChatComments() {
-    //   try {
-    //     await commentsService.getTradeChatComments()
-    //   } catch (error) {
-    //     Pop.error(error, '[gettingTradeComments]')
-
-    //   }
-    // }
-    return {};
+    }
+    return {
+      activeTrade: computed(() => AppState.activeTrade)
+    };
   },
   components: { ChatComment }
 }
