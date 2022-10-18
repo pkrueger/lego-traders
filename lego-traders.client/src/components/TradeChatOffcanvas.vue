@@ -17,7 +17,7 @@
 
 <script>
 import { onMounted } from 'vue';
-import { commentsService } from '../services/commentsService.js';
+import { commentsService } from '../services/CommentsService.js';
 import Pop from '../utils/Pop.js';
 import ChatComment from './ChatComment.vue';
 export default {
