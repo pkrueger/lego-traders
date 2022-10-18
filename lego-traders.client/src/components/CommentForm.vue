@@ -18,7 +18,7 @@ import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { AppState } from '../AppState.js';
 import { AuthService } from '../services/AuthService.js';
-import { commentsService } from '../services/commentsService.js';
+import { commentsService } from '../services/CommentsService.js';
 import Pop from '../utils/Pop.js';
 
 export default {

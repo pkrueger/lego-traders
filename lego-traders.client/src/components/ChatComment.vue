@@ -22,7 +22,7 @@
 
 <script>
 import { AppState } from '../AppState.js'
-import { commentsService } from '../services/commentsService.js'
+import { commentsService } from '../services/CommentsService.js'
 
 export default {
   props: {

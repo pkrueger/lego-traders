@@ -23,7 +23,7 @@
 <script>
 import { computed } from '@vue/reactivity';
 import { AppState } from '../AppState.js';
-import { commentsService } from '../services/commentsService.js';
+import { commentsService } from '../services/CommentsService.js';
 import Pop from '../utils/Pop.js';
 
 export default {
