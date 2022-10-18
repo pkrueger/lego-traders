@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { computed } from "@vue/reactivity";
+import { computed, reactive } from "@vue/reactivity";
 import { AppState } from "../AppState.js";
 import Login from "./Login.vue";
 export default {
