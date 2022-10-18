@@ -5,7 +5,7 @@
         <h5 class="offcanvas-title" id="offcanvasRightLabel">Trade Chat</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
-      <div class="offcanvas-body d-flex">
+      <div class="offcanvas-body">
         <!-- NOTE chat comments go here -->
         <ChatComment v-for="c in comments" :key="c.id" :comment="c" />
         <form @submit.prevent="handleSubmit()">
@@ -45,7 +45,7 @@ export default {
           if (!AppState.account.id) {
             return AuthService.loginWithRedirect()
           }
-          editable.value.tradeId = tradeId
+          editable.value.tradeId = AppState.activeTrade.id
           await commentsService.createComment(editable.value)
         } catch (error) {
           Pop.error(error)

@@ -95,7 +95,7 @@ export default {
 
       async getTradeComments(trade) {
         try {
-          const tradeId = trade.id
+          AppState.activeTrade = trade
           await commentsService.getTradeComments(trade.id)
         } catch (error) {
           Pop.error(error)
