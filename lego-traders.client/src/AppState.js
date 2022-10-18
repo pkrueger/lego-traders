@@ -16,6 +16,7 @@ export const AppState = reactive({
   apiSets: [],
   activeLegoSet: {},
   activeApiSet: [],
+  notifications: [],
   activeApiSetParts: [],
   activeMOCset: {},
   nextPage: null,
@@ -31,7 +32,6 @@ export const AppState = reactive({
   activeCustomMOCSet: null,
 
   myLegoSets: [],
-
 
   sentTrades: [],
   receivedTrades: [],

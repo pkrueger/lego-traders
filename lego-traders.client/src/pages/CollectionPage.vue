@@ -140,7 +140,7 @@ export default {
   height: 30vh;
   max-width: 30vh;
   border-radius: 50%;
-  background-size: cover;
+  object-fit: fill;
   margin-top: 5vh;
   margin-inline: 10vh;
 }
