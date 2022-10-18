@@ -8,7 +8,7 @@
         <strong>Sent</strong>
         <div v-for="t in sentTrades" class="d-flex justify-content-around">
           <img aria-controls="offcanvasRight" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-            class="selectable" :src="t.requestedAccount.picture" height="40" alt="">
+            class="selectable" :src="t.requestedAccount.picture" height="40" alt="" @click="setActiveTrade(t)">
           <p>
             Requested Set: <img class="me-auto" height="30" :src="t.requestedSet.set_img_url" :alt="t.requestedSet.name"
               :title="t.requestedSet.name">
@@ -30,7 +30,7 @@
       <div>
         <strong>Requested</strong>
         <div v-for="t in receivedTrades" class="d-flex justify-content-around">
-          <img :src="t.owner.picture" height="40" alt="">
+          <img :src="t.owner.picture" height="40" alt="" @click="setActiveTrade(t)">
           <p>
             Offered Set: <img class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
               :title="t.offeredSet.name">
@@ -88,6 +88,9 @@ export default {
         catch (error) {
           Pop.error("[changeStatus]", error);
         }
+      },
+      setActiveTrade(trade) {
+        AppState.activeTrade = trade
       }
     };
   },

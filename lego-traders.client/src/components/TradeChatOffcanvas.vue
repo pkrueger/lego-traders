@@ -26,14 +26,14 @@ export default {
       getTradeChatComments()
     })
 
-    async function getTradeChatComments() {
-      try {
-        await commentsService.getTradeChatComments(route.params.tradeId)
-      } catch (error) {
-        Pop.error(error, '[gettingTradeComments]')
+    // async function getTradeChatComments() {
+    //   try {
+    //     await commentsService.getTradeChatComments()
+    //   } catch (error) {
+    //     Pop.error(error, '[gettingTradeComments]')
 
-      }
-    }
+    //   }
+    // }
     return {};
   },
   components: { ChatComment }

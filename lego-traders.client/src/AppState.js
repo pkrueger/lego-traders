@@ -32,7 +32,7 @@ export const AppState = reactive({
 
 
   myLegoSets: [],
-
+  activeTrade: {},
   sentTrades: [],
   receivedTrades: [],
 });
