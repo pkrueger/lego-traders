@@ -12,9 +12,9 @@
           <p>
             Requested Set: <img class="me-auto" height="30" :src="t.requestedSet.set_img_url" :alt="t.requestedSet.name"
               :title="t.requestedSet.name">
-            <span v-if="t.body" class="field-tip">
+            <span v-if="t.body" class="message">
               <i class="mdi mdi-note-outline"></i>
-              <span class="tip-content">{{t.body}}</span>
+              <span class="message-body">{{t.body}}</span>
             </span>
           </p>
           <p>
@@ -35,9 +35,9 @@
           <p>
             Offered Set: <img class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
               :title="t.offeredSet.name">
-            <span v-if="t.body" class="field-tip">
+            <span v-if="t.body" class="message">
               <i class="mdi mdi-note-outline"></i>
-              <span class="tip-content">{{t.body}}</span>
+              <span class="message-body">{{t.body}}</span>
             </span>
           </p>
           <p v-if="t.status == 'pending'">
@@ -109,7 +109,12 @@ export default {
 
 
 <style lang="scss" scoped>
-.field-tip .tip-content {
+.message {
+  position: relative;
+  cursor: pointer;
+}
+
+.message .message-body {
   position: absolute;
   top: -22px;
   /* - top padding */
@@ -132,7 +137,7 @@ export default {
 }
 
 /* <http://css-tricks.com/snippets/css/css-triangle/> */
-.field-tip .tip-content:before {
+.message .message-body:before {
   content: ' ';
   /* Must have content to display */
   position: absolute;
@@ -147,7 +152,7 @@ export default {
   border-right-color: #333;
 }
 
-.field-tip:hover .tip-content {
+.message:hover .message-body {
   right: -20px;
   opacity: 1;
 }
