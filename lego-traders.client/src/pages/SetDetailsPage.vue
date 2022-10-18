@@ -214,6 +214,7 @@ export default {
 .user-img {
   border-radius: 50%;
   max-width: 7vh;
+  min-height: 7vh;
 }
 
 .pointer {
