@@ -13,7 +13,7 @@ class NotificationsService {
     const res = await api.post("/api/notifications", {
       receiverId: trade.requestedAccountId,
       type: "trade-pending",
-      body: `${trade.owner.name} has requested a trade with you.`,
+      body: `Someone has requested a trade with you.`,
     });
   }
 }
