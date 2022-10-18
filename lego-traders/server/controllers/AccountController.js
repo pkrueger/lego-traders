@@ -1,6 +1,7 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import { accountService } from "../services/AccountService";
 import { legoSetsService } from "../services/LegoSetsService.js";
+import { notificationsService } from "../services/NotificationsService.js";
 import BaseController from "../utils/BaseController";
 
 export class AccountController extends BaseController {
@@ -9,6 +10,7 @@ export class AccountController extends BaseController {
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get("", this.getUserAccount)
+      .get("/notifications")
       .put("", this.updateUserAccount)
       .post("/sets", this.createLegoSet);
   }
@@ -16,7 +18,7 @@ export class AccountController extends BaseController {
     try {
       req.body.ownerId = req.userInfo.id;
       const LegoSet = await legoSetsService.createLegoSet(req.body);
-      res.send(LegoSet)
+      res.send(LegoSet);
     } catch (error) {
       next(error);
     }
@@ -26,6 +28,16 @@ export class AccountController extends BaseController {
     try {
       const account = await accountService.getAccount(req.userInfo);
       res.send(account);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getNotifcationsByAccountId(req, res, next) {
+    try {
+      const notifications =
+        await notificationsService.getNotificationsByAccountId(req.userInfo.id);
+      res.send(notifications);
     } catch (error) {
       next(error);
     }
