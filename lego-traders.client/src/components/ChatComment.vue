@@ -21,6 +21,9 @@
 
 
 <script>
+import { AppState } from '../AppState.js'
+import { commentsService } from '../services/commentsService.js'
+
 export default {
   props: {
     comment: {
@@ -35,7 +38,7 @@ export default {
         try {
           const yes = await Pop.confirm('Delete Your Comment')
           if (!yes) { return }
-          await setDetailsComments.removeComment(props.comment.id)
+          await commentsService.removeComment(props.comment.id)
         } catch (error) {
           Pop.error('[Remove Comment]', error)
         }
