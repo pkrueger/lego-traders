@@ -5,7 +5,11 @@ import { api } from "./AxiosService.js"
 class MocsService {
   async createStep(id, stepData) {
     const res = await api.put(`/api/mocs/${id}`, stepData)
-    console.log(res.data)
+    // console.log(res.data)
+    let moc = res.data
+    let mocIndex = AppState.customMOCSets.findIndex(m => m.id == id)
+    // console.log(mocIndex)
+    AppState.customMOCSets.splice(mocIndex, 1, moc)
     AppState.activeMOCset = res.data
   }
   async createMoc(mocData) {
@@ -15,7 +19,6 @@ class MocsService {
   }
   async getMocById(id) {
     const res = await api.get(`/api/mocs/${id}`)
-    console.log(res.data)
     AppState.activeMOCset = res.data
   }
   async getMocSets() {
