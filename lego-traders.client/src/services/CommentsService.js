@@ -7,7 +7,7 @@ class CommentsService {
   }
   async createComment(CommentData) {
     const res = await api.post(`/api/comments`, CommentData)
-    AppState.comments.unshift(res.data)
+    AppState.comments.push(res.data)
     return res.data
   }
   async getSetDetailsComments(set_num) {
