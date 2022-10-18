@@ -34,6 +34,24 @@
         </div>
       </div>
     </div>
+    <!-- Comments -->
+    <div class="row">
+      <div class="col-12">
+        <form @submit.prevent="handleSubmit">
+          <div class="p-3">
+            <label for="body"></label>
+            <textarea v-model="editable.body" placeholder="comments" class="form-control" style="height: 100px" required
+              minlength="1" maxlength="500"></textarea>
+          </div>
+          <div class="d-flex justify-content-end p-2">
+            <button class="btn btn-secondary">Post</button>
+          </div>
+        </form>
+        <div class="col-12">
+          <LegoSetComments v-for="c in comments" :key="c.id" :comment="c" />
+        </div>
+      </div>
+    </div>
   </div>
 
 
@@ -69,74 +87,102 @@
 
 
 <script>
-import { computed } from "@vue/reactivity";
+import { computed, ref } from "@vue/reactivity";
 import { onMounted } from "vue";
 import { legoSetsService } from "../services/LegoSetsService";
 import Pop from "../utils/Pop";
 import { AppState } from "../AppState"
 import { useRoute } from "vue-router";
+import { setDetailsComments } from "../services/SetDetailsComments";
+import LegoSetComments from "../components/LegoSetComments.vue";
 export default {
   setup() {
-    const route = useRoute()
+    const route = useRoute();
+    const editable = ref({ set_num: "" });
     onMounted(() => {
-      getSetAlternates()
-      getSetBySetNum()
-      getPartsBySetNum()
-    })
-
+      getSetAlternates();
+      getSetBySetNum();
+      getPartsBySetNum();
+      getSetDetailsComments();
+    });
     async function getSetAlternates() {
       try {
-        AppState.activeMOCset = []
-        await legoSetsService.getSetAlternates(route.params.set_num)
-      } catch (error) {
-        Pop.error(error, 'geting set alternates')
+        AppState.activeMOCset = [];
+        await legoSetsService.getSetAlternates(route.params.set_num);
+      }
+      catch (error) {
+        Pop.error(error, "geting set alternates");
       }
     }
-
     async function getSetBySetNum() {
       try {
-        AppState.activeApiSet = []
-        await legoSetsService.getSetBySetNum(route.params.set_num)
-      } catch (error) {
-        Pop.error(error, 'get set by setNum')
+        AppState.activeApiSet = [];
+        await legoSetsService.getSetBySetNum(route.params.set_num);
+      }
+      catch (error) {
+        Pop.error(error, "get set by setNum");
       }
     }
     async function getPartsBySetNum() {
       try {
-        await legoSetsService.getPartsBySetNum(route.params.set_num)
-      } catch (error) {
-        Pop.error(error, 'getting parts list')
+        await legoSetsService.getPartsBySetNum(route.params.set_num);
+      }
+      catch (error) {
+        Pop.error(error, "getting parts list");
       }
     }
-
+    async function getSetDetailsComments() {
+      try {
+        await setDetailsComments.getSetDetailsComments(route.params.set_num);
+      }
+      catch (error) {
+        Pop.error(error);
+      }
+    }
     return {
+      editable,
       legoSet: computed(() => AppState.activeApiSet),
       mocSets: computed(() => AppState.activeMOCset),
       setParts: computed(() => AppState.activeApiSetParts),
       nextPage: computed(() => AppState.nextPage),
       previousPage: computed(() => AppState.previousPage),
+      comments: computed(() => AppState.comments),
       async addSetToAccount(data) {
         try {
-          const yes = await Pop.confirm('Do you own this?', '')
+          const yes = await Pop.confirm("Do you own this?", "");
           if (!yes) {
-            await legoSetsService.addSetToAccount(data)
-          } else {
-            data.isOwned = true
-            await legoSetsService.addSetToAccount(data)
+            await legoSetsService.addSetToAccount(data);
           }
-        } catch (error) {
-          Pop.error('[addToAccount]', error)
+          else {
+            data.isOwned = true;
+            await legoSetsService.addSetToAccount(data);
+          }
+        }
+        catch (error) {
+          Pop.error("[addToAccount]", error);
         }
       },
       async goPageParts(url) {
         try {
           await legoSetsService.goPageParts(url);
-        } catch (error) {
+        }
+        catch (error) {
           Pop.error(error);
         }
       },
+      async handleSubmit() {
+        try {
+          editable.value.set_num = route.params.id;
+          await setDetailsComments.createComment(editable.value);
+          editable.value = {};
+        }
+        catch (error) {
+          Pop.error(error, "Submitting Form");
+        }
+      },
     };
-  }
+  },
+  components: { LegoSetComments }
 }
 </script>
 
