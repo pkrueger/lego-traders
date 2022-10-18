@@ -10,6 +10,9 @@
         <ChatComment v-for="c in comments" :key="c.id" :comment="c" />
       </div>
     </div>
+    <div class="offcanvas-footer">
+      Test!
+    </div>
 
   </div>
 </template>
@@ -24,14 +27,11 @@ import Pop from '../utils/Pop.js';
 import ChatComment from './ChatComment.vue';
 export default {
   setup() {
-    onMounted(() => {
-      getTradeComments()
-    })
-    async function getTradeComments() {
 
-    }
     return {
-      activeTrade: computed(() => AppState.activeTrade)
+      activeTrade: computed(() => AppState.activeTrade),
+      comments: computed(() => AppState.comments)
+
     };
   },
   components: { ChatComment }
