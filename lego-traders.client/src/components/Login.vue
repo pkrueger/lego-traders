@@ -1,5 +1,5 @@
 <template>
-  <span class="navbar-text">
+  <span class="navbar-text p-0">
     <button
       class="btn selectable text-success lighten-30 text-uppercase my-2 my-lg-0"
       @click="login"
@@ -26,7 +26,7 @@
         </div>
       </div>
       <div
-        class="dropdown-menu p-2 dropdown-menu-end me-1"
+        class="dropdown-menu mt-0 p-2 dropdown-menu-end me-1"
         aria-labelledby="authDropdown"
       >
         <router-link :to="{ name: 'Account' }">
