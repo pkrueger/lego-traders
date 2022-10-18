@@ -71,8 +71,8 @@ import TradeChatOffcanvas from './TradeChatOffcanvas.vue'
 
 export default {
   setup() {
-    const tradeId = 0
     return {
+
       sentTrades: computed(() => AppState.sentTrades),
       receivedTrades: computed(() => AppState.receivedTrades),
       async removeTrade(id) {
@@ -95,7 +95,7 @@ export default {
 
       async getTradeComments(trade) {
         try {
-          tradeId = trade.id
+          AppState.activeTrade = trade
           await commentsService.getTradeComments(trade.id)
         } catch (error) {
           Pop.error(error)
