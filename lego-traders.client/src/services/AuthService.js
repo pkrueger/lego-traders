@@ -32,8 +32,8 @@ AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async function () {
   // NOTE if there is something you want to do once the user is authenticated, place that here
   await legoSetsService.getMyLegoSets(AppState.account.id);
   await notificationsService.getMyNotifications(AppState.account.id);
-  // await marketplaceService.getSentTrades()
-  // await marketplaceService.getReceivedTrades(AppState.user.id)
+  await marketplaceService.getSentTrades();
+  await marketplaceService.getReceivedTrades();
 });
 
 async function refreshAuthToken(config) {
