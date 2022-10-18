@@ -98,9 +98,4 @@ main {
 img {
   max-width: 100px;
 }
-
-.field-tip {
-  position: relative;
-  cursor: pointer;
-}
 </style>
