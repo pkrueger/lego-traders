@@ -8,6 +8,7 @@ export class NotificationsController extends BaseController {
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get("/:notificationId", this.getNotificationById)
+      .post("", this.becomeNotified)
       .put("/:notificationId", this.flipItAndReverseHasSeen)
       .delete("/:notificationId", this.deathNote);
   }
@@ -17,6 +18,14 @@ export class NotificationsController extends BaseController {
         req.params.notificationId
       );
       res.send(notifications);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async becomeNotified(req, res, next) {
+    try {
+      const notification = await notificationsService.becomeNotified(req.body);
+      res.send(notification);
     } catch (error) {
       next(error);
     }

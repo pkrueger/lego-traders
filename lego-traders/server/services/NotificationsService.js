@@ -13,6 +13,11 @@ class NotificationsService {
     }
     return notification;
   }
+  async becomeNotified(data) {
+    const notification = await dbContext.Notifications.create(data);
+    return notification;
+  }
+
   async flipItAndReverseHasSeen(notificationId, accountId) {
     const notification = await this.getNotificationById(notificationId);
     if (notification.recipientId != accountId) {

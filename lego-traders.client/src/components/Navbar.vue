@@ -73,7 +73,7 @@
               aria-label="Notification tray"
             ></i>
           </button>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu dropdown-menu-end">
             <li v-for="n in state.notifications">
               <Notification :key="n.id" :notification="n" />
             </li>
@@ -166,5 +166,9 @@ a:hover {
   color: aliceblue;
   text-shadow: 1px 1px black, 0px 0px 5px rgba(0, 0, 0, 0.719);
   letter-spacing: 0.1rem;
+}
+
+.dropdown-menu {
+  width: 60ch;
 }
 </style>
