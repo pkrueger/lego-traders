@@ -12,7 +12,13 @@
           <h4>{{legoSet.num_parts}} pcs</h4>
         </div>
       </div>
-      <div class="d-flex justify-content-end">
+      <!-- Set Owners -->
+      <!-- <div class="col-12 d-flex">
+        <div v-for="o in owners" class="px-2 py-3">
+          <img :src="o.owner.picture" alt="user picture" class="user-img" :title="o.owner.name">
+        </div>
+      </div> -->
+      <div class="d-flex justify-content-end col-12">
         <button class="btn btn-primary" v-if="!legoSet.ownerId" @click="addSetToAccount(legoSet)">Add to
           Account</button>
         <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
@@ -29,7 +35,7 @@
           </a>
           <div class="card-body">
             <h5>{{m.name}} || {{m.num_parts}} pcs</h5>
-            <h>Designed by: <i>{{m.designer_name}}</i></h>
+            <h6>Designed by: <i>{{m.designer_name}}</i></h6>
           </div>
         </div>
       </div>
@@ -147,6 +153,7 @@ export default {
       nextPage: computed(() => AppState.nextPage),
       previousPage: computed(() => AppState.previousPage),
       comments: computed(() => AppState.comments),
+      // owners: computed(() => AppState.tradableSet),
       async addSetToAccount(data) {
         try {
           const yes = await Pop.confirm("Do you own this?", "");
@@ -172,7 +179,7 @@ export default {
       },
       async handleSubmit() {
         try {
-          editable.value.set_num = route.params.id;
+          editable.value.set_num = route.params.set_num;
           await setDetailsComments.createComment(editable.value);
           editable.value = {};
         }
@@ -199,6 +206,11 @@ export default {
 
 .part-img {
   max-width: 15vh;
+}
+
+.user-img {
+  border-radius: 50%;
+  max-width: 7vh;
 }
 
 .pointer {

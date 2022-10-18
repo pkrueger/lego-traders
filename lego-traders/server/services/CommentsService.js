@@ -15,6 +15,7 @@ class CommentsService {
   async createComment(commentData) {
     const comment = await dbContext.Comments.create(commentData)
     await comment.populate('creator', 'name picture')
+    await comment.save()
     return comment
   }
   async getCommentsBySetNum(set_num) {
