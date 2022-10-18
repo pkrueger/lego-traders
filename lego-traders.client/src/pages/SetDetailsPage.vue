@@ -13,11 +13,11 @@
         </div>
       </div>
       <!-- Set Owners -->
-      <!-- <div class="col-12 d-flex">
+      <div class="col-12 d-flex">
         <div v-for="o in owners" class="px-2 py-3">
           <img :src="o.owner.picture" alt="user picture" class="user-img" :title="o.owner.name">
         </div>
-      </div> -->
+      </div>
       <div class="d-flex justify-content-end col-12">
         <button class="btn btn-primary" v-if="!legoSet.ownerId" @click="addSetToAccount(legoSet)">Add to
           Account</button>
@@ -153,7 +153,7 @@ export default {
       nextPage: computed(() => AppState.nextPage),
       previousPage: computed(() => AppState.previousPage),
       comments: computed(() => AppState.comments),
-      // owners: computed(() => AppState.tradableSet),
+      owners: computed(() => AppState.tradableSet),
       async addSetToAccount(data) {
         try {
           const yes = await Pop.confirm("Do you own this?", "");

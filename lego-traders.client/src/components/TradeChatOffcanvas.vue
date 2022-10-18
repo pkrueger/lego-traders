@@ -7,6 +7,7 @@
       </div>
       <div class="offcanvas-body">
         <!-- NOTE chat comments go here -->
+        <ChatComment v-for="c in comments" :key="c.id" :comment="c" />
       </div>
     </div>
 
@@ -15,10 +16,24 @@
 
 
 <script>
+import { onMounted } from 'vue';
+import ChatComment from './ChatComment.vue';
 export default {
   setup() {
-    return {}
-  }
+    onMounted(() => {
+      getTradeChatComments()
+    })
+
+    async function getTradeChatComments() {
+      try {
+
+      } catch (error) {
+
+      }
+    }
+    return {};
+  },
+  components: { ChatComment }
 }
 </script>
 
