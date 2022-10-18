@@ -72,7 +72,7 @@ export default {
     return {
       editable,
       account: computed(() => AppState.account),
-      myLegoSets: computed(() => AppState.myLegoSets),
+      myLegoSets: computed(() => AppState.myLegoSets.filter(l => l.isOwned == true)),
       activeLegoSet: computed(() => AppState.activeLegoSet),
       async offerTrade() {
         try {

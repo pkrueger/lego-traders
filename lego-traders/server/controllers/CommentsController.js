@@ -8,7 +8,7 @@ export class CommentsController extends BaseController {
     this.router
       .get('/forum/:postId', this.getCommentsByPostId)
       .get('/sets/:set_num', this.getCommentsBySetNum)
-      .get('trade/:tradeId', this.getCommentsByTradeId)
+      .get('/trade/:tradeId', this.getCommentsByTradeId)
       .get('/:commentId', this.getCommentById)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createComment)

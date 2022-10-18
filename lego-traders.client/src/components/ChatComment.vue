@@ -21,6 +21,7 @@
 
 
 <script>
+import { computed } from '@vue/reactivity'
 import { AppState } from '../AppState.js'
 import { commentsService } from '../services/CommentsService.js'
 
@@ -34,6 +35,7 @@ export default {
   setup(props) {
     return {
       account: computed(() => AppState.account),
+      comment: computed(() => AppState.comments),
       async removeComment() {
         try {
           const yes = await Pop.confirm('Delete Your Comment')
