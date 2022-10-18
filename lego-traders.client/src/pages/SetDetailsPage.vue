@@ -99,7 +99,7 @@ import { legoSetsService } from "../services/LegoSetsService";
 import Pop from "../utils/Pop";
 import { AppState } from "../AppState"
 import { useRoute } from "vue-router";
-import { setDetailsComments } from "../services/SetDetailsComments";
+import { commentsService } from "../services/CommentsService";
 import LegoSetComments from "../components/LegoSetComments.vue";
 export default {
   setup() {
@@ -139,7 +139,7 @@ export default {
     }
     async function getSetDetailsComments() {
       try {
-        await setDetailsComments.getSetDetailsComments(route.params.set_num);
+        await commentsService.getSetDetailsComments(route.params.set_num);
       }
       catch (error) {
         Pop.error(error);
@@ -180,7 +180,7 @@ export default {
       async handleSubmit() {
         try {
           editable.value.set_num = route.params.set_num;
-          await setDetailsComments.createComment(editable.value);
+          await commentsService.createComment(editable.value);
           editable.value = {};
         }
         catch (error) {

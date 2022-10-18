@@ -49,10 +49,11 @@ import { computed } from '@vue/reactivity';
 import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { AppState } from '../AppState.js';
-import { forumPostsService } from '../services/ForumPostsService.js';
+import { commentsService } from '../services/commentsService.js';
 import Pop from '../utils/Pop.js';
 import ForumComment from '../components/ForumComment.vue';
 import CommentForm from '../components/CommentForm.vue';
+import { forumPostsService } from '../services/ForumPostsService.js';
 
 export default {
   setup() {
@@ -67,7 +68,7 @@ export default {
     }
     async function getPostComments() {
       try {
-        await forumPostsService.getPostComments(route.params.postId)
+        await commentsService.getPostComments(route.params.postId)
       } catch (error) {
         Pop.error(error)
       }

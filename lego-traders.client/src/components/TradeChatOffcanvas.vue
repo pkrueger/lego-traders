@@ -17,6 +17,7 @@
 
 <script>
 import { onMounted } from 'vue';
+import Pop from '../utils/Pop.js';
 import ChatComment from './ChatComment.vue';
 export default {
   setup() {
@@ -28,6 +29,7 @@ export default {
       try {
 
       } catch (error) {
+        Pop.error(error, '[gettingTradeComments]')
 
       }
     }

@@ -56,6 +56,7 @@
       </div>
     </div>
   </div>
+  <TradeChatOffcanvas />
 </template>
 
 
@@ -64,31 +65,33 @@ import { computed } from '@vue/reactivity'
 import { AppState } from '../AppState.js'
 import { marketplaceService } from '../services/MarketplaceService.js'
 import Pop from '../utils/Pop.js'
+import TradeChatOffcanvas from './TradeChatOffcanvas.vue'
 
 export default {
   setup() {
     return {
       sentTrades: computed(() => AppState.sentTrades),
       receivedTrades: computed(() => AppState.receivedTrades),
-
       async removeTrade(id) {
         try {
-          await marketplaceService.removeTrade(id)
-        } catch (error) {
-          Pop.error('[removeTrade]', error)
+          await marketplaceService.removeTrade(id);
+        }
+        catch (error) {
+          Pop.error("[removeTrade]", error);
         }
       },
-
       async changeStatus(id, status) {
         try {
-          Pop.success('You Responded to a trade request')
-          await marketplaceService.changeStatus(id, status)
-        } catch (error) {
-          Pop.error('[changeStatus]', error)
+          Pop.success("You Responded to a trade request");
+          await marketplaceService.changeStatus(id, status);
+        }
+        catch (error) {
+          Pop.error("[changeStatus]", error);
         }
       }
-    }
-  }
+    };
+  },
+  components: { TradeChatOffcanvas }
 }
 </script>
 

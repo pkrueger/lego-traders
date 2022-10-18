@@ -12,7 +12,6 @@
       </div>
       <div class="col-md-3 sidebar">
         <div class="mt-3">
-
           <div>
             <div class="form-check">
               <input @click="getNameChecked" class="form-check-input" type="checkbox" name="setName" id="setName">
@@ -27,6 +26,7 @@
               </div>
             </div>
           </div>
+          <YourTrades />
         </div>
       </div>
     </div>
@@ -44,6 +44,7 @@ import MarketSearchForm from "../components/MarketSearchForm.vue";
 import TradeSetCard from "../components/TradeSetCard.vue";
 import TradeModal from "../components/TradeModal.vue";
 import { ref } from 'vue'
+import YourTrades from "../components/YourTrades.vue";
 export default {
   setup() {
     const editable = ref({})
@@ -81,7 +82,7 @@ export default {
       },
     };
   },
-  components: { MarketSearchForm, TradeSetCard, TradeModal },
+  components: { MarketSearchForm, TradeSetCard, TradeModal, YourTrades },
 };
 </script>
 

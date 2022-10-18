@@ -23,7 +23,7 @@
 <script>
 import { computed } from '@vue/reactivity';
 import { AppState } from '../AppState.js';
-import { forumPostsService } from '../services/ForumPostsService.js';
+import { commentsService } from '../services/commentsService.js';
 import Pop from '../utils/Pop.js';
 
 export default {
@@ -40,7 +40,7 @@ export default {
         try {
           const yes = await Pop.confirm('Delete Your Comment')
           if (!yes) { return }
-          await forumPostsService.removeComment(props.comment.id)
+          await commentsService.removeComment(props.comment.id)
         } catch (error) {
           Pop.error('[Remove Comment]', error)
         }
