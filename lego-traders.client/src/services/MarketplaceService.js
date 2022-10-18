@@ -6,8 +6,8 @@ class MarketplaceService {
   async offerTrade(formData) {
     formData.requestedSetId = AppState.activeLegoSet.id;
     formData.requestedAccountId = AppState.activeLegoSet.ownerId;
-    const trade = await api.post("api/trade", formData);
-    return trade;
+    const res = await api.post("api/trade", formData);
+    return res.data;
   }
   async getSentTrades() {
     const res = await api.get("api/trade/sent");

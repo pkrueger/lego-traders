@@ -11,9 +11,9 @@ class NotificationsService {
   }
   async sendPendingTradeNote(trade) {
     const res = await api.post("/api/notifications", {
-      receiverId: trade.requestedAccountId,
+      recipientId: trade.requestedAccountId,
       type: "trade-pending",
-      body: `Someone has requested a trade with you.`,
+      body: `${trade.owner.name} has requested a trade for your ${trade.requestedSet.name}.`,
     });
   }
 }

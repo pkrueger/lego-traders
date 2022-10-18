@@ -135,6 +135,7 @@ export default {
           // formData.offeredSetId = legoSet.id
           // formData.requestedAccountId = AppState.activeLegoSet.ownerId
           const trade = await marketplaceService.offerTrade(editable.value);
+          console.log(trade);
           await notificationsService.sendPendingTradeNote(trade);
           editable.value = {};
           // console.log(formData);
