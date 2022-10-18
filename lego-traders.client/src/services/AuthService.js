@@ -33,7 +33,7 @@ AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async function () {
   await legoSetsService.getMyLegoSets(AppState.account.id);
   await marketplaceService.getSentTrades();
   await marketplaceService.getReceivedTrades();
-  // await notificationsService.getMyNotifications();
+  await notificationsService.getMyNotifications();
 });
 
 async function refreshAuthToken(config) {
