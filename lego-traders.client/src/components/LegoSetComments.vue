@@ -23,7 +23,7 @@
 <script>
 import { computed } from "@vue/reactivity"
 import { AppState } from "../AppState"
-import { setDetailsComments } from "../services/SetDetailsComments"
+import { commentsService } from "../services/commentsService.js"
 import Pop from "../utils/Pop"
 export default {
   props: {
@@ -39,7 +39,7 @@ export default {
         try {
           const yes = await Pop.confirm('Delete Your Comment')
           if (!yes) { return }
-          await setDetailsComments.removeComment(props.comment.id)
+          await commentsService.removeComment(props.comment.id)
         } catch (error) {
           Pop.error('[Remove Comment]', error)
         }
