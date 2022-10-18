@@ -68,54 +68,20 @@ import TradeChatOffcanvas from '../components/TradeChatOffcanvas.vue'
 import YourTrades from '../components/YourTrades.vue'
 export default {
   setup() {
-    // async function getSentTrades() {
-    //   try {
-    //     await marketplaceService.getSentTrades()
-    //   } catch (error) {
-    //     Pop.error('[getSentTrades]', error)
-    //   }
-    // }
-    // async function getReceivedTrades() {
-    //   try {
-    //     await marketplaceService.getReceivedTrades()
-    //   } catch (error) {
-    //     Pop.error('[getSentTrades]', error)
-    //   }
-    // }
+
     watchEffect(() => {
       AppState.sentTrades
       AppState.receivedTrades
       AppState.myLegoSets
 
     })
-    // onMounted(() => {
-    //   getSentTrades()
-    //   getReceivedTrades()
-    // })
+
 
     return {
       account: computed(() => AppState.account),
       wishListLegoSets: computed(() => AppState.myLegoSets.filter(l => !l.isOwned)),
       ownedLegoSets: computed(() => AppState.myLegoSets.filter(l => l.isOwned)),
-      // sentTrades: computed(() => AppState.sentTrades),
-      // receivedTrades: computed(() => AppState.receivedTrades),
 
-      // async removeTrade(id) {
-      //   try {
-      //     await marketplaceService.removeTrade(id)
-      //   } catch (error) {
-      //     Pop.error('[removeTrade]', error)
-      //   }
-      // },
-
-      // async changeStatus(id, status) {
-      //   try {
-      //     Pop.success('You Responded to a trade request')
-      //     await marketplaceService.changeStatus(id, status)
-      //   } catch (error) {
-      //     Pop.error('[changeStatus]', error)
-      //   }
-      // }
     };
   },
   components: { AccountModal, LegoSetCard, TradeChatOffcanvas, YourTrades }

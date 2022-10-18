@@ -63,6 +63,7 @@
 import { computed } from '@vue/reactivity'
 import { AppState } from '../AppState.js'
 import { marketplaceService } from '../services/MarketplaceService.js'
+import Pop from '../utils/Pop.js'
 
 export default {
   setup() {
