@@ -17,6 +17,7 @@
 
 <script>
 import { onMounted } from 'vue';
+import { commentsService } from '../services/commentsService.js';
 import Pop from '../utils/Pop.js';
 import ChatComment from './ChatComment.vue';
 export default {
@@ -27,7 +28,7 @@ export default {
 
     async function getTradeChatComments() {
       try {
-
+        await commentsService.getTradeChatComments(route.params.tradeId)
       } catch (error) {
         Pop.error(error, '[gettingTradeComments]')
 
