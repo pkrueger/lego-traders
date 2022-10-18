@@ -30,7 +30,8 @@
       <div>
         <strong>Requested</strong>
         <div v-for="t in receivedTrades" class="d-flex justify-content-around">
-          <img :src="t.owner.picture" height="40" alt="" @click="setActiveTrade(t)">
+          <img class="selectable" aria-controls="offcanvasRight" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight" :src="t.owner.picture" height="40" alt="" @click="setActiveTrade(t)">
           <p>
             Offered Set: <img class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
               :title="t.offeredSet.name">
