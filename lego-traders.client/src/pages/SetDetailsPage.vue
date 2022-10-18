@@ -12,10 +12,12 @@
           <h4>{{legoSet.num_parts}} pcs</h4>
         </div>
       </div>
-      <!-- Set Owners -->
+      <!-- Users who want to trade specific set-->
       <div class="col-12 d-flex">
         <div v-for="o in owners" class="px-2 py-3">
-          <img :src="o.owner.picture" alt="user picture" class="user-img" :title="o.owner.name">
+          <router-link :to="{name: 'Profile', params:{profileId: o.owner.id }}">
+            <img :src="o.owner?.picture" alt="user picture" class="user-img" :title="o.owner?.name">
+          </router-link>
         </div>
       </div>
       <div class="d-flex justify-content-end col-12">
@@ -110,6 +112,7 @@ export default {
       getSetBySetNum();
       getPartsBySetNum();
       getSetDetailsComments();
+      legoSetsService.getTradableSets();
     });
     async function getSetAlternates() {
       try {
@@ -153,7 +156,7 @@ export default {
       nextPage: computed(() => AppState.nextPage),
       previousPage: computed(() => AppState.previousPage),
       comments: computed(() => AppState.comments),
-      owners: computed(() => AppState.tradableSet),
+      owners: computed(() => AppState.tradableSet.filter((t) => t.set_num == route.params.set_num)),
       async addSetToAccount(data) {
         try {
           const yes = await Pop.confirm("Do you own this?", "");
