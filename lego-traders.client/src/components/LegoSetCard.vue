@@ -71,12 +71,13 @@ export default {
 
 <style lang="scss" scoped>
 .card-size {
-  min-height: 55vh;
+  // min-height: 55vh;
 }
 
 .img-size {
-  width: 38vh;
-  height: 38vh;
+  // width: 38vh;
+  max-height: 38vh;
+
   object-fit: contain;
 }
 </style>

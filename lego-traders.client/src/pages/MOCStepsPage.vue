@@ -83,12 +83,19 @@ export default {
   min-height: 90vh;
 }
 
+
 .final-img {
-  height: 60vh;
+  max-height: 60vh;
 }
 
 .profile-img {
   width: 20%;
   height: auto;
+}
+
+@media (max-width: 1000px) {
+  .final-img {
+    min-height: 30vh;
+  }
 }
 </style>

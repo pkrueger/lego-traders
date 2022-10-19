@@ -1,22 +1,22 @@
 <template>
   <div class="container-fluid">
     <div class="row mt-3">
-      <div class="col-md-11 d-flex">
+      <div class="col-lg-11 d-flex">
         <div class="row justify-content-between m-auto">
-          <div class="col-4">
-            <img class="img-fluid p-3" :src="account.picture" alt="User Name">
+          <div class="col-lg-4 order-lg-1 ">
+            <img class="img-fluid p-3 profile-img" :src="account.picture" alt="User Name">
           </div>
-          <div class="col-4 border border-dark p-2">
+          <div class="col-lg-4 order-lg-2 border border-dark p-2 my-2">
             <h3>Name: {{account.name}}</h3>
             <h5>About: </h5>
             <p>{{account.desc}}</p>
           </div>
-          <div class="col-4">
+          <div class="col-lg-4 order-lg-3">
             <YourTrades />
           </div>
         </div>
       </div>
-      <div class="col-md-1">
+      <div class="col-lg-1">
         <div>
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#accountModal">Manage
             Account</button>
@@ -28,7 +28,7 @@
         <h3>Owned Sets:</h3>
         <div class="row">
           <!-- RouterLink to Set Details page -->
-          <div class="col-3" v-for="l in ownedLegoSets">
+          <div class="col-lg-3 d-flex justify-content-center" v-for="l in ownedLegoSets">
             <LegoSetCard :key="l.id" :legoSet="l" />
           </div>
           <!-- TODO Component for My Sets  -->
@@ -36,7 +36,7 @@
         <div class="col-12">
           <h3>WishList:</h3>
           <div class="row">
-            <div class="col-3" v-for="l in wishListLegoSets">
+            <div class="col-lg-3" v-for="l in wishListLegoSets">
               <LegoSetCard :key="l.id" :legoSet="l" />
             </div>
           </div>
@@ -88,6 +88,13 @@ main {
 .img-size {
   min-height: 20vh;
   min-width: 15vw;
+}
+
+/* doesn't work atm... */
+@media (max-width: 1000px) {
+  .profil-img {
+    display: none
+  }
 }
 
 .border-box {

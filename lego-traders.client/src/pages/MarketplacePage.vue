@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid banner-img">
     <div class="row p-3">
-      <div class="col-md-9 d-flex flex-wrap text-center mb-3">
+      <div class="col-lg-9 order-lg-1 order-sm-2 d-flex flex-wrap text-center mb-3">
         <div class="m-3 set-card" v-for="l in tradableSet">
           <TradeSetCard :key="l.id" :legoSet="l" />
           <button type="button" class="btn btn-primary offer" @click="makeSetActive(l)" data-bs-toggle="modal"
@@ -10,7 +10,7 @@
           </button>
         </div>
       </div>
-      <div class="col-md-3 sidebar">
+      <div class="col-lg-3 order-sm-1 order-lg-2 p-3 rounded sidebar">
         <div class="mt-3">
           <div>
             <div class="form-check">
@@ -105,6 +105,12 @@ export default {
 .sidebar {
   background-color: #0099D4;
   height: 100vh;
+}
+
+@media (max-width: 1000px) {
+  .sidebar {
+    height: auto;
+  }
 }
 
 .set-card {

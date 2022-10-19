@@ -7,11 +7,11 @@
           <img class="img-fluid trader-img" src="../assets/img/lego-trader.png" alt="logo-text" />
         </div>
       </router-link>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+      <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
         aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarText">
+      <div class="collapse navbar-collapse " id="navbarText">
         <ul class="navbar-nav me-auto">
           <li>
             <router-link :to="{ name: 'Marketplace' }">
