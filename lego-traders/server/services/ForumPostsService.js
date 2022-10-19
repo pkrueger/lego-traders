@@ -12,13 +12,15 @@ class ForumPostsService {
     await dbContext.Posts.findByIdAndDelete(postId);
     return post;
   }
-  async createPost(postData) {
+  async createPost(postData, accountId) {
     const post = await dbContext.Posts.create(postData);
     await post.populate("creator", "name picture");
+    post.subscribers.push(accountId);
+    post.save();
     return post;
   }
   async getPostsByCreatorId(creatorId) {
-    const posts = await dbContext.Posts.find({creatorId}).populate(
+    const posts = await dbContext.Posts.find({ creatorId }).populate(
       "creator",
       "name picture"
     );

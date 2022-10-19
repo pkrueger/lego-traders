@@ -4,45 +4,51 @@ import BaseController from "../utils/BaseController.js";
 
 export class ForumPostsController extends BaseController {
   constructor() {
-    super('api/forum/posts')
+    super("api/forum/posts");
     this.router
-      .get('', this.getAllPosts)
-      .get('/:postId', this.getPostByPostId)
+      .get("", this.getAllPosts)
+      .get("/:postId", this.getPostByPostId)
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .post('', this.createPost)
-      .delete('/:postId', this.deletePost)
+      .post("", this.createPost)
+      .delete("/:postId", this.deletePost);
   }
   async deletePost(req, res, next) {
     try {
-      const post = await forumPostsService.deletePost(req.params.postId, req.userInfo)
-      res.send(post)
+      const post = await forumPostsService.deletePost(
+        req.params.postId,
+        req.userInfo
+      );
+      res.send(post);
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
   async createPost(req, res, next) {
     try {
-      req.body.creatorId = req.userInfo.id
-      const post = await forumPostsService.createPost(req.body)
-      res.send(post)
+      req.body.creatorId = req.userInfo.id;
+      const post = await forumPostsService.createPost(
+        req.body,
+        req.userInfo.id
+      );
+      res.send(post);
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
   async getPostByPostId(req, res, next) {
     try {
-      const posts = await forumPostsService.getPostByPostId(req.params.postId)
-      res.send(posts)
+      const posts = await forumPostsService.getPostByPostId(req.params.postId);
+      res.send(posts);
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
   async getAllPosts(req, res, next) {
     try {
-      const posts = await forumPostsService.getAllPosts()
-      res.send(posts)
+      const posts = await forumPostsService.getAllPosts();
+      res.send(posts);
     } catch (error) {
-      next(error)
+      next(error);
     }
   }
 }
