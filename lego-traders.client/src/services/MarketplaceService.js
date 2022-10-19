@@ -25,6 +25,7 @@ class MarketplaceService {
 
     const requestedTrade = AppState.receivedTrades.find((t) => t.id == id);
     requestedTrade.status = res.data.status;
+    return requestedTrade;
   }
   async removeTrade(id) {
     const res = await api.delete("api/trade/" + id);

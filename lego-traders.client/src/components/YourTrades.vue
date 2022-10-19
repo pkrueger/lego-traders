@@ -7,52 +7,95 @@
       <div>
         <strong>Sent</strong>
         <div v-for="t in sentTrades" class="d-flex justify-content-around">
-          <img aria-controls="offcanvasRight" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-            class="selectable" :src="t.requestedAccount.picture" height="40" alt="" @click="getTradeComments(t)">
+          <img
+            aria-controls="offcanvasRight"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight"
+            class="selectable"
+            :src="t.requestedAccount.picture"
+            height="40"
+            alt=""
+            @click="getTradeComments(t)"
+          />
           <p>
-            Requested Set: <img class="me-auto" height="30" :src="t.requestedSet.set_img_url" :alt="t.requestedSet.name"
-              :title="t.requestedSet.name">
+            Requested Set:
+            <img
+              class="me-auto"
+              height="30"
+              :src="t.requestedSet.set_img_url"
+              :alt="t.requestedSet.name"
+              :title="t.requestedSet.name"
+            />
             <span v-if="t.body" class="message">
               <i class="mdi mdi-note-outline"></i>
-              <span class="message-body">{{t.body}}</span>
+              <span class="message-body">{{ t.body }}</span>
             </span>
           </p>
+          <p>Status: {{ t.status }}</p>
           <p>
-            Status: {{t.status}}
+            Offered Set:
+            <img
+              class=""
+              height="30"
+              :src="t.offeredSet.set_img_url"
+              :alt="t.offeredSet.name"
+              :title="t.offeredSet.name"
+            />
           </p>
-          <p>
-            Offered Set: <img class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
-              :title="t.offeredSet.name">
-          </p>
-          <i v-if="t.status != 'pending'" class="mdi mdi-close text-danger" @click="removeTrade(t.id)"></i>
+          <i
+            v-if="t.status != 'pending'"
+            class="mdi mdi-close text-danger"
+            @click="removeTrade(t.id)"
+          ></i>
         </div>
       </div>
       <div>
         <strong>Requested</strong>
         <div v-for="t in receivedTrades" class="d-flex justify-content-around">
-          <img class="selectable" aria-controls="offcanvasRight" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasRight" :src="t.owner.picture" height="40" alt="" @click="getTradeComments(t)">
+          <img
+            class="selectable"
+            aria-controls="offcanvasRight"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight"
+            :src="t.owner.picture"
+            height="40"
+            alt=""
+            @click="getTradeComments(t)"
+          />
           <p>
-            Offered Set: <img class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
-              :title="t.offeredSet.name">
+            Offered Set:
+            <img
+              class=""
+              height="30"
+              :src="t.offeredSet.set_img_url"
+              :alt="t.offeredSet.name"
+              :title="t.offeredSet.name"
+            />
             <span v-if="t.body" class="message">
               <i class="mdi mdi-note-outline"></i>
-              <span class="message-body">{{t.body}}</span>
+              <span class="message-body">{{ t.body }}</span>
             </span>
           </p>
           <p v-if="t.status == 'pending'">
             <button @click="changeStatus(t.id, 'accepted')">Accept</button>
             <button @click="changeStatus(t.id, 'rejected')">Reject</button>
           </p>
-          <p v-else>
-            Status: {{t.status}}
-          </p>
+          <p v-else>Status: {{ t.status }}</p>
           <p>
             Requested Set:
-            <img class="me-auto" height="30" :src="t.requestedSet.set_img_url" :alt="t.requestedSet.name"
-              :title="t.requestedSet.name">
+            <img
+              class="me-auto"
+              height="30"
+              :src="t.requestedSet.set_img_url"
+              :alt="t.requestedSet.name"
+              :title="t.requestedSet.name"
+            />
           </p>
-          <i v-if="t.status != 'pending'" class="mdi mdi-close text-danger selectable" @click="removeTrade(t.id)"></i>
+          <i
+            v-if="t.status != 'pending'"
+            class="mdi mdi-close text-danger selectable"
+            @click="removeTrade(t.id)"
+          ></i>
         </div>
       </div>
     </div>
@@ -60,53 +103,54 @@
   <TradeChatOffcanvas :tradeId="tradeId" />
 </template>
 
-
 <script>
-import { computed } from '@vue/reactivity'
-import { AppState } from '../AppState.js'
-import { commentsService } from '../services/CommentsService.js'
-import { marketplaceService } from '../services/MarketplaceService.js'
-import Pop from '../utils/Pop.js'
-import TradeChatOffcanvas from './TradeChatOffcanvas.vue'
+import { computed } from "@vue/reactivity";
+import { AppState } from "../AppState.js";
+import { commentsService } from "../services/CommentsService.js";
+import { marketplaceService } from "../services/MarketplaceService.js";
+import { notificationsService } from "../services/NotificationsService.js";
+import Pop from "../utils/Pop.js";
+import TradeChatOffcanvas from "./TradeChatOffcanvas.vue";
 
 export default {
   setup() {
     return {
-
       sentTrades: computed(() => AppState.sentTrades),
       receivedTrades: computed(() => AppState.receivedTrades),
       async removeTrade(id) {
         try {
           await marketplaceService.removeTrade(id);
-        }
-        catch (error) {
+        } catch (error) {
           Pop.error("[removeTrade]", error);
         }
       },
       async changeStatus(id, status) {
         try {
           Pop.success("You Responded to a trade request");
-          await marketplaceService.changeStatus(id, status);
-        }
-        catch (error) {
+          const trade = await marketplaceService.changeStatus(id, status);
+          if (status == "accepted") {
+            await notificationsService.sendAcceptedTradeNote(trade);
+          } else {
+            await notificationsService.sendRejectedTradeNote(trade);
+          }
+        } catch (error) {
           Pop.error("[changeStatus]", error);
         }
       },
 
       async getTradeComments(trade) {
         try {
-          AppState.activeTrade = trade
-          await commentsService.getTradeComments(trade.id)
+          AppState.activeTrade = trade;
+          await commentsService.getTradeComments(trade.id);
         } catch (error) {
-          Pop.error(error)
+          Pop.error(error);
         }
-      }
+      },
     };
   },
-  components: { TradeChatOffcanvas }
-}
+  components: { TradeChatOffcanvas },
+};
 </script>
-
 
 <style lang="scss" scoped>
 .message {
@@ -138,7 +182,7 @@ export default {
 
 /* <http://css-tricks.com/snippets/css/css-triangle/> */
 .message .message-body:before {
-  content: ' ';
+  content: " ";
   /* Must have content to display */
   position: absolute;
   top: 50%;
