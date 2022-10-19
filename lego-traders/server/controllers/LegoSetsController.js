@@ -7,18 +7,29 @@ export class LegoSetsController extends BaseController {
     super("api/sets");
     this.router
       .get("", this.getAllSets)
-      .get('/tradable', this.getTradableSets)
+      .get("/tradable", this.getTradableSets)
+      .get("/wishlists/:setNum", this.getWishlistSetsBySetNum)
       .get("/:legoSetId", this.getSetBySetId)
       .get("/profile/:ownerId", this.getSetsByOwnerId)
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .put("/:setId/tradable", this.setTradable)
+      .put("/:setId/tradable", this.setTradable);
   }
   async setTradable(req, res, next) {
     try {
-      const set = await legoSetsService.setTradable(req.params.setId)
-      res.send(set)
+      const set = await legoSetsService.setTradable(req.params.setId);
+      res.send(set);
     } catch (error) {
-      next(error)
+      next(error);
+    }
+  }
+  async getWishlistSetsBySetNum(req, res, next) {
+    try {
+      const legoSets = await legoSetsService.getWishlistSetsBySetNum(
+        req.params.setNum
+      );
+      res.send(legoSets);
+    } catch (error) {
+      next(error);
     }
   }
   async getSetsByOwnerId(req, res, next) {
