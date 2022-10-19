@@ -53,16 +53,12 @@ import TradeModal from "../components/TradeModal.vue";
 import { ref } from 'vue'
 import YourTrades from "../components/YourTrades.vue";
 import OwnedSetsModal from "../components/OwnedSetsModal.vue";
-import { TradeHandler } from "../Handlers/TradeHandler.js";
-import { onBeforeRouteLeave, useRoute } from "vue-router";
 export default {
   setup() {
     const editable = ref({})
-    const route = useRoute()
 
     onMounted(() => {
       getTradableSets();
-      TradeHandler.EnterTrade(route.params.tradeId)
     });
     async function getTradableSets() {
       try {
@@ -72,9 +68,6 @@ export default {
         Pop.error(error, "[gettingTradableSets]");
       }
     }
-    onBeforeRouteLeave(() => {
-      TradeHandler.LeaveTrade(route.params.tradeId)
-    })
     return {
       editable,
       getNameChecked() {

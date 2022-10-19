@@ -28,8 +28,10 @@
 
 <script>
 import { computed } from '@vue/reactivity';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { onBeforeRouteLeave, useRoute } from 'vue-router';
 import { AppState } from '../AppState.js';
+import { TradeHandler } from '../Handlers/TradeHandler.js';
 import { AuthService } from '../services/AuthService.js';
 import { commentsService } from '../services/CommentsService.js';
 import Pop from '../utils/Pop.js';
@@ -40,6 +42,13 @@ export default {
   },
   setup() {
     const editable = ref({})
+    const route = useRoute();
+    onMounted(() => {
+      TradeHandler.EnterTrade(route.params.id)
+    })
+    onBeforeRouteLeave(() => {
+      TradeHandler.LeaveTrade(route.params.id)
+    })
     return {
       editable,
       comments: computed(() => AppState.comments),
