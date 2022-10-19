@@ -14,13 +14,19 @@
         <div class="mt-3">
           <div>
             <div class="form-check">
+              <!-- Maybe Search goes at the top of the marketplace or in the navBar -->
               <input @click="getNameChecked" class="form-check-input" type="checkbox" name="setName" id="setName">
               <label class="form-check-label" for="setName">
                 Search Sets
               </label>
             </div>
             <div>
-              <div class="input-group input-group-sm mb-4">
+              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#ownedSets">
+                Owned Sets
+              </button>
+            </div>
+            <div>
+              <div class=" input-group input-group-sm mb-4">
                 <input id="nameSearchBar" v-model="editable.name" style="display: none" type="text" class="form-control"
                   aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
               </div>
@@ -31,6 +37,7 @@
       </div>
     </div>
     <TradeModal />
+    <OwnedSetsModal />
   </div>
 </template>
 
@@ -45,6 +52,7 @@ import TradeSetCard from "../components/TradeSetCard.vue";
 import TradeModal from "../components/TradeModal.vue";
 import { ref } from 'vue'
 import YourTrades from "../components/YourTrades.vue";
+import OwnedSetsModal from "../components/OwnedSetsModal.vue";
 export default {
   setup() {
     const editable = ref({})
@@ -82,7 +90,7 @@ export default {
       },
     };
   },
-  components: { MarketSearchForm, TradeSetCard, TradeModal, YourTrades },
+  components: { MarketSearchForm, TradeSetCard, TradeModal, YourTrades, OwnedSetsModal },
 };
 </script>
 
