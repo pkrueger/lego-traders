@@ -5,7 +5,7 @@ export const NotificationSchema = new Schema(
   {
     recipientId: { type: ObjectId, required: true, ref: "Account" },
     hasSeen: { type: Boolean, default: false },
-    body: { type: String, required: true, minlength: 1, maxlength: 140 },
+    body: { type: String, required: true, minlength: 1, maxlength: 300 },
     type: {
       type: String,
       required: true,

@@ -2,6 +2,7 @@ import { AppState } from "../AppState.js";
 import { Notification } from "../models/Notification.js";
 import { logger } from "../utils/Logger.js";
 import { api } from "./AxiosService.js";
+import { forumPostsService } from "./ForumPostsService.js";
 
 class NotificationsService {
   async getMyNotifications() {
@@ -29,6 +30,38 @@ class NotificationsService {
       type: "trade-rejected",
       body: `${trade.requestedAccount.name} has rejected the trade for their ${trade.requestedSet.name}.`,
     });
+  }
+  async sendCommentNote(comment) {
+    const post = await forumPostsService.getPostById(comment.postId);
+    const subs = post.subscribers
+      .filter((s) => s != post.creatorId)
+      .filter((s) => s != comment.creatorId);
+    for (let s of subs) {
+      await api.post("/api/notifications", {
+        recipientId: s,
+        type: "forum-comment-unowned",
+        body: `${comment.creator.name} has commented on a post.`,
+      });
+    }
+    if (post.creatorId != comment.creatorId) {
+      await api.post("/api/notifications", {
+        recipientId: post.creatorId,
+        type: "forum-comment-owned",
+        body: `${comment.creator.name} has commented on your post.`,
+      });
+    }
+  }
+
+  async sendWishlistNote(legoSet) {
+    const res = await api.get(`/api/sets/wishlists/${legoSet.set_num}`);
+    const legoSets = res.data;
+    for (let s of legoSets) {
+      await api.post("/api/notifications", {
+        recipientId: s.ownerId,
+        type: "wishlist-set-available",
+        body: `${legoSet.name} has been put up for trade by ${legoSet.owner.name}.`,
+      });
+    }
   }
 }
 export const notificationsService = new NotificationsService();
