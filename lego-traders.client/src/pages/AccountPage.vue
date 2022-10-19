@@ -28,7 +28,7 @@
         <h3>Owned Sets:</h3>
         <div class="row">
           <!-- RouterLink to Set Details page -->
-          <div class="col-lg-3 d-flex justify-content-center" v-for="l in ownedLegoSets">
+          <div class="col-lg-3 d-flex justify-content-center mb-3" v-for="l in ownedLegoSets">
             <LegoSetCard :key="l.id" :legoSet="l" />
           </div>
           <!-- TODO Component for My Sets  -->
@@ -36,7 +36,7 @@
         <div class="col-12">
           <h3>WishList:</h3>
           <div class="row">
-            <div class="col-lg-3" v-for="l in wishListLegoSets">
+            <div class="col-lg-3 mb-3" v-for="l in wishListLegoSets">
               <LegoSetCard :key="l.id" :legoSet="l" />
             </div>
           </div>
