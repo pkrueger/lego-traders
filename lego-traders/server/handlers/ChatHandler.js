@@ -1,6 +1,6 @@
 import { SocketHandler } from '../utils/SocketHandler'
 
-export class RegionHandler extends SocketHandler {
+export class ChatHandler extends SocketHandler {
   /**
    * @param {import("socket.io").Server} io
    * @param {import("socket.io").Socket} socket
