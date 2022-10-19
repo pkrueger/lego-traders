@@ -11,15 +11,15 @@
           <ChatComment v-for="c in comments" :key="c.id" :comment="c" />
 
         </div>
-        <form class="flex-end" @submit.prevent="handleSubmit()">
-
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" v-model="editable.body" placeholder="What you say?!"
-              aria-label="Recipient's username" aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Button</button>
-          </div>
-        </form>
       </div>
+      <form class="flex-end" @submit.prevent="handleSubmit()">
+
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" v-model="editable.body" placeholder="What you say?!"
+            aria-label="Recipient's username" aria-describedby="button-addon2">
+          <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Button</button>
+        </div>
+      </form>
     </div>
 
   </div>
