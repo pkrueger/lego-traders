@@ -13,11 +13,11 @@ export class LegoSetsController extends BaseController {
       .get("/profile/:ownerId", this.getSetsByOwnerId)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .put("/:setId/tradable", this.setTradable)
-      .delete('/:setId', this.deleteTrade)
+      .delete('/:setId', this.deleteSet)
   }
-  async deleteTrade(req, res, next) {
+  async deleteSet(req, res, next) {
     try {
-      const set = await legoSetsService.deleteTrade(req.params.setId)
+      const set = await legoSetsService.deleteSet(req.params.setId)
     } catch (error) {
       next(error)
     }

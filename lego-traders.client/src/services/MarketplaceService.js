@@ -29,7 +29,7 @@ class MarketplaceService {
   }
   async removeTrade(id) {
     const res = await api.delete("api/trade/" + id);
-    console.log("remove trade", res);
+    // console.log("remove trade", res);
     AppState.sentTrades = AppState.sentTrades.filter(
       (s) => s.id != res.data.id
     );
