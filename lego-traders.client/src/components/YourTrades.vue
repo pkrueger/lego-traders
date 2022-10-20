@@ -7,15 +7,19 @@
       <div>
         <strong>Sent</strong>
         <div v-for="t in sentTrades" class="d-flex justify-content-around">
-
-          <img aria-controls="offcanvasRight" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
-            class="selectable" :src="t.requestedAccount.picture" height="40" alt="" @click="getTradeComments(t)" />
+          <router-link :to="{name: 'Profile', params:{profileId:t.requestedAccount.id}}">
+            <img class="selectable" :src="t.requestedAccount.picture" height="40" alt="" />
+          </router-link>
+          <div>
+            <button class="btn btn-secondary btn-sm selectable" type="button" aria-controls="offcanvasRight"
+              data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" @click="getTradeComments(t)">Message</button>
+          </div>
           <p>
             Requested Set:
-
-
-            <img v-if="t.requestedSet" class="me-auto" height="30" :src="t.requestedSet.set_img_url"
-              :alt="t.requestedSet.name" :title="t.requestedSet.name" />
+            <router-link :to="{ name: 'SetDetails', params: { set_num: t.requestedSet.set_num } }">
+              <img class="selectable me-auto" v-if="t.requestedSet" height="30" :src="t.requestedSet.set_img_url"
+                :alt="t.requestedSet.name" :title="t.requestedSet.name" />
+            </router-link>
             <span v-if="t.body" class="message">
               <i class="mdi mdi-note-outline"></i>
               <span class="message-body">{{ t.body }}</span>
@@ -24,9 +28,10 @@
           <p>Status: {{ t.status }}</p>
           <p>
             Offered Set:
-
-            <img v-if="t.offeredSet" class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
-              :title="t.offeredSet.name" />
+            <router-link :to="{ name: 'SetDetails', params: { set_num: t.requestedSet.set_num } }">
+              <img class="selectable" v-if="t.offeredSet" height="30" :src="t.offeredSet.set_img_url"
+                :alt="t.offeredSet.name" :title="t.offeredSet.name" />
+            </router-link>
           </p>
           <i v-if="t.status != 'pending'" class="mdi mdi-close text-danger selectable align-self-center"
             @click="removeTrade(t.id)"></i>
@@ -35,23 +40,28 @@
       <div>
         <strong>Requested</strong>
         <div v-for="t in receivedTrades" class="d-flex justify-content-around">
-          <img class="selectable" aria-controls="offcanvasRight" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasRight" :src="t.owner.picture" height="40" alt="" @click="getTradeComments(t)" />
-
+          <router-link :to="{name: 'Profile', params:{profileId:t.owner.id}}">
+            <img class="selectable" :src="t.owner.picture" height="40" alt="" />
+          </router-link>
+          <div>
+            <button class="btn btn-secondary btn-sm" type="button" aria-controls="offcanvasRight"
+              data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" @click="getTradeComments(t)">Message</button>
+          </div>
           <p>
             Offered Set:
             <img v-if="t.offeredSet" class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
               :title="t.offeredSet.name" />
+
             <span v-if="t.body" class="message">
               <i class="mdi mdi-note-outline"></i>
               <span class="message-body">{{ t.body }}</span>
             </span>
           </p>
           <p v-if="t.status == 'pending'">
-            <button class="m-1" @click="changeStatus(t.id, 'accepted')">
+            <button class="m-1 btn btn-success" @click="changeStatus(t.id, 'accepted')">
               Accept
             </button>
-            <button @click="changeStatus(t.id, 'rejected')">Reject</button>
+            <button class="btn btn-danger" @click="changeStatus(t.id, 'rejected')">Reject</button>
           </p>
           <p v-else>Status: {{ t.status }}</p>
           <p>
