@@ -61,7 +61,7 @@
       </div>
     </div>
   </div>
-  <TradeChatOffcanvas :tradeId="activeTrade.id" />
+  <TradeChatOffcanvas />
 </template>
 
 <script>
@@ -104,6 +104,7 @@ export default {
         try {
           AppState.activeTrade = trade;
           await commentsService.getTradeComments(trade.id);
+
         } catch (error) {
           Pop.error(error);
         }

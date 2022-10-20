@@ -28,27 +28,38 @@
 
 <script>
 import { computed } from '@vue/reactivity';
+import { Offcanvas } from 'bootstrap';
 import { onMounted, ref, watchEffect } from 'vue';
 import { onBeforeRouteLeave, useRoute } from 'vue-router';
 import { AppState } from '../AppState.js';
 import { TradeHandler } from '../Handlers/TradeHandler.js';
 import { AuthService } from '../services/AuthService.js';
 import { commentsService } from '../services/CommentsService.js';
+import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 import ChatComment from './ChatComment.vue';
 export default {
-  props: {
-    tradeId: { type: String }
-  },
+
   setup() {
     const editable = ref({})
     const route = useRoute();
-    watchEffect(() => {
-      TradeHandler.EnterTrade(AppState.activeTrade.id)
+
+    // onBeforeRouteLeave(() => {
+    //   TradeHandler.LeaveTrade(AppState.activeTrade.id)
+    // })
+    onMounted(() => {
+      const myOffcanvas = Offcanvas.getOrCreateInstance('#offcanvasRight')
+      logger.log('offcan', myOffcanvas)
+      myOffcanvas._element.addEventListener('show.bs.offcanvas', event => {
+        TradeHandler.EnterTrade(AppState.activeTrade.id)
+      })
     })
-    onBeforeRouteLeave(() => {
-      TradeHandler.LeaveTrade(AppState.activeTrade.id)
-    })
+    // myOffcanvas.addEventListener('show.bs.offcanvas', event => {
+    //   TradeHandler.EnterTrade(AppState.activeTrade.id)
+    // })
+
+
+
     return {
       editable,
       comments: computed(() => AppState.comments),
