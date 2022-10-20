@@ -89,10 +89,11 @@
             <li
               v-for="n in state.notifications"
               v-if="state.notifications.length"
+              class="m-0"
             >
               <Notification :key="n.id" :notification="n" />
             </li>
-            <li class="p-2 text-center border-0" v-else>
+            <li class="p-2 text-center border-0" style="opacity: 0.5" v-else>
               You don't have any notifications
             </li>
           </ul>

@@ -23,7 +23,7 @@
           v-if="notification.type == 'forum-comment-unowned'"
         ></i>
         <i
-          class="fa-solid fa-scale-balanced primary"
+          class="fa-solid fa-scale-balanced text-dark"
           v-if="notification.type == 'wishlist-set-available'"
         ></i>
       </div>
