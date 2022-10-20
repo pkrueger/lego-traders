@@ -41,6 +41,13 @@
             </router-link>
           </li>
         </ul>
+        <!-- DARK/LIGHT THEME -->
+        <div class="light-component selectable no-select">
+          <i class="mdi fs-2" @click="toggleTheme()" :class="{
+            'mdi-lightbulb-variant-outline': lightIsOn,
+            'mdi-lightbulb-on text-success darken-20': !lightIsOn
+          } "></i>
+        </div>
         <!-- NOTIFICATIONS GO HERE-->
         <div class="dropdown">
           <button class="btn text-white me-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -61,6 +68,7 @@
 
 <script>
 import { computed, reactive } from "@vue/reactivity";
+import { watchEffect } from "vue";
 import { AppState } from "../AppState.js";
 import { legoSetsService } from "../services/LegoSetsService.js";
 import Login from "./Login.vue";
@@ -70,8 +78,15 @@ export default {
     const state = reactive({
       notifications: computed(() => AppState.notifications),
     });
+    watchEffect(() => {
+      document.body.setAttribute('data-theme', AppState.lightIsOn ? 'dark' : 'light')
+    })
     return {
       state,
+      lightIsOn: computed(() => AppState.lightIsOn),
+      toggleTheme() {
+        AppState.lightIsOn = !AppState.lightIsOn
+      },
       async getTradableSets() {
         try {
           await legoSetsService.getTradableSets();
@@ -85,7 +100,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .marketplace {
   /* background-image: url('red-lego.webp'); */
   /* background-position: top left; */

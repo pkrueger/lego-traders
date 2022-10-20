@@ -1,33 +1,34 @@
-$body-bg: #e5e5e5;
-$primary: #0099d4;
-$secondary: #a0a19f;
-$success: #00a84f;
-$info: #00bed3;
-$warning: #ffcd03;
-$danger: #dd1a21;
-$light: #efefef;
-$dark: #42423f;
-$grey: #cbcbcb;
+$themes: (
+	default: ("body-bg": #e5e5e5,
+		"primary": #0099d4,
+		"secondary": #a0a19f,
+		"success": #00a84f,
+		"info": #00bed3,
+		"warning": #ffcd03,
+		"danger": #dd1a21,
+		"light": #efefef,
+		"dark": #42423f,
+		"grey": #cbcbcb,
+	),
+	dark: ("body-bg": #090f18,
+		"primary": #00415b,
+		"secondary": #a0a19f,
+		"success": #006221,
+		"info": #330163,
+		"warning": #997b00,
+		"danger": #920005,
+		"light": #efefef,
+		"dark": #373734,
+		"grey": #cbcbcb,
+	),
+);
 
 $font-sans-serif: Open Sans;
 $font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
 	"Courier New", monospace;
-$gradient: linear-gradient(
-	180deg,
-	hsla(0, 0%, 100%, 0.15),
-	hsla(0, 0%, 100%, 0)
-);
-
-$colors: (
-	"primary": $primary,
-	"secondary": $secondary,
-	"danger": $danger,
-	"success": $success,
-	"warning": $warning,
-	"info": $info,
-	"dark": $dark,
-	"grey": $grey,
-);
+$gradient: linear-gradient(180deg,
+		hsla(0, 0%, 100%, 0.15),
+		hsla(0, 0%, 100%, 0));
 
 $color-ranges: (
 	0: 0,

@@ -43,10 +43,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// .home {
-//   background-image: url('blue-lego.webp');
-//   background-size: cover;
-//   background-position: top left;
-//   height: 100vh;
-// }
+.home {
+  height: 95vh;
+}
 </style>
