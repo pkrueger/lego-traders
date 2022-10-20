@@ -62,10 +62,14 @@
         </ul>
         <!-- DARK/LIGHT THEME -->
         <div class="light-component selectable no-select">
-          <i class="mdi fs-2" @click="toggleTheme()" :class="{
-            'mdi-lightbulb-variant-outline': lightIsOn,
-            'mdi-lightbulb-on text-success darken-20': !lightIsOn
-          } "></i>
+          <i
+            class="mdi fs-2"
+            @click="toggleTheme()"
+            :class="{
+              'mdi-lightbulb-variant-outline': lightIsOn,
+              'mdi-lightbulb-on text-success darken-20': !lightIsOn,
+            }"
+          ></i>
         </div>
         <!-- NOTIFICATIONS GO HERE-->
         <div class="dropdown">
@@ -88,7 +92,7 @@
             >
               <Notification :key="n.id" :notification="n" />
             </li>
-            <li class="p-2 text-center" v-else>
+            <li class="p-2 text-center border-0" v-else>
               You don't have any notifications
             </li>
           </ul>
@@ -113,13 +117,16 @@ export default {
       notifications: computed(() => AppState.notifications),
     });
     watchEffect(() => {
-      document.body.setAttribute('data-theme', AppState.lightIsOn ? 'dark' : 'light')
-    })
+      document.body.setAttribute(
+        "data-theme",
+        AppState.lightIsOn ? "dark" : "light"
+      );
+    });
     return {
       state,
       lightIsOn: computed(() => AppState.lightIsOn),
       toggleTheme() {
-        AppState.lightIsOn = !AppState.lightIsOn
+        AppState.lightIsOn = !AppState.lightIsOn;
       },
       async getTradableSets() {
         try {
