@@ -50,8 +50,11 @@ export default {
     onMounted(() => {
       const myOffcanvas = Offcanvas.getOrCreateInstance('#offcanvasRight')
       logger.log('offcan', myOffcanvas)
-      myOffcanvas._element.addEventListener('show.bs.offcanvas', event => {
+      myOffcanvas._element.addEventListener('shown.bs.offcanvas', event => {
         TradeHandler.EnterTrade(AppState.activeTrade.id)
+      })
+      myOffcanvas._element.addEventListener('hide.bs.offcanvas', event => {
+        TradeHandler.LeaveTrade(AppState.activeTrade.id)
       })
     })
     // myOffcanvas.addEventListener('show.bs.offcanvas', event => {
