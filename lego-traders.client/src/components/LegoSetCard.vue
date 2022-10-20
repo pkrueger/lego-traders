@@ -25,12 +25,17 @@
       </div>
       <!-- Add Offer Trade Button v-if="legoSet.ownerId != account.id && account.id" -->
       <div v-if="!legoSet.isOwned" class="wishlist">
-        <i v-if="!legoSet.isOwned && legoSet.id" @click="deleteLegoSet(legoSet.id)"
-          class="mdi mdi-heart text-danger selectable"></i>
-        <i v-else @click="addSetToWishList(legoSet)" class="mdi mdi-heart-outline selectable"></i>
+        <span v-if="!legoSet.isOwned && legoSet.id">
+          <i @click="moveSetToOwned(legoSet)" class="mdi mdi-plus selectable" title="Add to Owned Sets"></i>
+          <i @click="deleteLegoSet(legoSet.id)" class="mdi mdi-heart text-danger selectable"
+            title="Remove From Wishlist"></i>
+
+        </span>
+        <i v-else @click="addSetToWishList(legoSet)" class="mdi mdi-heart-outline selectable"
+          title="Add to Wishlist"></i>
       </div>
       <div v-else class="wishlist">
-        <i class="mdi mdi-delete selectable" @click="deleteLegoSet(legoSet.id)"></i>
+        <i class="mdi mdi-delete selectable" @click="deleteLegoSet(legoSet.id)" title="Remove Set from Account"></i>
       </div>
     </div>
   </div>
@@ -62,40 +67,52 @@ export default {
           Pop.error("[toggleIsUpForTrade]", error);
         }
       },
-      async addSetToAccount(data) {
+      async moveSetToOwned(legoSet) {
+        try {
+          await legoSetsService.moveSetToOwned(legoSet)
+        } catch (error) {
+          Pop.error('[addSetToOwned]', error)
+        }
+      },
+      async addSetToAccount(legoSet) {
         try {
           const yes = await Pop.confirm("Do you own this?", "");
           if (!yes) {
             return
           } else {
-            data.isOwned = true;
-            await legoSetsService.addSetToAccount(data);
+            legoSet.isOwned = true;
+            await legoSetsService.addSetToAccount(legoSet);
           }
         } catch (error) {
           Pop.error("[addToAccount]", error);
         }
       },
-      async addSetToWishlist(data) {
+      async addSetToWishList(legoSet) {
         try {
-          await legoSetsService.addSetToAccount(data);
-
+          Pop.success(`You added ${legoSet.name} to your wishlist!`)
+          legoSet.isOwned = false;
+          await legoSetsService.addSetToAccount(legoSet);
         } catch (error) {
           Pop.error("[addToAccount]", error);
         }
       },
       async deleteLegoSet(id) {
         try {
+          const yes = await Pop.confirm('Are you sure you want to delete this?')
+          if (!yes) { return }
           let receivedtrades = AppState.receivedTrades.filter(t => {
             return t.requestedSetId == id
           })
           if (receivedtrades.length) {
             Pop.error("You can't delete a Set you have in a trade.(delete resolved trades)")
+            return
           }
           let offeredtrades = AppState.sentTrades.filter(t => {
             return t.offeredSetId == id
           })
           if (offeredtrades.length) {
             Pop.error("You can't delete a Set you have in a trade.(delete resolved trades)")
+            return
           }
           await legoSetsService.deleteLegoSet(id)
         } catch (error) {

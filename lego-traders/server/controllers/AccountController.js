@@ -2,6 +2,7 @@ import { Auth0Provider } from "@bcwdev/auth0provider";
 import { accountService } from "../services/AccountService";
 import { legoSetsService } from "../services/LegoSetsService.js";
 import { notificationsService } from "../services/NotificationsService.js";
+import { socketProvider } from "../SocketProvider.js";
 import BaseController from "../utils/BaseController";
 
 export class AccountController extends BaseController {
@@ -17,8 +18,9 @@ export class AccountController extends BaseController {
   async createLegoSet(req, res, next) {
     try {
       req.body.ownerId = req.userInfo.id;
-      const LegoSet = await legoSetsService.createLegoSet(req.body);
-      res.send(LegoSet);
+      const legoSet = await legoSetsService.createLegoSet(req.body);
+      socketProvider.messageUser(req.userInfo.id, 'CREATE_LEGO_SET', legoSet)
+      res.send(legoSet);
     } catch (error) {
       next(error);
     }
