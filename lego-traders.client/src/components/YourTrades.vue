@@ -7,7 +7,7 @@
       <div>
         <strong>Sent</strong>
         <div v-for="t in sentTrades" class="d-flex justify-content-around">
-          <router-link :to="{name: 'Profile', params:{profileId:t.requestedAccount.id}}">
+          <router-link v-if="t.requestedAccount" :to="{name: 'Profile', params:{profileId:t.requestedAccount.id}}">
             <img class="selectable" :src="t.requestedAccount.picture" height="40" alt="" />
           </router-link>
           <div>
@@ -16,7 +16,8 @@
           </div>
           <p>
             Requested Set:
-            <router-link :to="{ name: 'SetDetails', params: { set_num: t.requestedSet.set_num } }">
+            <router-link v-if="t.requestedAccount"
+              :to="{ name: 'SetDetails', params: { set_num: t.requestedSet.set_num } }">
               <img class="selectable me-auto" v-if="t.requestedSet" height="30" :src="t.requestedSet.set_img_url"
                 :alt="t.requestedSet.name" :title="t.requestedSet.name" />
             </router-link>
@@ -28,7 +29,7 @@
           <p>Status: {{ t.status }}</p>
           <p>
             Offered Set:
-            <router-link :to="{ name: 'SetDetails', params: { set_num: t.requestedSet.set_num } }">
+            <router-link v-if="t.offeredSet" :to="{ name: 'SetDetails', params: { set_num: t.offeredSet.set_num } }">
               <img class="selectable" v-if="t.offeredSet" height="30" :src="t.offeredSet.set_img_url"
                 :alt="t.offeredSet.name" :title="t.offeredSet.name" />
             </router-link>
@@ -49,8 +50,10 @@
           </div>
           <p>
             Offered Set:
-            <img v-if="t.offeredSet" class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
-              :title="t.offeredSet.name" />
+            <router-link v-if="t.offeredSet" :to="{ name: 'SetDetails', params: { set_num: t.offeredSet.set_num } }">
+              <img v-if="t.offeredSet" class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
+                :title="t.offeredSet.name" />
+            </router-link>
 
             <span v-if="t.body" class="message">
               <i class="mdi mdi-note-outline"></i>
@@ -66,8 +69,11 @@
           <p v-else>Status: {{ t.status }}</p>
           <p>
             Requested Set:
-            <img v-if="t.requestedSet" class="me-auto" height="30" :src="t.requestedSet.set_img_url"
-              :alt="t.requestedSet.name" :title="t.requestedSet.name" />
+            <router-link v-if="t.requestedSet"
+              :to="{ name: 'SetDetails', params: { set_num: t.requestedSet.set_num } }">
+              <img v-if="t.requestedSet" class="me-auto" height="30" :src="t.requestedSet.set_img_url"
+                :alt="t.requestedSet.name" :title="t.requestedSet.name" />
+            </router-link>
           </p>
           <i v-if="t.status != 'pending'" class="mdi mdi-close text-danger selectable" @click="removeTrade(t.id)"></i>
         </div>
