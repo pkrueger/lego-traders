@@ -1,7 +1,18 @@
 <template>
-  <p class="d-flex">
-    {{comment.body}}
-  </p>
+
+  <div class="d-flex bg-success my-2 rounded p-2 align-items-center" v-if="comment.creator.id != account.id">
+    <img class="profile-picture" :src="comment.creator.picture" :alt="comment.creator.name"
+      :title="comment.creator.name">
+    <p class="pt-3 ms-3">
+      {{comment.body}}
+    </p>
+  </div>
+  <div class="d-flex bg-primary my-2 rounded p-2 justify-content-end align-items-center"
+    v-if="comment.creator.id == account.id">
+    <p class="pt-3 me-3">{{comment.body}}</p>
+    <img class="profile-picture" :src="comment.creator.picture" :alt="comment.creator.name"
+      :title="comment.creator.name">
+  </div>
 
 </template>
 
@@ -21,6 +32,7 @@ export default {
   setup() {
     return {
       account: computed(() => AppState.account),
+
     }
   }
 }
@@ -29,10 +41,10 @@ export default {
 
 <style lang="scss" scoped>
 .profile-picture {
-  height: 5rem;
-  width: 5rem;
+  height: 3rem;
+  width: 3rem;
   border-radius: 50%;
-  object-fit: fill;
+  object-fit: cover;
 }
 
 .comment-text {
