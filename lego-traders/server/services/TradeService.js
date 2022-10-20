@@ -80,7 +80,9 @@ class TradeService {
   async makeTradeRequest(formData) {
     const trade = await dbContext.TradeRequest.create(formData);
     await trade.populate("owner", "name picture");
-    await trade.populate("requestedSet", "name");
+    await trade.populate("requestedAccount", "name picture");
+    await trade.populate("offeredSet", "name set_img_url");
+    await trade.populate("requestedSet", "name set_img_url");
     return trade;
   }
   async getSentTrades(ownerId) {
@@ -100,14 +102,16 @@ class TradeService {
     return trades;
   }
   async deleteTrade(id) {
-    const trade = await dbContext.TradeRequest.findById(id)
-    if (!trade) { throw new BadRequest('failed to delete, bad id') }
-    const comments = await dbContext.Comments.find({ tradeId: id })
-    if (comments) {
-      comments.forEach(c => c.delete())
+    const trade = await dbContext.TradeRequest.findById(id);
+    if (!trade) {
+      throw new BadRequest("failed to delete, bad id");
     }
-    trade.delete()
-    return trade
+    const comments = await dbContext.Comments.find({ tradeId: id });
+    if (comments) {
+      comments.forEach((c) => c.delete());
+    }
+    trade.delete();
+    return trade;
   }
 }
 

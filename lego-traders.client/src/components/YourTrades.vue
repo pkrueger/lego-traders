@@ -48,7 +48,9 @@
             </span>
           </p>
           <p v-if="t.status == 'pending'">
-            <button class="m-1" @click="changeStatus(t.id, 'accepted')">Accept</button>
+            <button class="m-1" @click="changeStatus(t.id, 'accepted')">
+              Accept
+            </button>
             <button @click="changeStatus(t.id, 'rejected')">Reject</button>
           </p>
           <p v-else>Status: {{ t.status }}</p>
@@ -105,7 +107,6 @@ export default {
         try {
           AppState.activeTrade = trade;
           await commentsService.getTradeComments(trade.id);
-
         } catch (error) {
           Pop.error(error);
         }

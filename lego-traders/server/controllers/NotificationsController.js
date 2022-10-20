@@ -26,7 +26,11 @@ export class NotificationsController extends BaseController {
   async becomeNotified(req, res, next) {
     try {
       const notification = await notificationsService.becomeNotified(req.body);
-      socketProvider.messageUser(req.body.recipientId, 'BECOME_NOTIFIED', notification)
+      socketProvider.messageUser(
+        req.body.recipientId,
+        "BECOME_NOTIFIED",
+        notification
+      );
       res.send(notification);
     } catch (error) {
       next(error);
@@ -54,4 +58,5 @@ export class NotificationsController extends BaseController {
       next(error);
     }
   }
+  // TODO make a delete all
 }
