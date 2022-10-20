@@ -15,6 +15,7 @@ class NotificationsService {
       recipientId: trade.requestedAccountId,
       type: "trade-pending",
       body: `${trade.owner.name} has requested a trade for your ${trade.requestedSet.name}.`,
+      route: { name: "Marketplace" },
     });
   }
   async sendAcceptedTradeNote(trade) {
@@ -22,6 +23,7 @@ class NotificationsService {
       recipientId: trade.ownerId,
       type: "trade-accepted",
       body: `${trade.requestedAccount.name} has accepted the trade for their ${trade.requestedSet.name}.`,
+      route: { name: "Marketplace" },
     });
   }
   async sendRejectedTradeNote(trade) {
@@ -29,6 +31,7 @@ class NotificationsService {
       recipientId: trade.ownerId,
       type: "trade-rejected",
       body: `${trade.requestedAccount.name} has rejected the trade for their ${trade.requestedSet.name}.`,
+      route: { name: "Marketplace" },
     });
   }
   async sendCommentNote(comment) {
@@ -41,6 +44,10 @@ class NotificationsService {
         recipientId: s,
         type: "forum-comment-unowned",
         body: `${comment.creator.name} has commented on a post.`,
+        route: {
+          name: "ForumPost",
+          params: { postId: post.id },
+        },
       });
     }
     if (post.creatorId != comment.creatorId) {
@@ -48,18 +55,23 @@ class NotificationsService {
         recipientId: post.creatorId,
         type: "forum-comment-owned",
         body: `${comment.creator.name} has commented on your post.`,
+        route: {
+          name: "ForumPost",
+          params: { postId: post.id },
+        },
       });
     }
   }
 
   async sendWishlistNote(legoSet) {
     const res = await api.get(`/api/sets/wishlists/${legoSet.set_num}`);
-    const legoSets = res.data;
+    const legoSets = res.data.filter((s) => s.ownerId != legoSet.ownerId);
     for (let s of legoSets) {
       await api.post("/api/notifications", {
         recipientId: s.ownerId,
         type: "wishlist-set-available",
         body: `${legoSet.name} has been put up for trade by ${legoSet.owner.name}.`,
+        route: { name: "Marketplace" },
       });
     }
   }

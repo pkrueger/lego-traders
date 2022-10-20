@@ -4,51 +4,85 @@
       <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
         <div class="d-flex gap-1 align-items-center">
           <img alt="logo" src="../assets/img/lego-logo.png" height="45" />
-          <img class="img-fluid trader-img" src="../assets/img/lego-trader.png" alt="logo-text" />
+          <img
+            class="img-fluid trader-img"
+            src="../assets/img/lego-trader.png"
+            alt="logo-text"
+          />
         </div>
       </router-link>
-      <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <button
+        class="navbar-toggler bg-dark"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarText"
+        aria-controls="navbarText"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse " id="navbarText">
+      <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto">
           <li>
             <router-link :to="{ name: 'Marketplace' }">
-              <button @click="getTradableSets()"
-                class="marketplace text-shadow btn btn-danger selectable text-uppercase">
+              <button
+                @click="getTradableSets()"
+                class="marketplace text-shadow btn btn-danger selectable text-uppercase"
+              >
                 Marketplace
               </button>
             </router-link>
           </li>
           <li>
             <router-link :to="{ name: 'Forum' }">
-              <button class="forum text-shadow btn btn-primary text-uppercase text-light">
+              <button
+                class="forum text-shadow btn btn-primary text-uppercase text-light"
+              >
                 Forum
               </button>
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'MOC' }"
-              class="moc text-shadow btn btn-success selectable text-uppercase text-light">
+            <router-link
+              :to="{ name: 'MOC' }"
+              class="moc text-shadow btn btn-success selectable text-uppercase text-light"
+            >
               Create Your Own
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'Collection' }"
-              class="collections text-shadow btn btn-secondary selectable text-uppercase text-light">
+            <router-link
+              :to="{ name: 'Collection' }"
+              class="collections text-shadow btn btn-secondary selectable text-uppercase text-light"
+            >
               Collections
             </router-link>
           </li>
         </ul>
         <!-- NOTIFICATIONS GO HERE-->
         <div class="dropdown">
-          <button class="btn text-white me-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fa-solid fa-bell fs-2 text-shadow" title="Notifications" aria-label="Notification tray"></i>
+          <button
+            class="btn text-white me-3"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i
+              class="fa-solid fa-bell fs-2 text-shadow"
+              title="Notifications"
+              aria-label="Notification tray"
+            ></i>
           </button>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li v-for="n in state.notifications">
+          <ul class="dropdown-menu dropdown-menu-end p-0">
+            <li
+              v-for="n in state.notifications"
+              v-if="state.notifications.length"
+            >
               <Notification :key="n.id" :notification="n" />
+            </li>
+            <li class="p-2 text-center" v-else>
+              You don't have any notifications
             </li>
           </ul>
         </div>
@@ -78,14 +112,14 @@ export default {
         } catch (error) {
           Pop.error(error, "[gettingTradableSets]");
         }
-      }
+      },
     };
   },
   components: { Login, Notification },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .marketplace {
   /* background-image: url('red-lego.webp'); */
   /* background-position: top left; */
@@ -152,6 +186,10 @@ a:hover {
 }
 
 .dropdown-menu {
-  width: 60ch;
+  width: 70ch;
+
+  li {
+    border-bottom: 0.1rem solid rgb(0, 0, 0, 0.5);
+  }
 }
 </style>
