@@ -2,7 +2,7 @@
   <div class="container-fluid forum-page">
     <div class="row justify-content-center p-4">
       <div class="col-md-8">
-        <div class="row">
+        <div class="row scroll">
           <div class="col-12 mb-3" v-for="post in forumPosts">
             <ForumPostCard class="w-100" :key="post.id" :post="post" />
           </div>
@@ -62,10 +62,15 @@ export default {
 
 
 <style lang="scss" scoped>
+.scroll {
+  height: 85vh;
+  overflow-y: auto;
+}
+
 .forum-page {
   background-image: url('blue-lego.webp');
-  background-size: fill;
+  background-size: auto;
   background-position: top left;
-  height: 100vh;
+  height: 91vh;
 }
 </style>
