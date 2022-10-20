@@ -28,13 +28,14 @@
 
 <script>
 import { computed } from '@vue/reactivity';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watchEffect } from 'vue';
 import { onBeforeRouteLeave, useRoute } from 'vue-router';
 import { AppState } from '../AppState.js';
 import { TradeHandler } from '../Handlers/TradeHandler.js';
 import { AuthService } from '../services/AuthService.js';
 import { commentsService } from '../services/CommentsService.js';
 import Pop from '../utils/Pop.js';
+import ChatComment from './ChatComment.vue';
 import ChatComment from './ChatComment.vue';
 export default {
   props: {
@@ -43,7 +44,7 @@ export default {
   setup() {
     const editable = ref({})
     const route = useRoute();
-    onMounted(() => {
+    watchEffect(() => {
       TradeHandler.EnterTrade(route.params.id)
     })
     onBeforeRouteLeave(() => {
@@ -65,7 +66,7 @@ export default {
       }
     };
   },
-  components: { ChatComment }
+  components: { ChatComment, ChatComment }
 }
 </script>
 
