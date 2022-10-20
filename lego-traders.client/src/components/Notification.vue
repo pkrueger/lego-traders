@@ -33,8 +33,6 @@
 </template>
 
 <script>
-import { Notification } from "../models/Notification.js";
-
 export default {
   props: { notification: { type: Object, required: true } },
   setup() {
