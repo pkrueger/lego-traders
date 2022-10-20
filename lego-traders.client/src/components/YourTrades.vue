@@ -28,7 +28,8 @@
             <img v-if="t.offeredSet" class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
               :title="t.offeredSet.name" />
           </p>
-          <i v-if="t.status != 'pending'" class="mdi mdi-close text-danger" @click="removeTrade(t.id)"></i>
+          <i v-if="t.status != 'pending'" class="mdi mdi-close text-danger selectable align-self-center"
+            @click="removeTrade(t.id)"></i>
         </div>
       </div>
       <div>
