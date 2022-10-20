@@ -36,7 +36,6 @@ import { AuthService } from '../services/AuthService.js';
 import { commentsService } from '../services/CommentsService.js';
 import Pop from '../utils/Pop.js';
 import ChatComment from './ChatComment.vue';
-import ChatComment from './ChatComment.vue';
 export default {
   props: {
     tradeId: { type: String }
