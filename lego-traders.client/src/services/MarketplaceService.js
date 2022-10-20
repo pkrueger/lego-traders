@@ -1,3 +1,4 @@
+import { defineSSRCustomElement } from "vue";
 import { AppState } from "../AppState.js";
 import { api } from "./AxiosService.js";
 import { legoSetsService } from "./LegoSetsService.js";
@@ -37,5 +38,10 @@ class MarketplaceService {
       (s) => s.id != res.data.id
     );
   }
+  async getTradableSetBySearch(term){
+    debugger
+  AppState.tradableSet = AppState.tradableSet.filter((s)=> s.name.toUpperCase().includes(term.toUpperCase()))
+}
+  
 }
 export const marketplaceService = new MarketplaceService();
