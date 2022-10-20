@@ -36,7 +36,7 @@
 import { Notification } from "../models/Notification.js";
 
 export default {
-  props: { notification: { type: Notification, required: true } },
+  props: { notification: { type: Object, required: true } },
   setup() {
     return {};
   },
