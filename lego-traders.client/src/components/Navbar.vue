@@ -85,7 +85,13 @@
               aria-label="Notification tray"
             ></i>
           </button>
+
           <ul class="dropdown-menu dropdown-menu-end p-0">
+            <div class="d-flex align-items-center">
+              <button class="invisible p-0">Dismiss all</button>
+              <div class="text-dark note-text mx-auto">Notifications</div>
+              <button class="dismiss-all p-0">Dismiss all</button>
+            </div>
             <li
               v-for="n in state.notifications"
               v-if="state.notifications.length"
@@ -116,6 +122,7 @@ export default {
   setup() {
     const state = reactive({
       notifications: computed(() => AppState.notifications),
+      isTrayOpen: false,
     });
     watchEffect(() => {
       document.body.setAttribute(
@@ -211,8 +218,31 @@ a:hover {
 .dropdown-menu {
   width: 70ch;
 
+  .invisible {
+    visibility: hidden;
+    margin-left: 1rem;
+  }
+  .note-text {
+    font-size: 0.85rem;
+    color: #42423f;
+    opacity: 0.6;
+  }
+  .dismiss-all {
+    text-decoration: none;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 0.85rem;
+    color: #0099d4;
+    text-decoration: underline;
+    margin-right: 1rem;
+  }
+  .dismiss-all:hover {
+    filter: brightness(90%);
+  }
+
   li {
-    border-bottom: 0.1rem solid rgb(0, 0, 0, 0.5);
+    border-top: 0.1rem solid rgb(0, 0, 0, 0.5);
   }
 }
 </style>
