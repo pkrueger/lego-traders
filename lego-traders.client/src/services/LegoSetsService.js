@@ -33,7 +33,7 @@ class LegoSetsService {
     // console.log(legoSet);
     const res = await api.post("/account/sets", legoSet);
     // console.log("addSetToAccount", res.data);
-    AppState.myLegoSets.push(new LegoSet(res.data))
+    // AppState.myLegoSets.push(res.data)
   }
   async getProfileLegoSets(accountId) {
     const res = await api.get(`api/sets/profile/` + accountId);
