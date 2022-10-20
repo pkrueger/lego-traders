@@ -9,8 +9,11 @@ class LegoSetsService {
     AppState.myLegoSets = AppState.myLegoSets.filter(l => l.id != id)
   }
   async moveSetToOwned(legoSet) {
-    const newSet = api.put('api/sets/' + legoSet.id + '/moveToOwned', legoSet)
+    await api.put('api/sets/' + legoSet.id + '/moveToOwned', legoSet)
     const set = AppState.myLegoSets.find(l => l.id == legoSet.id)
+    set.isOwned = true
+
+    AppState.myLegoSets = [...AppState.myLegoSets]
     // AppState.myLegoSets.splice(set, 1, newSet)
   }
   async toggleIsUpForTrade(id) {
