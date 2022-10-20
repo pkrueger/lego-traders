@@ -43,7 +43,7 @@
 
 <script>
 import { computed } from "@vue/reactivity";
-import { onMounted } from "vue";
+import { onMounted, watchEffect } from "vue";
 import { AppState } from "../AppState.js";
 import { legoSetsService } from "../services/LegoSetsService.js";
 import Pop from "../utils/Pop.js";
@@ -56,6 +56,7 @@ import OwnedSetsModal from "../components/OwnedSetsModal.vue";
 export default {
   setup() {
     const editable = ref({})
+
 
     onMounted(() => {
       getTradableSets();

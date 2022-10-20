@@ -40,6 +40,17 @@ class LegoSetsService {
     );
     return sets;
   }
+  async moveToOwnedSet(setId, body) {
+    const set = await dbContext.LegoSets.findById(setId)
+      .populate(
+        "owner",
+        "name picture"
+      );
+    if (!set) { throw new BadRequest('invalid set') }
+    set.isOwned = true
+    set.save()
+    return set
+  }
   async setTradable(legoSetId) {
     const set = await dbContext.LegoSets.findById(legoSetId).populate(
       "owner",
