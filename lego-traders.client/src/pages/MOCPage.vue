@@ -2,7 +2,7 @@
   <div class="container-fluid moc-page">
     <div class="row justify-content-center p-4">
       <div class="col-lg-9">
-        <div class="row">
+        <div class="row align-items-center">
           <div class="col-lg-4 mb-3" v-for="m in mocSets">
             <!-- MOC cards go here -->
             <MOCCard :key="m.id" :mocSet="m" />
@@ -66,6 +66,6 @@ export default {
   background-image: url("green-lego.webp");
   background-size: fill;
   background-position: top left;
-  height: 90vh;
+  height: 91.4vh;
 }
 </style>
