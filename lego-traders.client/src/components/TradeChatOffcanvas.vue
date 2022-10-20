@@ -44,10 +44,10 @@ export default {
     const editable = ref({})
     const route = useRoute();
     watchEffect(() => {
-      TradeHandler.EnterTrade(route.params.id)
+      TradeHandler.EnterTrade(AppState.activeTrade.id)
     })
     onBeforeRouteLeave(() => {
-      TradeHandler.LeaveTrade(route.params.id)
+      TradeHandler.LeaveTrade(AppState.activeTrade.id)
     })
     return {
       editable,
@@ -65,7 +65,7 @@ export default {
       }
     };
   },
-  components: { ChatComment, ChatComment }
+  components: { ChatComment }
 }
 </script>
 
