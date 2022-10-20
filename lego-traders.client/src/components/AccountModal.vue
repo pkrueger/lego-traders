@@ -26,9 +26,9 @@
               <label class="input-group-text" required for="theme">Select an Theme</label>
               <select class="form-select" v-model="editable.userTheme" id="theme">
                 <option value="starwars">Star Wars</option>
-                <option value="dc">DC</option>
+                <option value="supers">Super Heroes/Villains</option>
                 <option value="harrypotter">Harry Potter</option>
-                <option value="technic">Technic</option>
+                <option value="misc">Misc</option>
               </select>
             </div>
 
@@ -50,6 +50,8 @@
                 </option>
                 <option v-if="editable.userTheme == 'harrypotter'" value="HarryPotterMiniFigs/voldemort.jpg">Voldemort
                 </option>
+                <option v-if="editable.userTheme == 'misc'" value="MiscMiniFigs/Cop.jpg">Cop</option>
+                <option v-if="editable.userTheme == 'misc'" value="MiscMiniFigs/Ninja.jpg">Ninja</option>
                 <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/admiralThrawn.jpg">Admiral
                   Thrawn
                 </option>
@@ -67,6 +69,8 @@
                   Clone Trooper Lieutenant</option>
                 <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/DarthRevan.jpg">Darth Revan
                 </option>
+                <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/darthvader.jpg">Darth Vader
+                </option>
                 <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/FirstOrderTrooper.jpg">First
                   Order Trooper</option>
                 <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/leia.jpg">Leia</option>
@@ -76,8 +80,14 @@
                 <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/QuiGon Jinn.jpg">QuiGon Jinn
                 </option>
                 <option v-if="editable.userTheme == 'starwars'" value="StarWarsMiniFigs/Yoda.jpg">Yoda</option>
-
-
+                <option v-if="editable.userTheme == 'supers'" value="superhero/batman.jpg">Batman</option>
+                <option v-if="editable.userTheme == 'supers'" value="superhero/deadpool.jpg">DeadPool</option>
+                <option v-if="editable.userTheme == 'supers'" value="superhero/ironMan.jpg">Iron Man</option>
+                <option v-if="editable.userTheme == 'supers'" value="superhero/Joker.jpg">Joker</option>
+                <option v-if="editable.userTheme == 'supers'" value="superhero/spiderman.jpg">SpiderMan</option>
+                <option v-if="editable.userTheme == 'supers'" value="superhero/superman.jpg">Superman</option>
+                <option v-if="editable.userTheme == 'supers'" value="superhero/WonderWoman.jpg">Wonder Woman</option>
+                <option v-if="editable.userTheme == 'supers'" value="superhero/venom.jpg">Venom</option>
               </select>
 
             </div>
