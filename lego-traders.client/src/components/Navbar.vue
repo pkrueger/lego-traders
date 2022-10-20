@@ -75,8 +75,14 @@
             ></i>
           </button>
           <ul class="dropdown-menu dropdown-menu-end p-0">
-            <li v-for="n in state.notifications">
+            <li
+              v-for="n in state.notifications"
+              v-if="state.notifications.length"
+            >
               <Notification :key="n.id" :notification="n" />
+            </li>
+            <li class="p-2 text-center" v-else>
+              You don't have any notifications
             </li>
           </ul>
         </div>
