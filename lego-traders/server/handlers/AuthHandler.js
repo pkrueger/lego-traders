@@ -1,6 +1,7 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { attachHandlers } from '../../Setup'
 import { accountService } from '../services/AccountService'
+import { notificationsService } from '../services/NotificationsService.js'
 import { SocketHandler } from '../utils/SocketHandler'
 
 export class AuthHandler extends SocketHandler {
@@ -20,9 +21,12 @@ export class AuthHandler extends SocketHandler {
       const user = await Auth0Provider.getUserInfoFromBearerToken(bearerToken)
       const profile = await accountService.getAccount(user)
       const limitedProfile = {
+        // @ts-ignore
         id: profile.id,
+        // @ts-ignore
         email: profile.email,
-        picture: profile.picture
+        // @ts-ignore
+        picture: profile.picture,
       }
       this.socket.join(user.id)
       attachHandlers(this.io, this.socket, user, limitedProfile)

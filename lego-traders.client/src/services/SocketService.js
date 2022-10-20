@@ -8,18 +8,21 @@ class SocketService extends SocketHandler {
     this
       .on('error', this.onError)
       .on('COMMENT_ADDED', this.addComment)
+      .on('BECOME_NOTIFIED', this.becomeNotified)
   }
-
-  addComment(comment){
+  becomeNotified(notification) {
+    AppState.notifications.unshift(notification)
+  }
+  addComment(comment) {
     addOrSkip(AppState.comments, comment)
   }
   onError(e) {
     Pop.toast(e.message, 'error')
   }
 }
-function addOrSkip(arr, item){
-  let found = arr.find(i=> i.id == item.id)
-  if(!found){
+function addOrSkip(arr, item) {
+  let found = arr.find(i => i.id == item.id)
+  if (!found) {
     arr.push(item)
   }
 }
