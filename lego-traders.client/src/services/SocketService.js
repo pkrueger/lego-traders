@@ -1,4 +1,5 @@
 import { AppState } from '../AppState.js'
+import { logger } from '../utils/Logger.js'
 import Pop from '../utils/Pop'
 import { SocketHandler } from '../utils/SocketHandler'
 
@@ -21,15 +22,21 @@ class SocketService extends SocketHandler {
   }
   legoSetCreated(legoSet) {
     AppState.myLegoSets.push(legoSet)
+      .on('JOINED_ROOM', this.joinedRoom)
   }
   becomeNotified(notification) {
     AppState.notifications.push(notification)
   }
   addComment(comment) {
+    logger.log('COMMENT_ADDED', comment)
     addOrSkip(AppState.comments, comment)
   }
   onError(e) {
     Pop.toast(e.message, 'error')
+  }
+
+  joinedRoom(tradeId){
+    logger.log('JOINED_ROOM poopoohead', tradeId)
   }
 }
 function addOrSkip(arr, item) {

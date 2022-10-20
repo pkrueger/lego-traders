@@ -1,4 +1,5 @@
 import { AppState } from "../AppState"
+import { logger } from "../utils/Logger.js"
 import { api } from "./AxiosService"
 class CommentsService {
   async removeComment(id) {
@@ -7,6 +8,7 @@ class CommentsService {
   }
   async createComment(CommentData) {
     const res = await api.post(`/api/comments`, CommentData)
+    logger.log('create comment res', res.data)
     AppState.comments.push(res.data)
     return res.data
   }

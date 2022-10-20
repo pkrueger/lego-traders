@@ -14,6 +14,7 @@ export class ChatHandler extends SocketHandler {
 
   enterTrade(tradeId) {
     this.socket.join(tradeId)
+    this.socket.emit('JOINED_ROOM', tradeId)
   }
 
   leaveTrade(tradeId) {
