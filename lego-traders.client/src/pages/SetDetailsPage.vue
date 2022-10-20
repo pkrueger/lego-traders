@@ -8,7 +8,7 @@
       <div class="col-md-6">
         <div class="text-center">
           <a :href="'https://www.google.com/search?tbm=shop&hl=en&psb=1&ved=0CAAQvOkFahcKEwiAkYjb1e_6AhUAAAAAHQAAAAAQEQ&q='+ `${legoSet.name}`"
-            target="_blank">
+            target="_blank" title="Google Shopping">
             <button class="btn btn-danger mdi mdi-shopping fs-5"></button>
           </a>
           <h4>{{legoSet.name}}</h4>
