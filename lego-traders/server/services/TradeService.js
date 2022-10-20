@@ -100,12 +100,14 @@ class TradeService {
     return trades;
   }
   async deleteTrade(id) {
-    const trade = await dbContext.TradeRequest.findById(id);
-    // @ts-ignore
-    trade.remove();
-    return trade;
-    // const trade = await dbContext.TradeRequest.deleteOne({ id })
-    // return trade
+    const trade = await dbContext.TradeRequest.findById(id)
+    if (!trade) { throw new BadRequest('failed to delete, bad id') }
+    const comments = await dbContext.Comments.find({ tradeId: id })
+    if (comments) {
+      comments.forEach(c => c.delete())
+    }
+    trade.delete()
+    return trade
   }
 }
 

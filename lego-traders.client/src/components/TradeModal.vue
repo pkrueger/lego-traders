@@ -2,7 +2,7 @@
   <div class="component">
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
-        <form @submit="offerTrade()">
+        <form @submit.prevent="offerTrade()">
           <div class="modal-content">
             <div class="modal-header">
               <img class="pe-2 img-fluid set-img" :src="activeLegoSet.set_img_url" alt="" />

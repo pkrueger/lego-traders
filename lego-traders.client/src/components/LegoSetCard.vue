@@ -85,6 +85,18 @@ export default {
       },
       async deleteLegoSet(id) {
         try {
+          let receivedtrades = AppState.receivedTrades.filter(t => {
+            return t.requestedSetId == id
+          })
+          if (receivedtrades.length) {
+            Pop.error("You can't delete a Set you have in a trade.(delete resolved trades)")
+          }
+          let offeredtrades = AppState.sentTrades.filter(t => {
+            return t.offeredSetId == id
+          })
+          if (offeredtrades.length) {
+            Pop.error("You can't delete a Set you have in a trade.(delete resolved trades)")
+          }
           await legoSetsService.deleteLegoSet(id)
         } catch (error) {
           Pop.error('[deleteLegoSet]', error)

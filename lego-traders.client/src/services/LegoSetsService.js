@@ -5,20 +5,6 @@ import { api, legoApi } from "./AxiosService";
 
 class LegoSetsService {
   async deleteLegoSet(id) {
-    let receivedtrades = AppState.receivedTrades.filter(t => {
-      return t.offeredSetId == id || t.requestedSetId == id
-    })
-    if (receivedtrades.length) {
-      console.error("You can't delete a Set you have up for trade.")
-      return
-    }
-    let offeredtrades = AppState.sentTrades.filter(t => {
-      return t.offeredSetId == id || t.requestedSetId == id
-    })
-    if (offeredtrades.length) {
-      console.error("You can't delete a Set you have up for trade.")
-      return
-    }
     api.delete('/api/sets/' + id)
     AppState.myLegoSets = AppState.myLegoSets.filter(l => l.id != id)
   }

@@ -5,5 +5,6 @@ export class Notification {
     this.hasSeen = data.hasSeen;
     this.body = data.body;
     this.type = data.type;
+    this.route = data.route;
   }
 }

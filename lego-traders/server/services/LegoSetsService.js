@@ -2,9 +2,9 @@ import { dbContext } from "../db/DbContext.js";
 import { BadRequest } from "../utils/Errors.js";
 
 class LegoSetsService {
-  async deleteTrade(id) {
+  async deleteSet(id) {
     const set = await dbContext.LegoSets.findById(id)
-    if (!set) { throw new BadRequest('failed to delete, bad id') }
+    if (!set) { throw new BadRequest('bad ID') }
     set.delete()
     return set
   }
