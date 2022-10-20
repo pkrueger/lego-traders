@@ -7,12 +7,15 @@
       <div>
         <strong>Sent</strong>
         <div v-for="t in sentTrades" class="d-flex justify-content-around">
+
           <img aria-controls="offcanvasRight" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
             class="selectable" :src="t.requestedAccount.picture" height="40" alt="" @click="getTradeComments(t)" />
           <p>
             Requested Set:
-            <img class="me-auto" height="30" :src="t.requestedSet.set_img_url" :alt="t.requestedSet.name"
-              :title="t.requestedSet.name" />
+
+
+            <img v-if="t.requestedSet" class="me-auto" height="30" :src="t.requestedSet.set_img_url"
+              :alt="t.requestedSet.name" :title="t.requestedSet.name" />
             <span v-if="t.body" class="message">
               <i class="mdi mdi-note-outline"></i>
               <span class="message-body">{{ t.body }}</span>
@@ -21,7 +24,8 @@
           <p>Status: {{ t.status }}</p>
           <p>
             Offered Set:
-            <img class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
+
+            <img v-if="t.offeredSet" class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
               :title="t.offeredSet.name" />
           </p>
           <i v-if="t.status != 'pending'" class="mdi mdi-close text-danger" @click="removeTrade(t.id)"></i>
@@ -32,9 +36,10 @@
         <div v-for="t in receivedTrades" class="d-flex justify-content-around">
           <img class="selectable" aria-controls="offcanvasRight" data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasRight" :src="t.owner.picture" height="40" alt="" @click="getTradeComments(t)" />
+
           <p>
             Offered Set:
-            <img class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
+            <img v-if="t.offeredSet" class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
               :title="t.offeredSet.name" />
             <span v-if="t.body" class="message">
               <i class="mdi mdi-note-outline"></i>
@@ -48,15 +53,15 @@
           <p v-else>Status: {{ t.status }}</p>
           <p>
             Requested Set:
-            <img class="me-auto" height="30" :src="t.requestedSet.set_img_url" :alt="t.requestedSet.name"
-              :title="t.requestedSet.name" />
+            <img v-if="t.requestedSet" class="me-auto" height="30" :src="t.requestedSet.set_img_url"
+              :alt="t.requestedSet.name" :title="t.requestedSet.name" />
           </p>
           <i v-if="t.status != 'pending'" class="mdi mdi-close text-danger selectable" @click="removeTrade(t.id)"></i>
         </div>
       </div>
     </div>
   </div>
-  <TradeChatOffcanvas :tradeId="tradeId" />
+  <TradeChatOffcanvas :tradeId="activeTrade.id" />
 </template>
 
 <script>
@@ -73,6 +78,7 @@ export default {
     return {
       sentTrades: computed(() => AppState.sentTrades),
       receivedTrades: computed(() => AppState.receivedTrades),
+      activeTrade: computed(() => AppState.activeTrade),
       async removeTrade(id) {
         try {
           await marketplaceService.removeTrade(id);
