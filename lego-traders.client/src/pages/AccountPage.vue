@@ -54,8 +54,6 @@ import { computed, onMounted, watchEffect } from 'vue'
 import { AppState } from '../AppState'
 import AccountModal from '../components/AccountModal.vue';
 import LegoSetCard from '../components/LegoSetCard.vue';
-import Pop from '../utils/Pop.js';
-import { marketplaceService } from '../services/MarketplaceService.js'
 import TradeChatOffcanvas from '../components/TradeChatOffcanvas.vue'
 import YourTrades from '../components/YourTrades.vue'
 export default {
