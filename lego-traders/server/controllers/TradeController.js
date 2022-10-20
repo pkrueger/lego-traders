@@ -1,6 +1,7 @@
 import BaseController from "../utils/BaseController.js";
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import { tradeService } from "../services/TradeService.js";
+import { socketProvider } from "../SocketProvider.js";
 
 
 export class TradeController extends BaseController {
@@ -41,8 +42,9 @@ export class TradeController extends BaseController {
   async makeTradeRequest(req, res, next) {
     try {
       req.body.ownerId = req.userInfo.id
-
       const trade = await tradeService.makeTradeRequest(req.body)
+      socketProvider.messageUser(req.userInfo.id, 'NEW_TRADE_OFFER', trade)
+      socketProvider.messageUser(trade.requestedAccountId, 'NEW_TRADE_REQUEST', trade)
       res.send(trade)
     } catch (error) {
       next(error)

@@ -9,7 +9,7 @@ export class NotificationHandler extends SocketHandler {
     super(io, socket)
     this
     // .on('SOCKET_TEST', this.testEvent)
-    // .on('GET_NOTIFICATIONS', this.)
+    // .on('GET_NOTIFICATIONS', this.sendNo)
   }
 
   // async testEvent(payload) {
