@@ -1,5 +1,6 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import { notificationsService } from "../services/NotificationsService.js";
+import { socketProvider } from "../SocketProvider.js";
 import BaseController from "../utils/BaseController.js";
 
 export class NotificationsController extends BaseController {
@@ -25,6 +26,7 @@ export class NotificationsController extends BaseController {
   async becomeNotified(req, res, next) {
     try {
       const notification = await notificationsService.becomeNotified(req.body);
+      socketProvider.messageUser(req.body.recipientId, 'BECOME_NOTIFIED', notification)
       res.send(notification);
     } catch (error) {
       next(error);
