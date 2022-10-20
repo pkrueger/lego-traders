@@ -12,18 +12,9 @@ export class AccountController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get("", this.getUserAccount)
       .get("/notifications", this.getNotificationsByAccountId)
+      .delete("/notifications", this.multiDeathNote)
       .put("", this.updateUserAccount)
       .post("/sets", this.createLegoSet);
-  }
-  async createLegoSet(req, res, next) {
-    try {
-      req.body.ownerId = req.userInfo.id;
-      const legoSet = await legoSetsService.createLegoSet(req.body);
-      socketProvider.messageUser(req.userInfo.id, 'CREATE_LEGO_SET', legoSet)
-      res.send(legoSet);
-    } catch (error) {
-      next(error);
-    }
   }
 
   async getUserAccount(req, res, next) {
@@ -44,6 +35,13 @@ export class AccountController extends BaseController {
       next(error);
     }
   }
+  async multiDeathNote(req, res, next) {
+    try {
+      await notificationsService.multiDeathNote(req.userInfo.id);
+    } catch (error) {
+      next(error);
+    }
+  }
   async updateUserAccount(req, res, next) {
     try {
       const account = await accountService.updateAccount(
@@ -51,6 +49,16 @@ export class AccountController extends BaseController {
         req.body
       );
       res.send(account);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async createLegoSet(req, res, next) {
+    try {
+      req.body.ownerId = req.userInfo.id;
+      const legoSet = await legoSetsService.createLegoSet(req.body);
+      socketProvider.messageUser(req.userInfo.id, "CREATE_LEGO_SET", legoSet);
+      res.send(legoSet);
     } catch (error) {
       next(error);
     }

@@ -58,5 +58,4 @@ export class NotificationsController extends BaseController {
       next(error);
     }
   }
-  // TODO make a delete all
 }

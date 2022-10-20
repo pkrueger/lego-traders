@@ -62,6 +62,14 @@ import CommentForm from "../components/CommentForm.vue";
 import { forumPostsService } from "../services/ForumPostsService.js";
 
 export default {
+  watch: {
+    $route(to, from) {
+      if (to != from) {
+        this.getPostComments();
+        this.getPostById();
+      }
+    },
+  },
   setup() {
     const route = useRoute();
     async function getPostById() {
@@ -85,6 +93,8 @@ export default {
     return {
       comments: computed(() => AppState.comments),
       post: computed(() => AppState.activePost),
+      getPostComments,
+      getPostById,
     };
   },
   components: { ForumComment, CommentForm },

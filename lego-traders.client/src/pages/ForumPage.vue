@@ -10,18 +10,11 @@
       </div>
       <div class="col-md-4">
         <div class="bg-dark p-3 rounded">
-          <div class="">
-            <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
-              data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-              Make a Post!
-            </button>
+          <div class="mb-3 text-center">
+            <h4>Make A Post!</h4>
           </div>
-          <div style="min-height: 120px;">
-            <div class="collapse collapse-horizontal" id="collapseWidthExample">
-              <div class="bg-warning rounded p-3" style="width: 300px;">
-                <ForumPostForm />
-              </div>
-            </div>
+          <div class="bg-warning rounded p-3">
+            <ForumPostForm />
           </div>
         </div>
       </div>
@@ -71,6 +64,6 @@ export default {
   background-image: url('blue-lego.webp');
   background-size: auto;
   background-position: top left;
-  height: 91vh;
+  height: 91.4vh;
 }
 </style>

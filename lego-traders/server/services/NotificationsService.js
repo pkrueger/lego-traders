@@ -38,6 +38,12 @@ class NotificationsService {
     }
     notification.remove();
   }
+  async multiDeathNote(accountId) {
+    const notifications = await this.getNotificationsByAccountId(accountId);
+    for (let n of notifications) {
+      n.remove();
+    }
+  }
 }
 
 export const notificationsService = new NotificationsService();
