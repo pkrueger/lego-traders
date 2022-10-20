@@ -1,8 +1,8 @@
 <template>
   <div class="container-fluid banner-img">
     <div class="row p-3">
-      <div class="col-lg-9 order-lg-1 order-sm-2 d-flex flex-wrap text-center mb-3">
-        <div class="m-3 set-card" v-for="l in tradableSet">
+      <div class="col-lg-8 order-lg-1 order-sm-2 d-flex flex-wrap text-center mb-3">
+        <div class="m-3 set-card" v-for="l in tradableSets">
           <TradeSetCard :key="l.id" :legoSet="l" />
           <button type="button" class="btn btn-primary offer" @click="makeSetActive(l)" data-bs-toggle="modal"
             data-bs-target="#exampleModal">
@@ -10,15 +10,23 @@
           </button>
         </div>
       </div>
-      <div class="col-lg-3 order-sm-1 order-lg-2 p-3 rounded sidebar">
+      <div class="col-lg-4 order-sm-1 order-lg-2 p-3 rounded sidebar">
         <div class="mt-3">
           <div>
             <div class="form-check">
               <!-- Maybe Search goes at the top of the marketplace or in the navBar -->
-              <input @click="getNameChecked" class="form-check-input" type="checkbox" name="setName" id="setName">
+
+              <!-- <input @click="getNameChecked" class="form-check-input" type="checkbox" name="setName" id="setName"> -->
               <label class="form-check-label" for="setName">
-                Search Sets
+                Search tradable sets by name
               </label>
+              <form @submit.prevent="handleSubmit()">
+                <div class=" input-group input-group-sm mb-4">
+                  <input id="nameSearchBar" v-model="editable.term" type="text" class="form-control"
+                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                  <button id="nameSearchButton" type="submit" class="btn btn-primary">search</button>
+                </div>
+              </form>
             </div>
             <div>
               <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#ownedSets">
@@ -26,10 +34,6 @@
               </button>
             </div>
             <div>
-              <div class=" input-group input-group-sm mb-4">
-                <input id="nameSearchBar" v-model="editable.name" style="display: none" type="text" class="form-control"
-                  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-              </div>
             </div>
           </div>
           <YourTrades />
@@ -53,6 +57,8 @@ import TradeModal from "../components/TradeModal.vue";
 import { ref } from 'vue'
 import YourTrades from "../components/YourTrades.vue";
 import OwnedSetsModal from "../components/OwnedSetsModal.vue";
+import { marketplaceService } from "../services/MarketplaceService.js";
+import { logger } from "../utils/Logger.js";
 export default {
   setup() {
     const editable = ref({})
@@ -71,17 +77,30 @@ export default {
     }
     return {
       editable,
-      getNameChecked() {
-        let checkBox = document.getElementById('setName');
-        let nameSearch = document.getElementById('nameSearchBar');
-        if (checkBox.checked == true) {
-          nameSearch.style.display = "block";
-        } else {
-          nameSearch.style.display = 'none'
+      async handleSubmit() {
+        try {
+          if (editable.value.term == '') {
+            await legoSetsService.getTradableSets()
+          }
+          await marketplaceService.getTradableSetBySearch(editable.value.term)
+        } catch (error) {
+          logger.error('[searchTradable]', error)
+          Pop.error(error)
         }
       },
+      // getNameChecked() {
+      //   let checkBox = document.getElementById('setName');
+      //   let nameSearch = document.getElementById('nameSearchBar');
+      //   let buttonSearch = document.getElementById('nameSearchButton')
+      //   if (checkBox.checked == true) {
+      //     nameSearch.style.display = "block";
+      //     buttonSearch.style.display = "block"
+      //   } else {
+      //     nameSearch.style.display = 'none'
+      //   }
+      // },
 
-      tradableSet: computed(() => AppState.tradableSet.filter((s) => s.ownerId != AppState.account.id)),
+      tradableSets: computed(() => AppState.tradableSet.filter((s) => s.ownerId != AppState.account.id)),
 
       // tradableSearchSet: computed(() => tradableSet.includes(editable.value)),
       account: computed(() => AppState.account),

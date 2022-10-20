@@ -89,16 +89,16 @@ class TradeService {
     const trades = await dbContext.TradeRequest.find({ ownerId })
       .populate("owner", "name picture")
       .populate("requestedAccount", "name picture")
-      .populate("offeredSet", "name set_img_url")
-      .populate("requestedSet", "name set_img_url");
+      .populate("offeredSet", "name set_img_url set_num")
+      .populate("requestedSet", "name set_img_url set_num");
     return trades;
   }
   async getReceivedTrades(requestedAccountId) {
     const trades = await dbContext.TradeRequest.find({ requestedAccountId })
       .populate("owner", "name picture")
       .populate("requestedAccount", "name picture")
-      .populate("offeredSet", "name set_img_url")
-      .populate("requestedSet", "name set_img_url");
+      .populate("offeredSet", "name set_img_url set_num")
+      .populate("requestedSet", "name set_img_url set_num");
     return trades;
   }
   async deleteTrade(id) {
