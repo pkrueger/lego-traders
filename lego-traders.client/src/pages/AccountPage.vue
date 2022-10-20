@@ -40,7 +40,6 @@
               <LegoSetCard :key="l.id" :legoSet="l" />
             </div>
           </div>
-          <!-- TODO Component for My Wishlist  v-if="!l.isOwned"  -->
         </div>
       </div>
     </div>
