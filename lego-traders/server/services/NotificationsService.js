@@ -18,16 +18,13 @@ class NotificationsService {
     return notification;
   }
 
-  async flipItAndReverseHasSeen(notificationId, accountId) {
-    const notification = await this.getNotificationById(notificationId);
-    if (notification.recipientId != accountId) {
-      throw new Forbidden(
-        "Not your notification! Why would you even want to do this?"
-      );
+  async flipItAndReverseHasSeen(accountId) {
+    const notifications = await this.getNotificationsByAccountId(accountId);
+    for (let n of notifications) {
+      n.hasSeen = true;
+      await n.save();
     }
-    notification.hasSeen = !notification.hasSeen;
-    await notification.save();
-    return notification;
+    return notifications;
   }
   async deathNote(notificationId, accountId) {
     const notification = await this.getNotificationById(notificationId);
