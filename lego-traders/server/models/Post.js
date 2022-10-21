@@ -8,7 +8,7 @@ export const PostSchema = new Schema(
     body: { type: String, required: true, maxLength: 500, minLength: 1 },
     imgUrl: { type: String },
     subscribers: { type: Array, default: [] },
-    tag: { type: String },
+    tag: { type: String, enum: ['Star Wars', 'Technic', 'Harry Potter', 'Architecture', 'Bionics'] },
   },
   SCHEMA_OPTIONS
 );
