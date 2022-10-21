@@ -5,7 +5,7 @@
         <div class="d-flex gap-1 align-items-center">
           <img alt="logo" src="../assets/img/lego-logo.png" height="45" />
 
-          <img class="img-fluid trader-img" src="../assets/img/Trader.png" alt="logo-text" />
+          <img class="img-fluid trader-img" src="../assets/img/lego-trader.png" alt="logo-text" />
         </div>
       </router-link>
       <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
