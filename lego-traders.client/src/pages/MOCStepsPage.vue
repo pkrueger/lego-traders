@@ -15,7 +15,7 @@
       </div>
       <MOCStepCard v-for="step in mocSet.moc_steps" :key="step.text" :step="step" />
       <div class="col-12 my-4">
-        <div class="bg-dark p-4 rounded">
+        <div class="bg-dark p-4 rounded" v-if="mocSet.creatorId == account.id">
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Create a Step
           </button>
@@ -68,6 +68,7 @@ export default {
       getMocById();
     });
     return {
+      account: computed(() => AppState.account),
       mocSet: computed(() => AppState.activeMOCset)
     };
   },

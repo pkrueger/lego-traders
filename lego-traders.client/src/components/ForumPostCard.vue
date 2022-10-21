@@ -14,7 +14,7 @@
         </router-link>
       </div>
       <div>
-        <button @click="removePost()" class="btn selectable" aria-label="Delete this Comment?"
+        <button @click="removePost(post.id)" class="btn selectable" aria-label="Delete this Comment?"
           v-if="post.creatorId == account.id">
           <i class="mdi mdi-close" title="delete comment" aria-label="delete comment"></i>
         </button>
@@ -42,11 +42,11 @@ export default {
   setup() {
     return {
       account: computed(() => AppState.account),
-      async removePost() {
+      async removePost(id) {
         try {
           const yes = await Pop.confirm('Do you want to remove your post?')
           if (!yes) { return }
-          await forumPostsService.removePost(post.id)
+          await forumPostsService.removePost(id)
         } catch (error) {
           Pop.error('[RemovePost]')
         }

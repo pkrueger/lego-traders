@@ -4,6 +4,11 @@ import { BadRequest, Forbidden } from "../utils/Errors.js";
 import { forumPostsService } from "./ForumPostsService.js";
 
 class CommentsService {
+  //NOTE Does this work? VVVVVVVVVV
+  async deleteAllCommentsOnPost(postId) {
+    const comments = await dbContext.Comments.deleteMany({ postId })
+    return comments
+  }
   async deleteComment(commentId, userInfo) {
     const comment = await this.getCommentById(commentId);
     if (comment.creatorId != userInfo) {

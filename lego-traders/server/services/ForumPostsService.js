@@ -4,12 +4,13 @@ import { BadRequest, Forbidden } from "../utils/Errors.js";
 class ForumPostsService {
   async deletePost(postId, userInfo) {
     const post = await this.getPostByPostId(postId);
-
     // NOTE look at this!!!!--v
     if (post.creatorId != userInfo.id) {
       throw new Forbidden("This is not your Post.");
     }
     await dbContext.Posts.findByIdAndDelete(postId);
+    const comments = await dbContext.Comments.find({ postId })
+    if (comments) { for (let c of comments) { await c.delete } }
     return post;
   }
   async createPost(postData, accountId) {

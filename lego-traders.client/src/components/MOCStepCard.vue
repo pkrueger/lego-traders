@@ -1,7 +1,7 @@
 <template>
   <div class="col-12 my-4">
     <div class="bg-dark p-4 rounded d-flex">
-      <img :src="step.img" alt="step img" class="step-img">
+      <img :src="step.img" alt="step img" class="step-img img-fluid">
       <div>
         <p>{{step.text}}</p>
       </div>
