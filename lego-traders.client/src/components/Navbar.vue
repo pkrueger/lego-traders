@@ -5,19 +5,32 @@
         <div class="d-flex gap-1 align-items-center">
           <img alt="logo" src="../assets/img/lego-logo.png" height="45" />
 
-          <img class="img-fluid trader-img" src="../assets/img/lego-trader.png" alt="logo-text" />
+          <img
+            class="img-fluid trader-img"
+            src="../assets/img/lego-trader.png"
+            alt="logo-text"
+          />
         </div>
       </router-link>
-      <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <button
+        class="navbar-toggler bg-dark"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarText"
+        aria-controls="navbarText"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto">
           <li>
             <router-link :to="{ name: 'Marketplace' }">
-              <button @click="getTradableSets()"
-                class="marketplace text-shadow btn btn-danger selectable text-uppercase">
+              <button
+                @click="getTradableSets()"
+                class="marketplace text-shadow btn btn-danger selectable text-uppercase"
+              >
                 Marketplace
               </button>
             </router-link>
@@ -30,30 +43,50 @@
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'MOC' }" class="moc text-shadow btn btn-success selectable text-uppercase">
+            <router-link
+              :to="{ name: 'MOC' }"
+              class="moc text-shadow btn btn-success selectable text-uppercase"
+            >
               Create Your Own
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'Collection' }"
-              class="collections text-shadow btn btn-secondary selectable text-uppercase">
+            <router-link
+              :to="{ name: 'Collection' }"
+              class="collections text-shadow btn btn-secondary selectable text-uppercase"
+            >
               Collections
             </router-link>
           </li>
         </ul>
         <!-- DARK/LIGHT THEME -->
         <div class="light-component selectable no-select">
-          <i class="mdi fs-2" @click="toggleTheme()" :class="{
-            'mdi-lightbulb-variant-outline': lightIsOn,
-            'mdi-lightbulb-on text-success darken-20': !lightIsOn,
-          }"></i>
+          <i
+            class="mdi fs-2"
+            @click="toggleTheme()"
+            :class="{
+              'mdi-lightbulb-variant-outline': lightIsOn,
+              'mdi-lightbulb-on text-success darken-20': !lightIsOn,
+            }"
+          ></i>
         </div>
         <!-- NOTIFICATIONS GO HERE-->
         <div class="dropdown">
-          <button class="btn text-white me-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fa-solid fa-bell fs-2 text-shadow" title="Notifications" aria-label="Notification tray"></i>
-            <div class="notification-dot bg-danger elevation-3"
-              v-if="state.notifications.find((n) => n.hasSeen == false)"></div>
+          <button
+            class="btn text-white me-3"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i
+              class="fa-solid fa-bell fs-2 text-shadow"
+              title="Notifications"
+              aria-label="Notification tray"
+            ></i>
+            <div
+              class="notification-dot bg-danger elevation-3"
+              v-if="state.notifications.find((n) => n.hasSeen == false)"
+            ></div>
           </button>
 
           <ul class="dropdown-menu dropdown-menu-end p-0 m-0">
@@ -62,7 +95,11 @@
               <div class="text-dark note-text mx-auto">Notifications</div>
               <button class="dismiss-all p-0 text-primary">Dismiss all</button>
             </div>
-            <li v-for="n in state.notifications" v-if="state.notifications.length" class="m-0">
+            <li
+              v-for="n in state.notifications"
+              v-if="state.notifications.length"
+              class="m-0"
+            >
               <Notification :key="n.id" :notification="n" />
             </li>
             <li
@@ -94,6 +131,7 @@ export default {
   setup() {
     const state = reactive({
       notifications: computed(() => AppState.notifications),
+      account: computed(() => AppState.account),
     });
     watchEffect(() => {
       document.body.setAttribute(
@@ -107,7 +145,7 @@ export default {
     });
     async function flipItAndReverseHasSeen() {
       try {
-        console.log("I'm hidden now");
+        await notificationsService.flipItAndReverseHasSeen();
       } catch (error) {
         Pop.error("[Flipping Has Seen On Notes]", error);
       }

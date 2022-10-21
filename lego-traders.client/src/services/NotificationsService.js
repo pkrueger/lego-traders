@@ -75,5 +75,9 @@ class NotificationsService {
       });
     }
   }
+  async flipItAndReverseHasSeen() {
+    const res = await api.put("api/notifications");
+    AppState.notifications = res.data.map((n) => new Notification(n));
+  }
 }
 export const notificationsService = new NotificationsService();
