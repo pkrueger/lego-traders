@@ -7,8 +7,10 @@
     <div class="comment-text ms-2 bg-info d-flex flex-grow-1 p-3 justify-content-between">
       <div>
         <h5>{{comment.creator?.name}}</h5>
-        <p>{{comment.body}}</p>
-        {{comment.createdAt}}
+        <h6>{{comment.body}}</h6>
+        <p class="text-end"> Posted At: {{new Date (comment.createdAt).toLocaleDateString('en-us', {month:
+        'short', day:
+        '2-digit', year: '2-digit'})}}</p>
       </div>
       <div>
         <button @click="removeComment()" class="btn selectable" aria-label="Delete this Comment?"
