@@ -1,6 +1,6 @@
 <template>
   <div class="trade-set flex align-items-end">
-    <div class="d-flex flex-wrap align-items-flex-end justify-content-center bg-white h-100">
+    <div class="d-flex flex-wrap align-items-flex-end elevation-4 justify-content-center bg-white h-100">
       <img :src="legoSet.set_img_url" class="img-fluid set-img mt-3" alt="">
 
       <div class="text-end d-flex flex-wrap justify-content-end pe-2">
