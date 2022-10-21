@@ -107,9 +107,10 @@ export default {
       },
       async changeStatus(id, status) {
         try {
-          Pop.success("You Responded to a trade request");
           const trade = await marketplaceService.changeStatus(id, status);
           if (status == "accepted") {
+            const yes = await Pop.confirm('If you accept this trade any other trades with this Lego Set will be automatically rejected')
+            if (!yes) { return }
             await notificationsService.sendAcceptedTradeNote(trade);
           } else {
             await notificationsService.sendRejectedTradeNote(trade);

@@ -1,7 +1,7 @@
 <template>
   <!-- When Adding a Set Card it needs to be inside a ROW for proper formating -->
 
-  <div class="card card-size d-flex justify-content-center">
+  <div class="card card-size d-flex justify-content-center bg-light">
     <div class="d-flex justify-content-center">
       <router-link :to="{ name: 'SetDetails', params: { set_num: legoSet.set_num } }">
         <img :src="legoSet.set_img_url" class="img-fluid p-2 img-size" alt="" />
@@ -15,7 +15,7 @@
 
     </div>
 
-    <div class="d-flex justify-content-end me-2 mb-2">
+    <div class="d-flex justify-content-end me-2 mb-2 bg-light">
       <div v-if="account.id == legoSet.ownerId && account.id && legoSet.isOwned" class="form-check me-auto ms-2">
         <input class="form-check-input" :checked="legoSet.isUpForTrade" type="checkbox" id="isUpForTrade"
           @change="toggleIsUpForTrade(legoSet)" />
