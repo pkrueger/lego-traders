@@ -1,8 +1,8 @@
 <template>
   <div class="trade-chat-offcanvas">
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasRightLabel">Trade Chat</h5>
+      <div class="offcanvas-header d-flex justify-content-end">
+        <!-- <h5 class="offcanvas-title" id="offcanvasRightLabel">Trade Chat</h5> -->
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body d-flex flex-column justify-content-between">
@@ -15,9 +15,10 @@
       <form class="flex-end" @submit.prevent="handleSubmit()">
 
         <div class="input-group mb-3">
-          <input type="text" class="form-control" v-model="editable.body" placeholder="What you say?!"
+          <!-- TODO clear field after submit v -->
+          <input type="text" class="form-control ms-2" v-model="editable.body" placeholder="What you say?!"
             aria-label="Recipient's username" aria-describedby="button-addon2">
-          <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Button</button>
+          <button class="btn btn-outline-secondary me-2" type="submit" id="button-addon2">Button</button>
         </div>
       </form>
     </div>
@@ -73,6 +74,7 @@ export default {
           }
           editable.value.tradeId = AppState.activeTrade.id
           await commentsService.createComment(editable.value)
+
         } catch (error) {
           Pop.error(error)
         }
