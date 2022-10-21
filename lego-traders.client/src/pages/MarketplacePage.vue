@@ -1,14 +1,14 @@
 <template>
-  <div class="container-fluid bg-dark">
-    <div class="row p-3">
-      <div class="col-lg-3 order-sm-1 order-lg-2 p-3 rounded sidebar">
+  <div class="container-fluid bg-light gb-0">
+    <div class="row p-4">
+      <div class="col-lg-3 order-sm-1 order-lg-1 sidebar elevation-4 bg-white border-test">
         <div class="mt-3">
           <div>
             <div class="form-check">
               <!-- Maybe Search goes at the top of the marketplace or in the navBar -->
 
               <!-- <input @click="getNameChecked" class="form-check-input" type="checkbox" name="setName" id="setName"> -->
-              <label class="form-check-label" for="setName">
+              <label class="form-check-label ps-2" for="setName">
                 Search tradable sets by name
               </label>
               <form @submit.prevent="handleSubmit()">
@@ -30,7 +30,7 @@
           <YourTrades />
         </div>
       </div>
-      <div style="height: 90vh" class="col-lg-9 overflow-auto order-lg-2 order-sm-2 flex-wrap text-center mb-3">
+      <div style="height: 85vh" class="col-lg-9 overflow-auto order-lg-2 order-sm-2 flex-wrap text-center">
         <h1 class="w-100">Sets available for trade</h1>
         <div class="d-flex flex-wrap justify-content-center">
           <div class="m-3 set-card border-test" v-for="l in tradableSets">
@@ -127,8 +127,9 @@ export default {
 // }
 
 .sidebar {
-  background-color: #0099D4;
-  height: 100vh;
+
+  margin-bottom: 0;
+
 }
 
 @media (max-width: 1000px) {

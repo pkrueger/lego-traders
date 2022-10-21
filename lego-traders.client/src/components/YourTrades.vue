@@ -1,31 +1,37 @@
 <template>
-  <div class="card bg-light">
+  <div class="card bg-white">
     <div class="card-header">
-      <h5>Your Trades</h5>
+      <h5 class="text-center">Your Trades</h5>
     </div>
+
+
     <div class="card-body">
       <div>
-        <strong>Sent</strong>
-        <div v-for="t in sentTrades" class="d-flex justify-content-around">
-          <router-link v-if="t.requestedAccount" :to="{name: 'Profile', params:{profileId:t.requestedAccount.id}}">
-            <img class="selectable" :src="t.requestedAccount.picture" height="40" alt="" />
-          </router-link>
-          <div>
-            <button class="btn btn-secondary btn-sm selectable" type="button" aria-controls="offcanvasRight"
-              data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" @click="getTradeComments(t)">Message</button>
-          </div>
-          <p>
-            Requested Set:
-            <router-link v-if="t.requestedAccount"
-              :to="{ name: 'SetDetails', params: { set_num: t.requestedSet.set_num } }">
-              <img class="selectable me-auto" v-if="t.requestedSet" height="30" :src="t.requestedSet.set_img_url"
-                :alt="t.requestedSet.name" :title="t.requestedSet.name" />
+        <div>
+
+          <strong>Sent</strong>
+          <div v-for="t in sentTrades" class="d-flex justify-content-around">
+            <router-link v-if="t.requestedAccount" :to="{name: 'Profile', params:{profileId:t.requestedAccount.id}}">
+              <img class="selectable" :src="t.requestedAccount.picture" height="40" alt="" />
             </router-link>
-            <span v-if="t.body" class="message">
-              <i class="mdi mdi-note-outline"></i>
-              <span class="message-body">{{ t.body }}</span>
-            </span>
-          </p>
+            <div>
+              <button class="btn btn-secondary btn-sm selectable" type="button" aria-controls="offcanvasRight"
+                data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+                @click="getTradeComments(t)">Message</button>
+            </div>
+            <p>
+              Requested Set:
+              <router-link v-if="t.requestedAccount"
+                :to="{ name: 'SetDetails', params: { set_num: t.requestedSet.set_num } }">
+                <img class="selectable me-auto" v-if="t.requestedSet" height="30" :src="t.requestedSet.set_img_url"
+                  :alt="t.requestedSet.name" :title="t.requestedSet.name" />
+              </router-link>
+              <span v-if="t.body" class="message">
+                <i class="mdi mdi-note-outline"></i>
+                <span class="message-body">{{ t.body }}</span>
+              </span>
+            </p>
+          </div>
           <p>Status: {{ t.status }}</p>
           <p>
             Offered Set:
@@ -38,6 +44,9 @@
             @click="removeTrade(t.id)"></i>
         </div>
       </div>
+
+
+
       <div>
         <strong>Requested</strong>
         <div v-for="t in receivedTrades" class="d-flex justify-content-around">

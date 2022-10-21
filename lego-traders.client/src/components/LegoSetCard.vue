@@ -1,7 +1,7 @@
 <template>
   <!-- When Adding a Set Card it needs to be inside a ROW for proper formating -->
 
-  <div class="card card-size d-flex justify-content-center bg-light">
+  <div class="card card-size d-flex justify-content-center bg-white">
     <div class="d-flex justify-content-center">
       <router-link :to="{ name: 'SetDetails', params: { set_num: legoSet.set_num } }">
         <img :src="legoSet.set_img_url" class="img-fluid p-2 img-size" alt="" />

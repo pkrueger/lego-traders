@@ -1,14 +1,14 @@
 <template>
-  <div class="trade-set flex align-items-end bg-light">
-    <div class="flex align-items-end bg-white h-100">
-      <img :src="legoSet.set_img_url" class="img-fluid set-img mt-3" alt="">
+  <div class="trade-set flex align-items-end">
+    <div class="d-flex flex-wrap align-items-flex-end elevation-4 justify-content-center bg-white h-100">
+      <img :src="legoSet.set_img_url" class="img-fluid set-img mt-3 px-2" alt="">
 
       <div class="text-end d-flex flex-wrap justify-content-end pe-2">
         <p class="text-end pe-2 mb-1">{{legoSet.name}}</p>
         <p class="mb-1 pe-2">Year Released: {{legoSet.year}}</p>
-        <div v-if="account.id != legoSet.ownerId" class="d-flex align-items-center justify-content-end">
+        <div v-if="account.id != legoSet.ownerId" class="d-flex align-items-center pb-1 justify-content-end">
+          <p class="mb-0 owner-text">Owned by {{legoSet.owner.name}}</p>
           <img :src="legoSet.owner.picture" :title="legoSet.owner.name" class="owner-img" alt="">
-          <p class="mb-0 me-2">Owned by {{legoSet.owner.name}}</p>
         </div>
 
 
@@ -86,12 +86,20 @@ export default {
 
 <style lang="scss" scoped>
 .owner-img {
-  height: 4vh;
-  width: 4vh;
+  height: 3.5vh;
+  width: 3.5vh;
+  border-radius: 50%;
+}
+
+.owner-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px
 }
 
 .set-img {
-  height: 12vh;
+  height: 15vh;
   margin-bottom: 1rem;
 }
 
