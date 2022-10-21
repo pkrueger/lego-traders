@@ -6,7 +6,7 @@
           <div class="col-lg-4 order-lg-1 text-center p-3">
             <img class="img-fluid my-2 profile-img" :src="account.picture" alt="User Name">
           </div>
-          <div class="bg-light col-lg-3 card order-lg-2 d-flex flex-column justify-content-between p-0 my-2">
+          <div class="bg-white col-lg-3 card order-lg-2 d-flex flex-column justify-content-between p-0 my-2">
             <div class="card-header">
               <h3>Name: {{account.name}}</h3>
             </div>
