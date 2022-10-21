@@ -1,23 +1,14 @@
 <template>
-  <div class="container-fluid banner-img">
-    <div class="row p-3">
-      <div class="col-lg-8 order-lg-1 order-sm-2 d-flex flex-wrap text-center mb-3">
-        <div class="m-3 set-card" v-for="l in tradableSets">
-          <TradeSetCard :key="l.id" :legoSet="l" />
-          <button type="button" class="btn btn-primary offer" @click="makeSetActive(l)" data-bs-toggle="modal"
-            data-bs-target="#exampleModal">
-            Make Offer
-          </button>
-        </div>
-      </div>
-      <div class="col-lg-4 order-sm-1 order-lg-2 p-3 rounded sidebar">
+  <div class="container-fluid bg-light gb-0">
+    <div class="row p-4">
+      <div class="col-lg-3 order-sm-1 order-lg-1 sidebar elevation-4 bg-white border-test">
         <div class="mt-3">
           <div>
             <div class="form-check">
               <!-- Maybe Search goes at the top of the marketplace or in the navBar -->
 
               <!-- <input @click="getNameChecked" class="form-check-input" type="checkbox" name="setName" id="setName"> -->
-              <label class="form-check-label" for="setName">
+              <label class="form-check-label ps-2" for="setName">
                 Search tradable sets by name
               </label>
               <form @submit.prevent="handleSubmit()">
@@ -28,15 +19,28 @@
                 </div>
               </form>
             </div>
-            <div>
+            <div class="text-center mb-3">
               <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#ownedSets">
-                Owned Sets
+                Your Owned Sets
               </button>
             </div>
             <div>
             </div>
           </div>
           <YourTrades />
+        </div>
+      </div>
+      <div style="height: 85vh" class="col-lg-9 overflow-auto order-lg-2 order-sm-2 flex-wrap text-center">
+        <h1 class="w-100">Sets available for trade</h1>
+        <div class="d-flex flex-wrap justify-content-center">
+          <div class="m-3 set-card border-test" v-for="l in tradableSets">
+            <TradeSetCard :key="l.id" :legoSet="l" />
+            <button type="button" class="bg-primary offer w-100 " @click="makeSetActive(l)" data-bs-toggle="modal"
+              data-bs-target="#exampleModal">
+              Make Offer
+            </button>
+          </div>
+
         </div>
       </div>
     </div>
@@ -115,16 +119,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.banner-img {
-  background-image: url("red-lego.webp");
-  background-size: fill;
-  background-position: top left;
-  height: 100vh;
-}
+// .banner-img {
+//   background-image: url("red-lego.webp");
+//   background-size: fill;
+//   background-position: top left;
+//   height: 100vh;
+// }
 
 .sidebar {
-  background-color: #0099D4;
-  height: 100vh;
+
+  margin-bottom: 0;
+
 }
 
 @media (max-width: 1000px) {
@@ -134,10 +139,21 @@ export default {
 }
 
 .set-card {
-  width: 25vh
+  width: 33vh;
+  //   // height: 32.52vh
 }
 
 .offer {
   z-index: 100;
+
+
+}
+
+.border-test {
+  border-left: 1.5rem solid;
+  border-image-slice: 30 0 0 33;
+  // border-image-outset: 0px 0rem 0rem 0px;x
+  border-image-repeat: repeat repeat;
+  border-image-source: url("red-lego.webp");
 }
 </style>
