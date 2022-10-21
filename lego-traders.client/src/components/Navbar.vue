@@ -4,7 +4,8 @@
       <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
         <div class="d-flex gap-1 align-items-center">
           <img alt="logo" src="../assets/img/lego-logo.png" height="45" />
-          <img class="img-fluid trader-img" src="../assets/img/lego-trader.png" alt="logo-text" />
+
+          <img class="img-fluid trader-img" src="../assets/img/Trader.png" alt="logo-text" />
         </div>
       </router-link>
       <button class="navbar-toggler bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -23,20 +24,19 @@
           </li>
           <li>
             <router-link :to="{ name: 'Forum' }">
-              <button class="forum text-shadow btn btn-primary text-uppercase text-light">
+              <button class="forum text-shadow btn btn-primary text-uppercase">
                 Forum
               </button>
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'MOC' }"
-              class="moc text-shadow btn btn-success selectable text-uppercase text-light">
+            <router-link :to="{ name: 'MOC' }" class="moc text-shadow btn btn-success selectable text-uppercase">
               Create Your Own
             </router-link>
           </li>
           <li>
             <router-link :to="{ name: 'Collection' }"
-              class="collections text-shadow btn btn-secondary selectable text-uppercase text-light">
+              class="collections text-shadow btn btn-secondary selectable text-uppercase">
               Collections
             </router-link>
           </li>
