@@ -1,25 +1,29 @@
 <template>
   <div class="container-fluid">
     <div class="row mt-3">
-      <div class="col-lg-11 d-flex">
-        <div class="row justify-content-between m-auto">
-          <div class="col-lg-4 order-lg-1 ">
-            <img class="img-fluid p-3 profile-img" :src="account.picture" alt="User Name">
+      <div class="col-lg-12">
+        <div class="row m-auto">
+          <div class="col-lg-4 order-lg-1 text-center">
+            <img class="img-fluid my-2 profile-img" :src="account.picture" alt="User Name">
           </div>
-          <div class="col-lg-4 order-lg-2 border border-dark p-2 my-2">
-            <h3>Name: {{account.name}}</h3>
-            <h5>About: </h5>
-            <p>{{account.desc}}</p>
+          <div class="col-lg-3 card order-lg-2 d-flex flex-column justify-content-between p-0 my-2">
+            <div class="card-header">
+              <h3>Name: {{account.name}}</h3>
+            </div>
+            <div class="card-body">
+              <h3>About: </h3>
+              <p>{{account.desc}}</p>
+            </div>
+            <div class="align-self-end">
+              <button type="button" class="btn btn-primary me-2 mb-2" data-bs-toggle="modal"
+                data-bs-target="#accountModal">Manage
+                Account</button>
+            </div>
+
           </div>
-          <div class="col-lg-4 order-lg-3">
+          <div class="col-lg-5 order-lg-3 my-2">
             <YourTrades />
           </div>
-        </div>
-      </div>
-      <div class="col-lg-1">
-        <div>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#accountModal">Manage
-            Account</button>
         </div>
       </div>
     </div>
@@ -57,15 +61,6 @@ import TradeChatOffcanvas from '../components/TradeChatOffcanvas.vue'
 import YourTrades from '../components/YourTrades.vue'
 export default {
   setup() {
-
-    watchEffect(() => {
-      AppState.sentTrades
-      AppState.receivedTrades
-      AppState.myLegoSets
-
-    })
-
-
     return {
       account: computed(() => AppState.account),
       wishListLegoSets: computed(() => AppState.myLegoSets.filter(l => !l.isOwned)),
@@ -82,15 +77,14 @@ main {
   background-color: var(--bs-grey);
 }
 
-.img-size {
-  min-height: 20vh;
-  min-width: 15vw;
+.profile-img {
+  max-height: auto;
 }
 
 /* doesn't work atm... */
 @media (max-width: 1000px) {
-  .profil-img {
-    display: none
+  .profile-img {
+    max-height: 20vh;
   }
 }
 
