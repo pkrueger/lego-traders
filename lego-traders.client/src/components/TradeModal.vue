@@ -4,7 +4,7 @@
       <div class="modal-dialog">
         <form @submit.prevent="offerTrade()">
           <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-light">
               <img class="pe-2 img-fluid set-img" :src="activeLegoSet.set_img_url" alt="" />
               <h1 class="modal-title fs-5" id="exampleModalLabel">
                 Make Your Offer to {{ activeLegoSet.owner?.name }}

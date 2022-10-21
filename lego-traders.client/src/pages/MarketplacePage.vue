@@ -1,14 +1,14 @@
 <template>
-  <div class="container-fluid bg-dark">
+  <div class="container-fluid bg-light">
     <div class="row p-3">
-      <div class="col-lg-3 order-sm-1 order-lg-2 p-3 rounded sidebar">
+      <div class="col-lg-3 order-sm-1 order-lg-2 p-3 sidebar">
         <div class="mt-3">
           <div>
             <div class="form-check">
               <!-- Maybe Search goes at the top of the marketplace or in the navBar -->
 
               <!-- <input @click="getNameChecked" class="form-check-input" type="checkbox" name="setName" id="setName"> -->
-              <label class="form-check-label" for="setName">
+              <label class="form-check-label ps-2" for="setName">
                 Search tradable sets by name
               </label>
               <form @submit.prevent="handleSubmit()">
