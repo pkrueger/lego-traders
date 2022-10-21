@@ -1,12 +1,12 @@
 <template>
-  <div class="container-fluid">
-    <div class="row mt-3">
+  <div class="container-fluid bg-dark">
+    <div class="row">
       <div class="col-lg-12">
         <div class="row m-auto">
           <div class="col-lg-4 order-lg-1 text-center">
             <img class="img-fluid my-2 profile-img" :src="account.picture" alt="User Name">
           </div>
-          <div class="col-lg-3 card order-lg-2 d-flex flex-column justify-content-between p-0 my-2">
+          <div class="bg-light col-lg-3 card order-lg-2 d-flex flex-column justify-content-between p-0 my-2">
             <div class="card-header">
               <h3>Name: {{account.name}}</h3>
             </div>
@@ -73,10 +73,6 @@ export default {
 </script>
 
 <style>
-main {
-  background-color: var(--bs-grey);
-}
-
 .profile-img {
   max-height: auto;
 }

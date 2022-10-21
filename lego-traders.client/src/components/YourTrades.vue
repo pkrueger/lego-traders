@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card bg-light">
     <div class="card-header">
       <h5>Your Trades</h5>
     </div>
