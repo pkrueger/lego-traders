@@ -19,10 +19,10 @@
                 data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
                 @click="getTradeComments(t)">Message</button>
             </div>
-            <p>
+            <div>
               Requested Set:
               <router-link v-if="t.requestedAccount"
-                :to="{ name: 'SetDetails', params: { set_num: t.requestedSet.set_num } }">
+                :to="{ name: 'SetDetails', divarams: { set_num: t.requestedSet.set_num } }">
                 <img class="selectable me-auto" v-if="t.requestedSet" height="30" :src="t.requestedSet.set_img_url"
                   :alt="t.requestedSet.name" :title="t.requestedSet.name" />
               </router-link>
@@ -30,18 +30,19 @@
                 <i class="mdi mdi-note-outline"></i>
                 <span class="message-body">{{ t.body }}</span>
               </span>
+            </div>
+            <p>Status: {{ t.status }}</p>
+
+            <p>
+              Offered Set:
+              <router-link v-if="t.offeredSet" :to="{ name: 'SetDetails', params: { set_num: t.offeredSet.set_num } }">
+                <img class="selectable" v-if="t.offeredSet" height="30" :src="t.offeredSet.set_img_url"
+                  :alt="t.offeredSet.name" :title="t.offeredSet.name" />
+              </router-link>
             </p>
+            <i v-if="t.status != 'pending'" class="mdi mdi-close text-danger selectable align-self-center"
+              @click="removeTrade(t.id)"></i>
           </div>
-          <p>Status: {{ t.status }}</p>
-          <p>
-            Offered Set:
-            <router-link v-if="t.offeredSet" :to="{ name: 'SetDetails', params: { set_num: t.offeredSet.set_num } }">
-              <img class="selectable" v-if="t.offeredSet" height="30" :src="t.offeredSet.set_img_url"
-                :alt="t.offeredSet.name" :title="t.offeredSet.name" />
-            </router-link>
-          </p>
-          <i v-if="t.status != 'pending'" class="mdi mdi-close text-danger selectable align-self-center"
-            @click="removeTrade(t.id)"></i>
         </div>
       </div>
 
