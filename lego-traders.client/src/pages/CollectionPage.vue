@@ -1,5 +1,5 @@
 <template>
-  <div class="collection container-fluid">
+  <div class="collection container-fluid bg-success">
     <div class="row">
       <div class="col-md-12 p-3 text-center">
         <!-- TODO there are several theme #'s for our themes need to figure out a way to get all of them -->
@@ -137,8 +137,8 @@ export default {
 }
 
 .collection-image {
-  height: 30vh;
-  max-width: 30vh;
+  height: 12vh;
+  max-width: 12vh;
   border-radius: 50%;
   object-fit: fill;
   margin-top: 5vh;
