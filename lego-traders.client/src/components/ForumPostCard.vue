@@ -1,25 +1,34 @@
 <template>
-  <div class="bg-light p-3">
-    <div class="d-flex gap-3">
-      <router-link :to="{name: 'Profile', params:{profileId:post.creatorId}}">
-        <div class="profile-picture-container"><img class="profile-picture img-fluid" :src="post.creator.picture"
-            alt="Profile Img"></div>
-      </router-link>
-      <div class="d-flex justify-content-between w-100">
-        <router-link :to="{name: 'ForumPost', params:{ postId:post.id }}">
-          <div>
-            <h5>{{post.creator.name}}</h5>
-            <h4>{{post.title}}</h4>
+  <div class="bg-light p-3 d-flex">
+    <router-link :to="{name: 'Profile', params:{profileId:post.creatorId}}">
+      <div class="profile-picture-container px-2"><img class="profile-picture img-fluid" :src="post.creator.picture"
+          alt="Profile Img"></div>
+    </router-link>
+    <div class="w-100 bg-warning rounded p-1">
+      <div class="d-flex">
+        <div class="d-flex px-2 pt-2 justify-content-between w-100">
+          <router-link :to="{name: 'ForumPost', params:{ postId:post.id }}">
+            <div>
+              <p class="mb-1">{{post.creator.name}}</p>
+            </div>
+          </router-link>
+        </div>
+        <div>
+          <div class=" me-3">
+            <p class="bg-secondary px-3 mt-2 m-0">tag</p>
           </div>
-        </router-link>
+        </div>
+        <div>
+          <button @click="removePost(post.id)" class="btn selectable" aria-label="Delete this Comment?"
+            :style="post.creatorId == account.id ? '': 'visibility: hidden'">
+            <i class="mdi mdi-close" title="delete comment" aria-label="delete comment"></i>
+          </button>
+        </div>
       </div>
-      <div>
-        <button @click="removePost(post.id)" class="btn selectable" aria-label="Delete this Comment?"
-          v-if="post.creatorId == account.id">
-          <i class="mdi mdi-close" title="delete comment" aria-label="delete comment"></i>
-        </button>
-      </div>
+      <div class="px-2">
+        <h4>{{post.title}}</h4>
 
+      </div>
     </div>
   </div>
 </template>
@@ -62,7 +71,8 @@ export default {
   height: 5rem;
   width: 5rem;
   border-radius: .5rem;
-  object-fit: fill;
+
+  object-fit: scale-down;
 }
 
 a {
