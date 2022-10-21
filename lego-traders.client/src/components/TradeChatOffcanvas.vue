@@ -74,6 +74,7 @@ export default {
           }
           editable.value.tradeId = AppState.activeTrade.id
           await commentsService.createComment(editable.value)
+
         } catch (error) {
           Pop.error(error)
         }
