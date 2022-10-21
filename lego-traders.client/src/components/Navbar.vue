@@ -90,7 +90,7 @@
             ></div>
           </button>
 
-          <ul class="dropdown-menu dropdown-menu-end p-0">
+          <ul class="dropdown-menu dropdown-menu-end p-0 m-0">
             <div class="d-flex align-items-center">
               <button class="invisible p-0">Dismiss all</button>
               <div class="text-dark note-text mx-auto">Notifications</div>
@@ -103,8 +103,12 @@
             >
               <Notification :key="n.id" :notification="n" />
             </li>
-            <li class="p-2 text-center border-0" style="opacity: 0.5" v-else>
-              You don't have any notifications
+            <li
+              class="m-0 p-0 text-center border-0"
+              style="opacity: 0.5"
+              v-else
+            >
+              <div class="p-2">You don't have any notifications</div>
             </li>
           </ul>
         </div>
@@ -137,10 +141,7 @@ export default {
     });
     onMounted(() => {
       const dropdown = document.querySelector(".dropdown");
-      dropdown.addEventListener(
-        "hidden.bs.dropdown",
-        console.log("I'm hidden now")
-      );
+      dropdown.addEventListener("hidden.bs.dropdown", flipItAndReverseHasSeen);
     });
     async function flipItAndReverseHasSeen() {
       try {
