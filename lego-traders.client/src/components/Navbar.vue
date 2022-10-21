@@ -84,13 +84,17 @@
               title="Notifications"
               aria-label="Notification tray"
             ></i>
+            <div
+              class="notification-dot bg-danger elevation-3"
+              v-if="state.notifications.find((n) => n.hasSeen == false)"
+            ></div>
           </button>
 
           <ul class="dropdown-menu dropdown-menu-end p-0">
             <div class="d-flex align-items-center">
               <button class="invisible p-0">Dismiss all</button>
               <div class="text-dark note-text mx-auto">Notifications</div>
-              <button class="dismiss-all p-0">Dismiss all</button>
+              <button class="dismiss-all p-0 text-primary">Dismiss all</button>
             </div>
             <li
               v-for="n in state.notifications"
@@ -113,16 +117,17 @@
 
 <script>
 import { computed, reactive } from "@vue/reactivity";
-import { watchEffect } from "vue";
+import { onMounted, watchEffect } from "vue";
 import { AppState } from "../AppState.js";
 import { legoSetsService } from "../services/LegoSetsService.js";
+import { notificationsService } from "../services/NotificationsService.js";
+import Pop from "../utils/Pop.js";
 import Login from "./Login.vue";
 import Notification from "./Notification.vue";
 export default {
   setup() {
     const state = reactive({
       notifications: computed(() => AppState.notifications),
-      isTrayOpen: false,
     });
     watchEffect(() => {
       document.body.setAttribute(
@@ -130,6 +135,20 @@ export default {
         AppState.lightIsOn ? "dark" : "light"
       );
     });
+    onMounted(() => {
+      const dropdown = document.querySelector(".dropdown");
+      dropdown.addEventListener(
+        "hidden.bs.dropdown",
+        console.log("I'm hidden now")
+      );
+    });
+    async function flipItAndReverseHasSeen() {
+      try {
+        console.log("I'm hidden now");
+      } catch (error) {
+        Pop.error("[Flipping Has Seen On Notes]", error);
+      }
+    }
     return {
       state,
       lightIsOn: computed(() => AppState.lightIsOn),
@@ -143,6 +162,7 @@ export default {
           Pop.error(error, "[gettingTradableSets]");
         }
       },
+      flipItAndReverseHasSeen,
     };
   },
   components: { Login, Notification },
@@ -211,8 +231,21 @@ a:hover {
 .text-shadow {
   font-weight: 600;
   color: aliceblue;
-  text-shadow: 1px 1px black, 0px 0px 5px rgba(0, 0, 0, 0.719);
+  text-shadow: 0 3px 1px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14),
+    0 1px 5px rgba(0, 0, 0, 0.12);
   letter-spacing: 0.1rem;
+}
+
+.fa-bell {
+  position: relative;
+}
+.notification-dot {
+  height: 0.8rem;
+  width: 0.8rem;
+  position: absolute;
+  bottom: 20%;
+  right: 40%;
+  border-radius: 50%;
 }
 
 .dropdown-menu {
@@ -233,7 +266,6 @@ a:hover {
     outline: none;
     background-color: transparent;
     font-size: 0.85rem;
-    color: #0099d4;
     text-decoration: underline;
     margin-right: 1rem;
   }
