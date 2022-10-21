@@ -7,6 +7,7 @@
       <div>
         <strong>Sent</strong>
         <div v-for="t in sentTrades" class="d-flex justify-content-around">
+
           <router-link v-if="t.requestedAccount" :to="{name: 'Profile', params:{profileId:t.requestedAccount.id}}">
             <img class="selectable" :src="t.requestedAccount.picture" height="40" alt="" />
           </router-link>

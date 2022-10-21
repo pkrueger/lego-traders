@@ -15,23 +15,18 @@
         <div class="row justify-content-center">
           <div class="col-md-9 my-3">
             <div class="bg-dark w-100 p-3 rounded">
+              <ForumComment v-for="c in comments" :key="c.id" :comment="c" />
               <div class="bg-warning rounded p-3">
                 <CommentForm />
               </div>
-              <ForumComment v-for="c in comments" :key="c.id" :comment="c" />
             </div>
           </div>
-          <div class="col-md-2">
-            <div class="my-3">
-            </div>
-          </div>
+
         </div>
       </div>
       <div class="col-md-3 my-3">
         <div class="bg-dark w-100 p-3 rounded">
-          <!-- <router-link :to="{name: 'Profile', params:{ profileId: post?.creatorId }}"> -->
-          <img :src="post.creator?.picture" alt="" class="img-fluid" />
-          <!-- </router-link> -->
+          <img :src="post.imgUrl || post.creator?.picture" alt="" class="img-fluid" />
         </div>
       </div>
     </div>
