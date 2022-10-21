@@ -1,23 +1,36 @@
 <template>
-  <div class="bg-dark p-3 rounded">
-    <div class="d-flex justify-content-start gap-3">
+  <div class="bg-light p-3 rounded">
+    <div class="d-flex gap-3">
       <router-link :to="{name: 'Profile', params:{profileId:post.creatorId}}">
         <div class="profile-picture-container"><img class="profile-picture img-fluid" :src="post.creator.picture"
             alt="Profile Img"></div>
       </router-link>
-      <router-link :to="{name: 'ForumPost', params:{ postId:post.id }}">
-        <div>
-          <h4>{{post.creator.name}}</h4>
-          <h5>{{post.title}}</h5>
-        </div>
-      </router-link>
+      <div class="d-flex justify-content-between w-100">
+        <router-link :to="{name: 'ForumPost', params:{ postId:post.id }}">
+          <div>
+            <h5>{{post.creator.name}}</h5>
+            <h4>{{post.title}}</h4>
+          </div>
+        </router-link>
+      </div>
+      <div>
+        <button @click="removePost()" class="btn selectable" aria-label="Delete this Comment?"
+          v-if="post.creatorId == account.id">
+          <i class="mdi mdi-close" title="delete comment" aria-label="delete comment"></i>
+        </button>
+      </div>
+
     </div>
   </div>
 </template>
 
 
 <script>
+import { computed } from '@vue/reactivity';
+import { AppState } from '../AppState.js';
 import { ForumPost } from '../models/ForumPost.js';
+import { forumPostsService } from '../services/ForumPostsService.js';
+import Pop from '../utils/Pop.js';
 
 export default {
   props: {
@@ -27,7 +40,18 @@ export default {
     }
   },
   setup() {
-    return {}
+    return {
+      account: computed(() => AppState.account),
+      async removePost() {
+        try {
+          const yes = await Pop.confirm('Do you want to remove your post?')
+          if (!yes) { return }
+          await forumPostsService.removePost(post.id)
+        } catch (error) {
+          Pop.error('[RemovePost]')
+        }
+      }
+    }
   }
 }
 </script>
@@ -42,6 +66,6 @@ export default {
 }
 
 a {
-  color: white;
+  color: black;
 }
 </style>

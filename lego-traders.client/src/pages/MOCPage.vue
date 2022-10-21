@@ -1,19 +1,19 @@
 <template>
   <div class="container-fluid moc-page">
     <div class="row justify-content-center p-4">
-      <div class="col-lg-9">
-        <div class="row align-items-center">
-          <div class="col-lg-4 mb-3" v-for="m in mocSets">
-            <!-- MOC cards go here -->
-            <MOCCard :key="m.id" :mocSet="m" />
-          </div>
-        </div>
-      </div>
       <div class="col-lg-2">
         <div class="bg-dark p-3 rounded">
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#MOCModel">
             Make Your Own Creation!
           </button>
+        </div>
+      </div>
+      <div class="col-lg-10">
+        <div class="row align-items-center scroll">
+          <div class="col-lg-4 mb-3" v-for="m in mocSets">
+            <!-- MOC cards go here -->
+            <MOCCard :key="m.id" :mocSet="m" />
+          </div>
         </div>
       </div>
     </div>
@@ -62,6 +62,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.scroll {
+  height: 85vh;
+  overflow-y: auto;
+}
+
 .moc-page {
   background-image: url("green-lego.webp");
   background-size: fill;

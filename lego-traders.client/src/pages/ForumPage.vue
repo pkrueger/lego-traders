@@ -1,20 +1,20 @@
 <template>
   <div class="container-fluid forum-page">
     <div class="row justify-content-center p-4">
+      <div class="col-md-4">
+        <div class="bg-light p-5 rounded forum-form">
+          <div class="mb-3 text-center">
+            <h4>Make A Post!</h4>
+          </div>
+          <div class="bg-warning rounded p-3 w-100">
+            <ForumPostForm />
+          </div>
+        </div>
+      </div>
       <div class="col-md-8">
         <div class="row scroll">
           <div class="col-12 mb-3" v-for="post in forumPosts">
             <ForumPostCard class="w-100" :key="post.id" :post="post" />
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="bg-dark p-3 rounded">
-          <div class="mb-3 text-center">
-            <h4>Make A Post!</h4>
-          </div>
-          <div class="bg-warning rounded p-3">
-            <ForumPostForm />
           </div>
         </div>
       </div>
@@ -65,5 +65,13 @@ export default {
   background-size: auto;
   background-position: top left;
   height: 91.4vh;
+
+  .forum-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 40vh;
+  }
 }
 </style>

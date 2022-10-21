@@ -13,6 +13,11 @@ class SocketService extends SocketHandler {
       .on('CREATE_LEGO_SET', this.legoSetCreated)
       .on('NEW_TRADE_REQUEST', this.newTradeRequest)
       .on('NEW_TRADE_OFFER', this.newTradeOffer)
+      .on('UPDATE_TRADE_REQUEST', this.updateTradeRequest)
+  }
+  updateTradeRequest(trade) {
+    let index = AppState.sentTrades.findIndex(i => i.id == trade.id)
+    AppState.sentTrades.splice(index, 1, trade)
   }
   newTradeRequest(trade) {
     AppState.receivedTrades.push(trade)
@@ -35,7 +40,7 @@ class SocketService extends SocketHandler {
     Pop.toast(e.message, 'error')
   }
 
-  joinedRoom(tradeId){
+  joinedRoom(tradeId) {
     logger.log('JOINED_ROOM poopoohead', tradeId)
   }
 }
