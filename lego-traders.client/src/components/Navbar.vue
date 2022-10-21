@@ -24,20 +24,19 @@
           </li>
           <li>
             <router-link :to="{ name: 'Forum' }">
-              <button class="forum text-shadow btn btn-primary text-uppercase text-light">
+              <button class="forum text-shadow btn btn-primary text-uppercase">
                 Forum
               </button>
             </router-link>
           </li>
           <li>
-            <router-link :to="{ name: 'MOC' }"
-              class="moc text-shadow btn btn-success selectable text-uppercase text-light">
+            <router-link :to="{ name: 'MOC' }" class="moc text-shadow btn btn-success selectable text-uppercase">
               Create Your Own
             </router-link>
           </li>
           <li>
             <router-link :to="{ name: 'Collection' }"
-              class="collections text-shadow btn btn-secondary selectable text-uppercase text-light">
+              class="collections text-shadow btn btn-secondary selectable text-uppercase">
               Collections
             </router-link>
           </li>
