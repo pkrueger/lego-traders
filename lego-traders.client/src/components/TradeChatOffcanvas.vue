@@ -1,6 +1,6 @@
 <template>
   <div class="trade-chat-offcanvas">
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
       <div class="offcanvas-header d-flex justify-content-end">
         <!-- <h5 class="offcanvas-title" id="offcanvasRightLabel">Trade Chat</h5> -->
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>

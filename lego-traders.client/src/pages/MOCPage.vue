@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid moc-page">
+  <div class="container-fluid  bg-success">
     <div class="row justify-content-center p-4">
       <div class="col-lg-2">
         <div class="bg-dark p-3 rounded">

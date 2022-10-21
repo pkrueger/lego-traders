@@ -1,6 +1,7 @@
 $themes: (
-	default: ("body-bg": #e5e5e5,
-		"primary": #0099d4,
+	default: (
+		"body-bg": #e5e5e5,
+		"primary": #0376bf,
 		"secondary": #a0a19f,
 		"success": #00a84f,
 		"info": #00bed3,
@@ -9,8 +10,10 @@ $themes: (
 		"light": #efefef,
 		"dark": #42423f,
 		"grey": #cbcbcb,
-		"white": rgb(255, 255, 255)),
-	dark: ("body-bg": #090f18,
+		"white": rgb(255, 255, 255),
+	),
+	dark: (
+		"body-bg": #090f18,
 		"primary": #00415b,
 		"secondary": #a0a19f,
 		"success": #006221,
@@ -20,15 +23,18 @@ $themes: (
 		"light": #585353,
 		"dark": #373734,
 		"grey": #cbcbcb,
-		"white": #3d3939),
+		"white": #3d3939,
+	),
 );
 
 $font-sans-serif: Open Sans;
 $font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
 	"Courier New", monospace;
-$gradient: linear-gradient(180deg,
-		hsla(0, 0%, 100%, 0.15),
-		hsla(0, 0%, 100%, 0));
+$gradient: linear-gradient(
+	180deg,
+	hsla(0, 0%, 100%, 0.15),
+	hsla(0, 0%, 100%, 0)
+);
 
 $color-ranges: (
 	0: 0,

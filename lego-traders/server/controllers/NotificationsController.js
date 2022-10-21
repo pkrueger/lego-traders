@@ -10,7 +10,7 @@ export class NotificationsController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get("/:notificationId", this.getNotificationById)
       .post("", this.becomeNotified)
-      .put("/:notificationId", this.flipItAndReverseHasSeen)
+      .put("", this.flipItAndReverseHasSeen)
       .delete("/:notificationId", this.deathNote);
   }
   async getNotificationById(req, res, next) {
@@ -38,11 +38,10 @@ export class NotificationsController extends BaseController {
   }
   async flipItAndReverseHasSeen(req, res, next) {
     try {
-      const notification = await notificationsService.flipItAndReverseHasSeen(
-        req.params.notificationId,
+      const notifications = await notificationsService.flipItAndReverseHasSeen(
         req.userInfo.id
       );
-      res.send(notification);
+      res.send(notifications);
     } catch (error) {
       next(error);
     }

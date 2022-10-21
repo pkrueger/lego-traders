@@ -1,12 +1,12 @@
 <template>
-  <div class="container-fluid forum-page bg-primary">
+  <div class="container-fluid forum-page bg-light">
     <div class="row justify-content-center p-4">
       <div class="col-md-4">
-        <div class="bg-light p-5 forum-form border-test">
+        <div class="bg-white p-5 forum-form shadow border-test">
           <div class="mb-3 text-center">
             <h4>Make A Post!</h4>
           </div>
-          <div class="bg-warning p-3 w-100 mb-3">
+          <div class="bg-primary p-3 w-100 mb-3">
             <ForumPostForm />
           </div>
           <div class=" p-3 w-100">
@@ -36,7 +36,7 @@
       <div class="col-md-6">
         <div class="row scroll">
           <div class="col-12 mb-3" v-for="post in forumPosts">
-            <ForumPostCard class="forum-card w-100" :key="post.id" :post="post" />
+            <ForumPostCard class="forum-card elevation-1 w-100" :key="post.id" :post="post" />
           </div>
         </div>
       </div>
@@ -90,14 +90,14 @@ export default {
     flex-direction: column;
     height: 85vh;
     border-left: 1.5rem solid;
-    border-image-source: url("yellow-lego.webp");
+    border-image-source: url("blue-lego.webp");
     border-image-slice: 30 0 0 30;
     border-image-repeat: repeat;
   }
 
   .forum-card {
     border-left: 1.5rem solid;
-    border-image-source: url("yellow-lego.webp");
+    border-image-source: url("blue-lego.webp");
     border-image-slice: 30 0 0 30;
     border-image-repeat: repeat;
   }
