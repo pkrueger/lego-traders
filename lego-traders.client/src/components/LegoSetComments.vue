@@ -8,6 +8,7 @@
       <div>
         <h5>{{comment.creator?.name}}</h5>
         <p>{{comment.body}}</p>
+        {{comment.createdAt}}
       </div>
       <div>
         <button @click="removeComment()" class="btn selectable" aria-label="Delete this Comment?"

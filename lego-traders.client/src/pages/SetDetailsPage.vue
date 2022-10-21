@@ -15,7 +15,7 @@
         </a>
       </div>
       <div class="col-md-12 d-flex justify-content-center">
-        <img :src="legoSet.set_img_url" class="img-fluid set-img" :title="legoSet.name">
+        <img :src="legoSet.set_img_url" class="img-fluid set-img " :title="legoSet.name">
       </div>
       <div class="col-12 p-1">
         <div class="text-center d-flex justify-content-center gap-5">
@@ -29,8 +29,8 @@
     <!-- MOC sets -->
     <div class="row" v-if="mocSets.length">
       <h1>Alternate MOC's</h1>
-      <div class="col-3 d-flex justify-content-center p-3" v-for="m in mocSets">
-        <div class="card">
+      <div class="col-3 d-flex justify-content-center p-3 border-test" v-for="m in mocSets">
+        <div class="card moc-card text-center">
           <a :href="m.moc_url" target="_blank">
             <img :src="m.moc_img_url" class="img-fluid moc-img pointer">
           </a>
@@ -225,13 +225,26 @@ export default {
 
 <style lang="scss" scoped>
 .moc-img {
-  min-height: 25vh;
-  min-width: 25vh;
+  max-height: 25vh;
+  max-width: 25vh;
+  min-height: 20vh;
+  min-width: 20vh;
 }
+
+.moc-card {
+  min-width: 100%;
+  border-left: 1.5rem solid;
+  border-image-slice: 0 0 0 33;
+  border-image-outset: 0px 0rem 0rem 0px;
+  border-image-repeat: repeat repeat;
+  border-image-source: url("grey-lego.webp");
+}
+
 
 .set-img {
   max-width: 50%;
   border-radius: 2px;
+  outline: #2f2f2f solid 3px;
 }
 
 .part-img {
