@@ -1,5 +1,5 @@
 <template>
-  <div class="yellow-lego">
+  <div class="bg-warning">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
       <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
         <div class="d-flex gap-1 align-items-center">
@@ -255,11 +255,13 @@ a:hover {
     visibility: hidden;
     margin-left: 1rem;
   }
+
   .note-text {
     font-size: 0.85rem;
     color: #42423f;
     opacity: 0.6;
   }
+
   .dismiss-all {
     text-decoration: none;
     border: none;
@@ -269,6 +271,7 @@ a:hover {
     text-decoration: underline;
     margin-right: 1rem;
   }
+
   .dismiss-all:hover {
     filter: brightness(90%);
   }

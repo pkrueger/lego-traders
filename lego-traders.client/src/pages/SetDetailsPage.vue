@@ -1,35 +1,31 @@
 <template>
   <!-- Set Details -->
-  <div class="container-fluid bg text-shadow">
-    <div class="row">
-      <div class="col-md-6">
+  <div class="container-fluid px-4 bg-success">
+    <div class="row py-4">
+      <div class="col-md-12 d-flex justify-content-center">
         <img :src="legoSet.set_img_url" class="img-fluid set-img" :title="legoSet.name">
       </div>
-      <div class="col-md-6">
-        <div class="text-center">
-          <a :href="'https://www.google.com/search?tbm=shop&hl=en&psb=1&ved=0CAAQvOkFahcKEwiAkYjb1e_6AhUAAAAAHQAAAAAQEQ&q='+ `${legoSet.name}`"
+      <div class="col-12 p-1">
+        <div class="text-center d-flex justify-content-center gap-5">
+          <h4>{{legoSet.name}}</h4>
+          <h4>Set Number {{legoSet.set_num}}</h4>
+          <h4>Realease Year: {{legoSet.year}}</h4>
+          <h4>{{legoSet.num_parts}} pcs</h4>
+          <a :href="'https://www.google.com/search?tbm=shop&hl=en&psb=1&ved=0CAAQvOkFahcKEwiAkYjb1e_6AhUAAAAAHQAAAAAQEQ&q='+ `lego set number ${legoSet.set_num}`"
             target="_blank" title="Google Shopping">
             <button class="btn btn-danger mdi mdi-shopping fs-5"></button>
           </a>
-          <h4>{{legoSet.name}}</h4>
-          <h4>Realease Year: {{legoSet.year}}</h4>
-          <h4>{{legoSet.num_parts}} pcs</h4>
         </div>
       </div>
-      <!-- Users who want to trade specific set-->
-      <div class="col-12 d-flex">
-        <div v-for="o in owners" class="px-2 py-3">
-          <router-link :to="{name: 'Profile', params:{profileId: o.owner.id }}">
-            <img :src="o.owner?.picture" alt="user picture" class="user-img" :title="o.owner?.name">
-          </router-link>
-        </div>
-      </div>
-      <div class="d-flex justify-content-end col-12">
+      <div class="d-flex justify-content-center col-12 gap-5">
         <button class="btn btn-primary" v-if="!legoSet.ownerId" @click="addSetToAccount(legoSet)">Add to
           Account</button>
+        <button v-if="!legoSet.ownerId" @click="addSetToWishList(legoSet)" class="btn btn-primary"
+          title="Add to Wishlist">Add to Wishlist</button>
         <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
           aria-controls="offcanvasRight">Parts List</button>
       </div>
+      <h3 class="text-end">Trade Requests</h3>
     </div>
     <!-- MOC sets -->
     <div class="row" v-if="mocSets.length">
@@ -48,21 +44,29 @@
     </div>
     <!-- Comments -->
     <div class="row">
-      <div class="col-12">
+      <div class="col-md-6 d-flex justify-content-center">
         <form @submit.prevent="handleSubmit">
-          <div class="p-3">
-            <label for="body"></label>
-            <textarea v-model="editable.body" placeholder="comments" class="form-control" style="height: 100px" required
-              minlength="1" maxlength="500"></textarea>
-          </div>
-          <div class="d-flex justify-content-end p-2">
-            <button class="btn btn-secondary">Post</button>
+          <div class="px-1">
+            <div class="input-group" style="height: 50px;">
+              <button class="btn btn-primary" type="button" id="button-addon1">Post</button>
+              <input type="text" class="form-control" placeholder="Comments..." aria-label="post comment"
+                aria-describedby="button-addon1" maxlength="250">
+            </div>
           </div>
         </form>
-        <div class="col-12">
-          <LegoSetComments v-for="c in comments" :key="c.id" :comment="c" />
+      </div>
+      <!-- Users who want to trade specific set-->
+      <div class="col-md-6 flex-row d-flex justify-content-end">
+        <div v-for="o in owners">
+          <router-link :to="{name: 'Profile', params:{profileId: o.owner.id }}">
+            <img :src="o.owner?.picture" alt="user picture" class="user-img" :title="o.owner?.name">
+          </router-link>
         </div>
       </div>
+      <div class="col-7 card bg-grey p-2">
+        <LegoSetComments v-for="c in comments" :key="c.id" :comment="c" />
+      </div>
+
     </div>
   </div>
 
@@ -161,6 +165,7 @@ export default {
       previousPage: computed(() => AppState.previousPage),
       comments: computed(() => AppState.comments),
       owners: computed(() => AppState.tradableSet.filter((t) => t.set_num == route.params.set_num)),
+
       async addSetToAccount(data) {
         try {
           const yes = await Pop.confirm("Do you own this?", "");
@@ -173,6 +178,15 @@ export default {
           }
         }
         catch (error) {
+          Pop.error("[addToAccount]", error);
+        }
+      },
+      async addSetToWishList(legoSet) {
+        try {
+          Pop.success(`You added ${legoSet.name} to your wishlist!`)
+          legoSet.isOwned = false;
+          await legoSetsService.addSetToAccount(legoSet);
+        } catch (error) {
           Pop.error("[addToAccount]", error);
         }
       },
@@ -208,7 +222,8 @@ export default {
 }
 
 .set-img {
-  min-width: 75vh;
+  max-width: 50%;
+  border-radius: 2px;
 }
 
 .part-img {
@@ -216,7 +231,8 @@ export default {
 }
 
 .user-img {
-  border-radius: 50%;
+  border-right: 5px solid #ffda44;
+  border-left: 5px solid #ffda44;
   max-width: 7vh;
   min-height: 7vh;
 }
@@ -234,19 +250,6 @@ export default {
   // content: url(https://cdn.rebrickable.com/media/parts/elements/301026.jpg);
   display: block;
   position: absolute;
-}
-
-.bg {
-  background-image: url('grey-lego.webp');
-  background-position: top left;
-  min-height: 100vh;
-}
-
-.text-shadow {
-  color: #000000;
-  text-shadow: 0px 0px 5px #ff7777d7;
-  font-weight: bold;
-  letter-spacing: 0.08rem;
 }
 
 .overflow {

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-light p-3 rounded">
+  <div class="bg-light p-3">
     <div class="d-flex gap-3">
       <router-link :to="{name: 'Profile', params:{profileId:post.creatorId}}">
         <div class="profile-picture-container"><img class="profile-picture img-fluid" :src="post.creator.picture"
