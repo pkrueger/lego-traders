@@ -238,6 +238,7 @@ export default {
 }
 
 .moc-card {
+  border-radius: 0%;
   min-width: 100%;
   border-left: 1.5rem solid;
   border-image-slice: 0 0 0 33;
