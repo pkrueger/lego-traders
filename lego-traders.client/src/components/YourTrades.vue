@@ -9,7 +9,7 @@
         <div v-for="t in sentTrades" class="border-bottom solid">
           <div class="d-flex justify-content-between align-items-center my-3">
             <div class="d-flex">
-              <div class="">
+              <div>
                 <p :title="t.requestedSet.name" class="set-text">{{t.requestedSet.name}}</p>
                 <router-link v-if="t.requestedAccount"
                   :to="{ name: 'SetDetails', params: { set_num: t.requestedSet.set_num } }">
