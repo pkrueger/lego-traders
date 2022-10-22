@@ -2,7 +2,6 @@
   <div class="collection container-fluid bg-secondary">
     <div class="row">
       <div class="col-md-12 p-3 text-center">
-        <!-- TODO there are several theme #'s for our themes need to figure out a way to get all of them -->
         <img @click="getSetsByThemeId(158)" class="selectable collection-image"
           src="https://www.brickfanatics.com/wp-content/uploads/2019/04/LEGO-Star-Wars-logo-featured-800-445.jpg"
           alt="" />
@@ -15,8 +14,8 @@
         <img @click="getSetsByThemeId(252)" class="selectable collection-image"
           src="https://m.media-amazon.com/images/S/stores-image-uploads-na-prod/7/AmazonStores/ATVPDKIKX0DER/42195ca33c3846624aa5fddd2618a01c.w1000.h1000.jpg"
           alt="" />
-        <img @click="getSetsByThemeId(52)" class="selectable collection-image"
-          src="https://www.brickfanatics.com/wp-content/uploads/LEGO-City-logo-featured-800-445.jpg" alt="" />
+        <img @click="getSetsByThemeId(324)" class="selectable collection-image"
+          src="https://th.bing.com/th/id/OIP.rqqFzdeIZIQe1_LDW-7AgQHaF7?pid=ImgDet&rs=1" alt="" />
       </div>
       <!-- Search Input -->
       <form @submit.prevent="handleSubmit">
@@ -56,7 +55,7 @@ import { legoSetsService } from "../services/LegoSetsService";
 import { computed } from "@vue/reactivity";
 import { AppState } from "../AppState";
 import LegoSetCard from "../components/LegoSetCard.vue";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 export default {
   setup() {
     const editable = ref({});
@@ -67,7 +66,9 @@ export default {
         Pop.error(error, "Getting Set Themes");
       }
     }
-
+    onMounted(() => {
+      getSetsByThemeId(158)
+    })
     return {
       editable,
       legoSetThemes: computed(() => AppState.legoSetThemes),
@@ -108,8 +109,8 @@ export default {
 }
 
 .collection-image {
-  height: 12vh;
-  max-width: 12vh;
+  height: 15vh;
+  max-width: 15vh;
   border-radius: 50%;
   object-fit: fill;
   margin-top: 5vh;
