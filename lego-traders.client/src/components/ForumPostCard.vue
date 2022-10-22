@@ -1,10 +1,10 @@
 <template>
-  <div class="bg-white p-3 d-flex">
+  <div class="bg-primary p-3 d-flex">
     <router-link :to="{name: 'Profile', params:{profileId:post.creatorId}}">
-      <div class="profile-picture-container px-2"><img class="profile-picture img-fluid" :src="post.creator.picture"
-          alt="Profile Img"></div>
+      <div class="profile-picture-container profile-picture bg-white px-2 d-flex align-items-center"><img
+          class=" img-fluid" :src="post.creator.picture" alt="Profile Img"></div>
     </router-link>
-    <div class="w-100 bg-primary rounded p-1">
+    <div class="w-100 bg-light p-1">
       <div class="d-flex">
         <div class="d-flex px-2 pt-2 justify-content-between w-100">
           <div>
@@ -13,7 +13,7 @@
         </div>
         <div>
           <div class=" me-3">
-            <p class="bg-secondary px-3 mt-2 m-0">tag</p>
+            <p class="bg- px-3 mt-2 bg-warning m-0">tag</p>
           </div>
         </div>
 
@@ -68,15 +68,15 @@ export default {
 
 <style lang="scss" scoped>
 .profile-picture {
-  height: 5rem;
+  height: 100%;
   width: 5rem;
-  border-radius: .5rem;
-
   object-fit: scale-down;
+  border-right: 1px solid gray;
 }
 
 a {
   text-decoration: none;
   color: inherit;
+  outline: none;
 }
 </style>
