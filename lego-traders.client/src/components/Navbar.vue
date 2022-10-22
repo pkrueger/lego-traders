@@ -99,8 +99,8 @@
               v-for="n in state.notifications"
               v-if="state.notifications.length"
               class="m-0"
-              :class="n.hasSeen ? 'bg-light' : ''"
-              :style="n.hasSeen ? 'opacity: .85' : ''"
+              :class="n.hasSeen ? 'bg-grey' : 'bg-white'"
+              :style="n.hasSeen ? 'opacity: .85' : 'opacity: 1'"
             >
               <Notification :key="n.id" :notification="n" />
             </li>
