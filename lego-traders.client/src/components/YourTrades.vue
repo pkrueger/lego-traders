@@ -65,7 +65,7 @@
 
       <!-- NOTE Requested -->
       <div>
-        <strong class="mb-3 border-bottom solid text-center">Requested Trades:</strong>
+        <strong class="mb-3 py-2 border-bottom solid text-center">Requested Trades:</strong>
         <div v-for="t in receivedTrades">
           <div class="d-flex justify-content-between align-items-center my-3">
             <div class="d-flex">
@@ -237,6 +237,6 @@ export default {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 85px
+  max-width: 95px
 }
 </style>
