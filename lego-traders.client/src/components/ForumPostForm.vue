@@ -7,6 +7,13 @@
       </div>
     </div>
     <div class="mb-3">
+      <div class="flex-grow-1">
+        <label class="ps-2" for="imgUrl">Add A Picture If You Want?</label>
+        <input type="url" class="form-control" id="imgUrl" v-model="editable.imgUrl"
+          placeholder="www.ThisIsThePictureUrl.com">
+      </div>
+    </div>
+    <div class="mb-3">
       <textarea type="text" class="form-control" id="body" v-model="editable.body" placeholder="body" rows="3" required
         aria-label="comment body"></textarea>
     </div>

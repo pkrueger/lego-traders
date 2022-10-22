@@ -1,20 +1,23 @@
 <template>
-  <div class="container-fluid post-detail-page">
+  <div class="container-fluid post-detail-page bg-light">
     <div class="row">
       <div class="col-md-9 my-3">
         <div class="row">
           <div class="col-12">
-            <div class="bg-dark w-100 p-3 rounded">
-              <div>
-                <h3>{{ post.title }}</h3>
-                <h5>{{ post.body }}</h5>
+            <div class="bg-primary w-100 p-3 border-card">
+              <div class="mb-3">
+                <h5>{{ post.title }}</h5>
+                <h3>{{ post.body }}</h3>
+              </div>
+              <div v-if="post.imgUrl">
+                <img :src="post.imgUrl" alt="this is the post image">
               </div>
             </div>
           </div>
         </div>
         <div class="row justify-content-center">
           <div class="col-md-9 my-3">
-            <div class="bg-dark w-100 p-3 rounded">
+            <div class="bg-primary w-100 p-3 border-card">
               <ForumComment v-for="c in comments" :key="c.id" :comment="c" />
               <div class="bg-warning rounded p-3">
                 <CommentForm />
@@ -86,9 +89,13 @@ export default {
 
 <style lang="scss" scoped>
 .post-detail-page {
-  background-image: url("blue-lego.webp");
-  height: 100vh;
-  background-position: top left;
-  background-size: fill;
+  flex-grow: 1;
+}
+
+.border-card {
+  border-left: 1.5rem solid;
+  border-image-source: url("yellow-lego.webp");
+  border-image-slice: 30 0 0 30;
+  border-image-repeat: repeat;
 }
 </style>

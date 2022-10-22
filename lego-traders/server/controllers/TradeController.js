@@ -53,7 +53,7 @@ export class TradeController extends BaseController {
   async tradeResponse(req, res, next) {
     try {
       const trade = await tradeService.tradeResponse(req.params.tradeId, req.body)
-      socketProvider.messageUser(trade.ownerId, 'UPDATE_TRADE_REQUEST', trade)
+      socketProvider.messageUser(trade.requestedAccountId, 'UPDATE_TRADE_REQUEST', trade)
       res.send(trade)
     } catch (error) {
       next(error)
