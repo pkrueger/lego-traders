@@ -6,8 +6,8 @@
     </div>
     <div class="comment-text ms-2 bg-info d-flex flex-grow-1 p-3 justify-content-between">
       <div>
-        <h5>{{comment.creator?.name}}</h5>
-        <h6>{{comment.body}}</h6>
+        <h6>{{comment.creator?.name}}</h6>
+        <h4>{{comment.body}}</h4>
         <p class="text-end"> Posted At: {{new Date (comment.createdAt).toLocaleDateString('en-us', {month:
         'short', day:
         '2-digit', hour: '2-digit', minute: '2-digit'})}}</p>
