@@ -5,12 +5,12 @@
     </div>
     <div class="card-body">
       <div>
-        <strong class="mb-2 border-bottom solid text-center">Sent Trades:</strong>
-        <div v-for="t in sentTrades">
-          <div class="d-flex justify-content-between align-items-center mb-3">
+        <strong class="mb-3 text-center">Sent Trades:</strong>
+        <div v-for="t in sentTrades" class="border-bottom solid">
+          <div class="d-flex justify-content-between align-items-center my-3">
             <div class="d-flex">
-
-              <div>
+              <div class="">
+                <p :title="t.requestedSet.name" class="set-text">{{t.requestedSet.name}}</p>
                 <router-link v-if="t.requestedAccount"
                   :to="{ name: 'SetDetails', params: { set_num: t.requestedSet.set_num } }">
                   <img class="selectable" v-if="t.requestedSet" height="50" :src="t.requestedSet.set_img_url"
@@ -19,16 +19,14 @@
               </div>
               <div class="ps-2">
 
-                <span v-if="t.body" class="message">
-                  <i class="mdi mdi-note-outline"></i>
-                  <span class="message-body">{{ t.body }}</span>
-                </span>
               </div>
             </div>
 
-            <p class="pt-3">For:</p>
+            <p class="pt-3 ">For:</p>
+
             <div class="d-flex">
               <div>
+                <p :title="t.offeredSet.name" class="set-text">{{t.offeredSet.name}}</p>
                 <router-link v-if="t.offeredSet"
                   :to="{ name: 'SetDetails', params: { set_num: t.offeredSet.set_num } }">
                   <img class="selectable" v-if="t.offeredSet" height="50" :src="t.offeredSet.set_img_url"
@@ -40,61 +38,93 @@
                   @click="removeTrade(t.id)"></i>
               </div>
             </div>
-
-
           </div>
-          <div class="d-flex border-bottom solid justify-content-between pb-2">
 
+          <div class="d-flex justify-content-between pb-2">
             <router-link v-if="t.requestedAccount" :to="{name: 'Profile', params:{profileId:t.requestedAccount.id}}">
               <img class="selectable" :src="t.requestedAccount.picture" height="40" alt="" />
             </router-link>
+            <div>
+              <span v-if="t.body" class="message">
+                <i class="mdi mdi-note-outline"></i>
+                <span class="message-body">{{ t.body }}</span>
+              </span>
+            </div>
             <div>
               <button class="btn btn-secondary btn-sm selectable" type="button" aria-controls="offcanvasRight"
                 data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" @click="getTradeComments(t)">Message
                 Seller</button>
             </div>
-            <p class="pt-1">{{ t.status }}</p>
+
+
+
           </div>
+          <p class="pt-1">Status: {{ t.status }}</p>
         </div>
       </div>
-      <div>
-        <strong>Requested</strong>
-        <div v-for="t in receivedTrades" class="d-flex justify-content-around">
-          <router-link :to="{name: 'Profile', params:{profileId:t.owner.id}}">
-            <img class="selectable" :src="t.owner.picture" height="40" alt="" />
-          </router-link>
-          <div>
-            <button class="btn btn-secondary btn-sm" type="button" aria-controls="offcanvasRight"
-              data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" @click="getTradeComments(t)">Message</button>
-          </div>
-          <p>
-            Offered Set:
-            <router-link v-if="t.offeredSet" :to="{ name: 'SetDetails', params: { set_num: t.offeredSet.set_num } }">
-              <img v-if="t.offeredSet" class="" height="30" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
-                :title="t.offeredSet.name" />
-            </router-link>
 
-            <span v-if="t.body" class="message">
-              <i class="mdi mdi-note-outline"></i>
-              <span class="message-body">{{ t.body }}</span>
-            </span>
-          </p>
-          <p v-if="t.status == 'pending'">
-            <button class="m-1 btn btn-success" @click="changeStatus(t.id, 'accepted')">
-              Accept
-            </button>
-            <button class="btn btn-danger" @click="changeStatus(t.id, 'rejected')">Reject</button>
-          </p>
-          <p v-else>Status: {{ t.status }}</p>
-          <p>
-            Requested Set:
-            <router-link v-if="t.requestedSet"
-              :to="{ name: 'SetDetails', params: { set_num: t.requestedSet.set_num } }">
-              <img v-if="t.requestedSet" class="me-auto" height="30" :src="t.requestedSet.set_img_url"
-                :alt="t.requestedSet.name" :title="t.requestedSet.name" />
+      <!-- NOTE Requested -->
+      <div>
+        <strong class="mb-3 border-bottom solid text-center">Requested Trades:</strong>
+        <div v-for="t in receivedTrades">
+          <div class="d-flex justify-content-between align-items-center my-3">
+            <div class="d-flex">
+              <div>
+                <p :title="t.offeredSet.name" class="set-text">{{t.offeredSet.name}}</p>
+                <router-link v-if="t.offeredSet"
+                  :to="{ name: 'SetDetails', params: { set_num: t.offeredSet.set_num } }">
+                  <img v-if="t.offeredSet" class="" height="50" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
+                    :title="t.offeredSet.name" />
+                </router-link>
+              </div>
+            </div>
+
+            <p class="pt-3">For:</p>
+
+            <div class="d-flex">
+              <div>
+                <p :title="t.requestedSet.name" class="set-text">{{t.requestedSet.name}}</p>
+
+                <router-link v-if="t.requestedSet"
+                  :to="{ name: 'SetDetails', params: { set_num: t.requestedSet.set_num } }">
+                  <img v-if="t.requestedSet" class="me-auto" height="50" :src="t.requestedSet.set_img_url"
+                    :alt="t.requestedSet.name" :title="t.requestedSet.name" />
+                </router-link>
+              </div>
+              <div class="ps-2">
+                <i v-if="t.status != 'pending'" class="mdi mdi-close text-danger selectable"
+                  @click="removeTrade(t.id)"></i>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center justify-content-between pb-2">
+            <router-link :to="{name: 'Profile', params:{profileId:t.owner.id}}">
+              <img class="selectable" :src="t.owner.picture" height="40" alt="" />
             </router-link>
-          </p>
-          <i v-if="t.status != 'pending'" class="mdi mdi-close text-danger selectable" @click="removeTrade(t.id)"></i>
+            <div class="ps-2">
+              <span v-if="t.body" class="message">
+                <i class="mdi mdi-note-outline"></i>
+                <span class="message-body">{{ t.body }}</span>
+              </span>
+            </div>
+            <div>
+              <button class="btn btn-secondary btn-sm" type="button" aria-controls="offcanvasRight"
+                data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" @click="getTradeComments(t)">Message
+                Buyer</button>
+            </div>
+          </div>
+          <div class="border-bottom solid mb-2">
+            <div v-if="t.status == 'pending'" class="pb-2">
+              <button class="btn btn-success w-50" @click="changeStatus(t.id, 'accepted')">
+                Accept
+              </button>
+              <button class="btn btn-danger w-50" @click="changeStatus(t.id, 'rejected')">
+                Reject
+              </button>
+            </div>
+            <p v-else>Status: {{ t.status }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -197,8 +227,16 @@ export default {
 }
 
 .message:hover .message-body {
+  top: -117px;
   right: 50px;
   opacity: 1;
-  z-index: 100;
+  z-index: 100
+}
+
+.set-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 85px
 }
 </style>
