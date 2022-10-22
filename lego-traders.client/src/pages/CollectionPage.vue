@@ -126,10 +126,10 @@ export default {
 }
 
 .border-test {
-  border: 1.5rem solid;
-  border-image-slice: 33 0 0 33;
-  border-image-outset: 0px 1.5rem 1.5rem 0px;
+  border-left: 1.5rem solid;
+  border-image-slice: 0 0 0 33;
+  border-image-outset: 0px 0rem 0rem 0px;
   border-image-repeat: repeat repeat;
-  border-image-source: url("blue-lego.webp");
+  border-image-source: url("grey-lego.webp");
 }
 </style>
