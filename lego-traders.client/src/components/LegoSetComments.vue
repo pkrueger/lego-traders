@@ -10,7 +10,7 @@
         <h6>{{comment.body}}</h6>
         <p class="text-end"> Posted At: {{new Date (comment.createdAt).toLocaleDateString('en-us', {month:
         'short', day:
-        '2-digit', year: '2-digit'})}}</p>
+        '2-digit', hour: '2-digit', minute: '2-digit'})}}</p>
       </div>
       <div>
         <button @click="removeComment()" class="btn selectable" aria-label="Delete this Comment?"
