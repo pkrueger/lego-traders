@@ -40,7 +40,7 @@
             </div>
           </div>
 
-          <div class="d-flex justify-content-between pb-2">
+          <div class="d-flex justify-content-between border-top py-2">
             <router-link v-if="t.requestedAccount" :to="{name: 'Profile', params:{profileId:t.requestedAccount.id}}">
               <img class="selectable" :src="t.requestedAccount.picture" height="40" alt="" />
             </router-link>
@@ -50,16 +50,16 @@
                 <span class="message-body">{{ t.body }}</span>
               </span>
             </div>
-            <div>
-              <button class="btn btn-secondary btn-sm selectable" type="button" aria-controls="offcanvasRight"
-                data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" @click="getTradeComments(t)">Message
-                Seller</button>
-            </div>
 
 
 
           </div>
-          <p class="pt-1">Status: {{ t.status }}</p>
+          <div class="d-flex justify-content-between border-top p-1">
+            <button class="btn btn-secondary btn-sm selectable" type="button" aria-controls="offcanvasRight"
+              data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" @click="getTradeComments(t)">Message
+              Seller</button>
+            <p class="pt-1">Status: {{ t.status }}</p>
+          </div>
         </div>
       </div>
 
