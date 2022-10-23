@@ -65,7 +65,7 @@
 
       <!-- NOTE Requested -->
       <div>
-        <strong class="mb-3 py-2 border-bottom solid text-center">Requested Trades:</strong>
+        <strong class="mb-3 py-2 solid text-center">Requested Trades:</strong>
         <div v-for="t in receivedTrades">
           <div class="d-flex justify-content-between align-items-center my-3">
             <div class="d-flex">
@@ -116,10 +116,10 @@
           </div>
           <div class="border-bottom solid mb-2">
             <div v-if="t.status == 'pending'" class="pb-2">
-              <button class="btn btn-success w-50" @click="changeStatus(t.id, 'accepted')">
+              <button class="btn btn-success w-auto me-1" @click="changeStatus(t.id, 'accepted')">
                 Accept
               </button>
-              <button class="btn btn-danger w-50" @click="changeStatus(t.id, 'rejected')">
+              <button class="btn btn-danger w-auto" @click="changeStatus(t.id, 'rejected')">
                 Reject
               </button>
             </div>
