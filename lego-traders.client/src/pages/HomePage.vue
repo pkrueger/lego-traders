@@ -6,6 +6,9 @@
       </div>
     </div>
     <div class="row">
+
+    </div>
+    <!-- <div class="row">
       <div class="col-3 text-center">
         <router-link :to="{name: 'Marketplace'}">
           <button class="btn">MARKETPLACE</button>
@@ -26,7 +29,7 @@
           <button class="btn">COLLECTIONS</button>
         </router-link>
       </div>
-    </div>
+    </div>-->
   </div>
   <!-- <router-link :to="{ name: 'Collection' }">
     <button>Collection Page</button>
@@ -44,6 +47,6 @@ export default {
 
 <style scoped lang="scss">
 .home {
-  height: 95vh;
+  min-height: 100%;
 }
 </style>
