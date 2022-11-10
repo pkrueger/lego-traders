@@ -100,22 +100,24 @@
                 Dismiss all
               </button>
             </div>
-            <li
-              v-for="n in state.notifications"
-              v-if="state.notifications.length"
-              class="m-0"
-              :class="n.hasSeen ? 'bg-grey' : 'bg-white'"
-              :style="n.hasSeen ? 'opacity: .85' : 'opacity: 1'"
-            >
-              <Notification :key="n.id" :notification="n" />
-            </li>
-            <li
-              class="m-0 p-0 text-center border-0"
-              style="opacity: 0.5"
-              v-else
-            >
-              <div class="p-2">You don't have any notifications</div>
-            </li>
+            <div>
+              <li
+                v-for="n in state.notifications"
+                v-if="state.notifications.length"
+                class="m-0"
+                :class="n.hasSeen ? 'bg-grey' : 'bg-white'"
+                :style="n.hasSeen ? 'opacity: .85' : 'opacity: 1'"
+              >
+                <Notification :key="n.id" :notification="n" />
+              </li>
+              <li
+                class="m-0 p-0 text-center border-0"
+                style="opacity: 0.5"
+                v-else
+              >
+                <div class="p-2">You don't have any notifications</div>
+              </li>
+            </div>
           </ul>
         </div>
         <!-- LOGIN COMPONENT GO HERE -->

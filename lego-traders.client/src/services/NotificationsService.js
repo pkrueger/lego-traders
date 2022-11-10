@@ -8,7 +8,7 @@ class NotificationsService {
   async getMyNotifications() {
     const res = await api.get("/account/notifications");
     logger.log(res.data);
-    AppState.notifications = res.data.map((n) => new Notification(n));
+    AppState.notifications = res.data.map((n) => new Notification(n)).reverse();
   }
   async sendPendingTradeNote(trade) {
     await api.post("/api/notifications", {
@@ -77,7 +77,7 @@ class NotificationsService {
   }
   async flipItAndReverseHasSeen() {
     const res = await api.put("api/notifications");
-    AppState.notifications = res.data.map((n) => new Notification(n));
+    AppState.notifications = res.data.map((n) => new Notification(n)).reverse();
   }
 }
 export const notificationsService = new NotificationsService();
