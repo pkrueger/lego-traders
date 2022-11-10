@@ -23,7 +23,7 @@ class NotificationsService {
       recipientId: trade.ownerId,
       type: "trade-accepted",
       body: `${trade.requestedAccount.name} has accepted the trade for their ${trade.requestedSet.name}.`,
-      route: { name: "Marketplace" },
+      route: { name: "Account" },
     });
   }
   async sendRejectedTradeNote(trade) {
