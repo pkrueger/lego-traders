@@ -91,16 +91,19 @@
 
           <ul class="dropdown-menu dropdown-menu-end p-0 m-0">
             <div class="d-flex align-items-center">
-              <button class="invisible p-0">Dismiss all</button>
+              <button class="invisible p-0" v-if="state.notifications.length">
+                Dismiss all
+              </button>
               <div class="text-dark note-text mx-auto">Notifications</div>
               <button
                 class="dismiss-all p-0 text-primary"
                 @click="dismissAllNotifications"
+                v-if="state.notifications.length"
               >
                 Dismiss all
               </button>
             </div>
-            <div>
+            <div class="scroll">
               <li
                 v-for="n in state.notifications"
                 v-if="state.notifications.length"
@@ -115,7 +118,7 @@
                 style="opacity: 0.5"
                 v-else
               >
-                <div class="p-2">You don't have any notifications</div>
+                <div class="p-2">You don't have any notifications 😭</div>
               </li>
             </div>
           </ul>
@@ -159,7 +162,15 @@ export default {
         Pop.error("[Flipping Has Seen On Notes]", error);
       }
     }
-    async function dismissAllNotifications() {}
+
+    async function dismissAllNotifications() {
+      try {
+        await notificationsService.dismissAllNotifications();
+      } catch (error) {
+        Pop.error("[DismissAllNotifications]", error);
+      }
+    }
+
     return {
       state,
       lightIsOn: computed(() => AppState.lightIsOn),
@@ -182,6 +193,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.scroll {
+  max-height: 75vh;
+  overflow-y: auto;
+}
 .marketplace {
   /* background-image: url('red-lego.webp'); */
   /* background-position: top left; */

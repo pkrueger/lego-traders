@@ -10,7 +10,7 @@
                 <h3>{{ post.body }}</h3>
               </div>
               <div v-if="post.imgUrl">
-                <img :src="post.imgUrl" alt="this is the post image">
+                <img :src="post.imgUrl" alt="this is the post image" />
               </div>
             </div>
           </div>
@@ -24,12 +24,15 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
       <div class="col-md-3 my-3">
         <div class="bg-dark w-100 p-3 rounded">
-          <img :src="post.imgUrl || post.creator?.picture" alt="" class="img-fluid" />
+          <img
+            :src="post.imgUrl || post.creator?.picture"
+            alt=""
+            class="img-fluid"
+          />
         </div>
       </div>
     </div>
@@ -39,7 +42,7 @@
 <script>
 import { computed } from "@vue/reactivity";
 import { onMounted } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { AppState } from "../AppState.js";
 import { commentsService } from "../services/CommentsService.js";
 import Pop from "../utils/Pop.js";
@@ -58,11 +61,13 @@ export default {
   },
   setup() {
     const route = useRoute();
+    const router = useRouter();
     async function getPostById() {
       try {
         await forumPostsService.getPostById(route.params.postId);
       } catch (error) {
-        Pop.error(error);
+        router.push({ name: "Forum" });
+        Pop.error("This post doesn't exist.", error);
       }
     }
     async function getPostComments() {

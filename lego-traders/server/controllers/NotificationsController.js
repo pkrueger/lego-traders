@@ -11,6 +11,7 @@ export class NotificationsController extends BaseController {
       .get("/:notificationId", this.getNotificationById)
       .post("", this.becomeNotified)
       .put("", this.flipItAndReverseHasSeen)
+      .delete("", this.multiDeathNote)
       .delete("/:notificationId", this.deathNote);
   }
   async getNotificationById(req, res, next) {
@@ -53,6 +54,15 @@ export class NotificationsController extends BaseController {
         req.userInfo.id
       );
       res.send("You dun deleted it");
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async multiDeathNote(req, res, next) {
+    try {
+      await notificationsService.multiDeathNote(req.userInfo.id);
+      res.send("Notifications are gone!");
     } catch (error) {
       next(error);
     }

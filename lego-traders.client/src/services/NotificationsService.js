@@ -76,8 +76,17 @@ class NotificationsService {
     }
   }
   async flipItAndReverseHasSeen() {
-    const res = await api.put("api/notifications");
-    AppState.notifications = res.data.map((n) => new Notification(n)).reverse();
+    if (AppState.notifications.length) {
+      const res = await api.put("api/notifications");
+      AppState.notifications = res.data
+        .map((n) => new Notification(n))
+        .reverse();
+    }
+  }
+
+  async dismissAllNotifications() {
+    await api.delete("api/notifications");
+    AppState.notifications = [];
   }
 }
 export const notificationsService = new NotificationsService();
