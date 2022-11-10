@@ -1,32 +1,31 @@
 <template>
   <div class="bg-primary p-3 d-flex">
-    <router-link :to="{name: 'Profile', params:{profileId:post.creatorId}}">
-      <div class="profile-picture-container profile-picture bg-white px-2 d-flex align-items-center"><img
-          class=" img-fluid" :src="post.creator.picture" alt="Profile Img"></div>
+    <router-link :to="{ name: 'Profile', params: { profileId: post.creatorId } }">
+      <div class="profile-picture-container profile-picture px-2 d-flex align-items-center"><img class=" img-fluid"
+          :src="post.creator.picture" alt="Profile Img"></div>
     </router-link>
     <div class="w-100 bg-light p-1">
       <div class="d-flex">
-        <div class="d-flex px-2 pt-2 justify-content-between w-100">
+        <div class="d-flex flex-grow-1 px-2 pt-2 justify-content-between">
           <div>
-            <p class="mb-1">{{post.creator.name}}</p>
+            <p class="mb-1">{{ post.creator.name }}</p>
           </div>
         </div>
         <div>
-          <div class=" me-3">
-            <p class="bg- px-3 mt-2 bg-warning m-0">tag</p>
+          <div class="me-3">
+            <p class="px-3 mt-2 bg-warning m-0 rounded">{{ post.tag }}</p>
           </div>
         </div>
-
         <div>
           <button @click="removePost(post.id)" class="btn selectable" aria-label="Delete this Comment?"
-            :style="post.creatorId == account.id ? '': 'visibility: hidden'">
+            :style="post.creatorId == account.id ? '' : 'visibility: hidden'">
             <i class="mdi mdi-close" title="delete comment" aria-label="delete comment"></i>
           </button>
         </div>
       </div>
-      <router-link :to="{name: 'ForumPost', params:{ postId:post.id }}">
+      <router-link :to="{ name: 'ForumPost', params: { postId: post.id } }">
         <div class="px-2">
-          <h4>{{post.title}}</h4>
+          <h4>{{ post.title }}</h4>
         </div>
       </router-link>
     </div>
@@ -72,6 +71,7 @@ export default {
   width: 5rem;
   object-fit: scale-down;
   border-right: 1px solid gray;
+  background-color: white;
 }
 
 a {

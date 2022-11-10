@@ -27,25 +27,26 @@
         Add to Account
       </button>
       <!-- Add Offer Trade Button v-if="legoSet.ownerId != account.id && account.id" -->
-      <div v-if="!legoSet.isOwned" class="me-2 align-self-center">
-        <span v-if="!legoSet.isOwned && legoSet.id">
-          <i @click="moveSetToOwned(legoSet)" class="mdi mdi-plus selectable" title="Add to Owned Sets"></i>
-          <i @click="deleteLegoSet(legoSet.id)" class="mdi mdi-delete selectable" title="Remove From Wishlist"></i>
+      <div v-if="!legoSet.isOwned && $route.path == '/account'" class="me-2 align-self-center">
 
-        </span>
-        <button v-else @click="addSetToWishList(legoSet)" class="btn btn-success ms-1 selectable">Add to
-          WishList</button>
+        <i @click="moveSetToOwned(legoSet)" class="mdi mdi-plus selectable" title="Add to Owned Sets"></i>
+        <i @click="deleteLegoSet(legoSet.id)" class="mdi mdi-delete selectable" title="Remove From Wishlist"></i>
 
       </div>
-      <div v-else class="">
+      <div v-else-if="$route.path == '/account' && legoSet.isOwned">
         <i class="mdi mdi-delete selectable" @click="deleteLegoSet(legoSet.id)" title="Remove Set from Account"></i>
       </div>
+
+      <button v-else-if="$route.path !== '/account'" @click="addSetToWishList(legoSet)"
+        class="btn btn-success ms-1 selectable">Add to
+        WishList</button>
     </div>
   </div>
 </template>
 
 <script>
 import { computed } from "@vue/reactivity";
+import { useRoute } from "vue-router";
 import { AppState } from "../AppState.js";
 import { legoSetsService } from "../services/LegoSetsService.js";
 import { notificationsService } from "../services/NotificationsService.js";
@@ -56,6 +57,7 @@ export default {
     legoSet: { type: Object, required: true },
   },
   setup() {
+    const route = useRoute()
     return {
       account: computed(() => AppState.account),
       async toggleIsUpForTrade(legoSet) {
