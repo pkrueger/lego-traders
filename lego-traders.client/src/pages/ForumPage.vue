@@ -10,26 +10,38 @@
             <ForumPostForm />
           </div>
           <div class=" p-3 w-100">
-            <div class="form-check form-switch mb-2">
-              <input class="form-check-input" type="checkbox" role="switch" id="starWars">
-              <label class="form-check-label" for="starWars">Star Wars</label>
-            </div>
-            <div class="form-check form-switch mb-2">
-              <input class="form-check-input" type="checkbox" role="switch" id="technic">
-              <label class="form-check-label" for="technic">Technic</label>
-            </div>
-            <div class="form-check form-switch mb-2">
-              <input class="form-check-input" type="checkbox" role="switch" id="harryPotter">
-              <label class="form-check-label" for="harryPotter">Harry Potter</label>
-            </div>
-            <div class="form-check form-switch mb-2">
-              <input class="form-check-input" type="checkbox" role="switch" id="architecture">
-              <label class="form-check-label" for="architecture">Architecture</label>
-            </div>
-            <div class="form-check form-switch mb-2">
-              <input class="form-check-input" type="checkbox" role="switch" id="bionics">
-              <label class="form-check-label" for="bionics">Bionical</label>
-            </div>
+            <form>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="radio" name="filterRadios" v-model="editable" value="" id="All"
+                  checked>
+                <label class="form-check-label" for="All">All</label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="radio" name="filterRadios" v-model="editable" value="Star Wars"
+                  id="starWars">
+                <label class="form-check-label" for="starWars">Star Wars</label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="radio" name="filterRadios" v-model="editable" value="Technic"
+                  id="technic">
+                <label class="form-check-label" for="technic">Technic</label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="radio" name="filterRadios" v-model="editable" value="Harry Potter"
+                  id="harryPotter">
+                <label class="form-check-label" for="harryPotter">Harry Potter</label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="radio" name="filterRadios" v-model="editable" value="Architecture"
+                  id="architecture">
+                <label class="form-check-label" for="architecture">Architecture</label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="radio" name="filterRadios" v-model="editable" value="Bionical"
+                  id="bionical">
+                <label class="form-check-label" for="bionical">Bionical</label>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -50,12 +62,13 @@ import { onMounted } from 'vue';
 import { forumPostsService } from '../services/ForumPostsService.js'
 import Pop from '../utils/Pop.js';
 import ForumPostCard from '../components/ForumPostCard.vue';
-import { computed } from '@vue/reactivity';
+import { computed, ref } from '@vue/reactivity';
 import { AppState } from '../AppState.js';
 import ForumPostForm from '../components/ForumPostForm.vue';
 
 export default {
   setup() {
+    const editable = ref("")
     async function getPosts() {
       try {
         await forumPostsService.getPosts();
@@ -68,7 +81,8 @@ export default {
       getPosts();
     });
     return {
-      forumPosts: computed(() => AppState.forumPosts)
+      editable,
+      forumPosts: computed(() => AppState.forumPosts.filter(f => f.tag.includes(editable.value)))
     };
   },
   components: { ForumPostCard, ForumPostForm }

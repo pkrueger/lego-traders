@@ -35,6 +35,10 @@ class TradeService {
     }
 
     trade.save();
+    await trade.populate("owner", "name picture");
+    await trade.populate("requestedAccount", "name picture");
+    await trade.populate("offeredSet");
+    await trade.populate("requestedSet");
     return trade;
   }
   //if there is a status of pending on any other trade requests iwth the same requestedSetId set them too rejected
@@ -81,8 +85,8 @@ class TradeService {
     const trade = await dbContext.TradeRequest.create(formData);
     await trade.populate("owner", "name picture");
     await trade.populate("requestedAccount", "name picture");
-    await trade.populate("offeredSet", "name set_img_url");
-    await trade.populate("requestedSet", "name set_img_url");
+    await trade.populate("offeredSet", "name set_img_url set_num");
+    await trade.populate("requestedSet", "name set_img_url set_num");
     return trade;
   }
   async getSentTrades(ownerId) {
