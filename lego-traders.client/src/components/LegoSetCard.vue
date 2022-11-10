@@ -16,7 +16,8 @@
     </div>
 
     <div class="d-flex justify-content-end me-2 mb-2 bg-white">
-      <div v-if="account.id == legoSet.ownerId && account.id && legoSet.isOwned" class="form-check me-auto ms-2">
+      <div v-if="account.id == legoSet.ownerId && account.id && legoSet.isOwned && $route.name == 'Account'"
+        class="form-check me-auto ms-2">
         <input class="form-check-input" :checked="legoSet.isUpForTrade" type="checkbox" id="isUpForTrade"
           @change="toggleIsUpForTrade(legoSet)" />
         <label class="form-check-label" for="flexCheckDefault">
@@ -33,11 +34,11 @@
         <i @click="deleteLegoSet(legoSet.id)" class="mdi mdi-delete selectable" title="Remove From Wishlist"></i>
 
       </div>
-      <div v-else-if="$route.path == '/account' && legoSet.isOwned">
+      <div v-else-if="$route.path == '/account' && legoSet.isOwned && $route.name != 'Profile'">
         <i class="mdi mdi-delete selectable" @click="deleteLegoSet(legoSet.id)" title="Remove Set from Account"></i>
       </div>
 
-      <button v-else-if="$route.path !== '/account'" @click="addSetToWishList(legoSet)"
+      <button v-else-if="$route.path !== '/account' && $route.name != 'Profile'" @click="addSetToWishList(legoSet)"
         class="btn btn-success ms-1 selectable">Add to
         WishList</button>
     </div>

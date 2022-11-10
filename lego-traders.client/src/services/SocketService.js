@@ -59,7 +59,7 @@ class SocketService extends SocketHandler {
     AppState.myLegoSets.push(legoSet).on("JOINED_ROOM", this.joinedRoom);
   }
   becomeNotified(notification) {
-    AppState.notifications.push(notification);
+    AppState.notifications.unshift(notification);
   }
   addComment(comment) {
     logger.log("COMMENT_ADDED", comment);
