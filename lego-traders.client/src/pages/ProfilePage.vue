@@ -8,9 +8,9 @@
             <img class="p-3 img-fluid img-size" :src="account.picture" alt="User Name">
           </div>
           <div class="border border-dark col-9 p-2">
-            <h3>Name: {{account.name}}</h3>
+            <h3>Name: {{ account.name }}</h3>
             <h5>About: </h5>
-            <p>{{account.desc}}</p>
+            <p>{{ account.desc }}</p>
           </div>
         </div>
       </div>
@@ -26,17 +26,17 @@
         <h3>Owned Sets:</h3>
         <div class="row">
           <!-- RouterLink to Set Details page -->
-          <div class="col-lg-3 d-flex justify-content-center" v-for="l in ownedLegoSets">
+          <div class="col-lg-3 d-flex justify-content-center mb-3" v-for="l in ownedLegoSets">
 
             <LegoSetCard :key="l.id" :legoSet="l" />
 
           </div>
           <!-- TODO Component for My Sets  -->
         </div>
-        <div class="col-lg-12 d-flex justify-content-center">
+        <div class="col-lg-12">
+          <h3>WishList:</h3>
           <div class="row">
-            <h3>WishList:</h3>
-            <div class="col-3" v-for="l in wishListLegoSets">
+            <div class="col-3 mb-3" v-for="l in wishListLegoSets">
 
               <LegoSetCard :key="l.id" :legoSet="l" />
 
