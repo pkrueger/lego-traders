@@ -5,6 +5,7 @@ export class ForumPost {
     this.title = data.title
     this.body = data.body
     this.imgUrl = data.imgUrl
+    this.tag = data.tag || ''
     this.subscribers = data.subscribers
     this.creator = data.creator
   }
