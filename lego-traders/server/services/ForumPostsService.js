@@ -10,8 +10,9 @@ class ForumPostsService {
     }
     await dbContext.Posts.findByIdAndDelete(postId);
     const comments = await dbContext.Comments.find({ postId })
-    if (comments) { for (let c of comments) { await c.delete } }
-    const notifications = await dbContext.Notifications.deleteMany({ route: { postId } })
+    if (comments) { comments.forEach(c => c.delete()) }
+    const notifications = await dbContext.Notifications.find({ route: { params: { postId } } })
+    if (notifications) { notifications.forEach(n => n.delete()) }
     // find({ route: { postId } })
     // if (notifications) { for (let n of notifications) { await n.delete } }
     return post;
