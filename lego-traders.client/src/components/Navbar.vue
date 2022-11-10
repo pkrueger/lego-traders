@@ -93,7 +93,12 @@
             <div class="d-flex align-items-center">
               <button class="invisible p-0">Dismiss all</button>
               <div class="text-dark note-text mx-auto">Notifications</div>
-              <button class="dismiss-all p-0 text-primary">Dismiss all</button>
+              <button
+                class="dismiss-all p-0 text-primary"
+                @click="dismissAllNotifications"
+              >
+                Dismiss all
+              </button>
             </div>
             <li
               v-for="n in state.notifications"
@@ -152,6 +157,7 @@ export default {
         Pop.error("[Flipping Has Seen On Notes]", error);
       }
     }
+    async function dismissAllNotifications() {}
     return {
       state,
       lightIsOn: computed(() => AppState.lightIsOn),
@@ -166,6 +172,7 @@ export default {
         }
       },
       flipItAndReverseHasSeen,
+      dismissAllNotifications,
     };
   },
   components: { Login, Notification },
