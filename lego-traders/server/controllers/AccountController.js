@@ -1,6 +1,7 @@
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import { accountService } from "../services/AccountService";
 import { legoSetsService } from "../services/LegoSetsService.js";
+import { mocsService } from "../services/MocsService.js";
 import { notificationsService } from "../services/NotificationsService.js";
 import { socketProvider } from "../SocketProvider.js";
 import BaseController from "../utils/BaseController";
@@ -12,6 +13,7 @@ export class AccountController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get("", this.getUserAccount)
       .get("/notifications", this.getNotificationsByAccountId)
+      .get("/mocs", this.getMocsByAccountId)
       .delete("/notifications", this.multiDeathNote)
       .put("", this.updateUserAccount)
       .post("/sets", this.createLegoSet);
@@ -35,6 +37,16 @@ export class AccountController extends BaseController {
       next(error);
     }
   }
+
+  async getMocsByAccountId(req, res, next) {
+    try {
+      const mocs = await mocsService.getMocsByCreatorId(req.userInfo.id);
+      res.send(mocs);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async multiDeathNote(req, res, next) {
     try {
       await notificationsService.multiDeathNote(req.userInfo.id);
