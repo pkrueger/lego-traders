@@ -1,7 +1,9 @@
 <template>
   <div class="container-fluid bg-light gb-0">
     <div class="row p-4">
-      <div class="col-lg-3 order-sm-1 order-lg-1 sidebar elevation-4 bg-white border-test">
+      <div
+        class="col-lg-3 order-sm-1 order-lg-1 sidebar elevation-4 bg-white border-test"
+      >
         <div class="mt-3">
           <div>
             <div class="form-check">
@@ -12,35 +14,58 @@
                 Search tradable sets by name
               </label>
               <form @submit.prevent="handleSubmit()">
-                <div class=" input-group input-group-sm mb-4">
-                  <input id="nameSearchBar" v-model="editable.term" type="text" class="form-control"
-                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                  <button id="nameSearchButton" type="submit" class="btn btn-primary">search</button>
+                <div class="input-group input-group-sm mb-4">
+                  <input
+                    id="nameSearchBar"
+                    v-model="editable.term"
+                    type="text"
+                    class="form-control"
+                    aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-sm"
+                  />
+                  <button
+                    id="nameSearchButton"
+                    type="submit"
+                    class="btn btn-primary"
+                  >
+                    search
+                  </button>
                 </div>
               </form>
             </div>
             <div class="text-center mb-3">
-              <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#ownedSets">
+              <button
+                type="button"
+                class="btn btn-danger"
+                data-bs-toggle="modal"
+                data-bs-target="#ownedSets"
+              >
                 Your Owned Sets
               </button>
             </div>
-            <div>
-            </div>
+            <div></div>
           </div>
           <YourTrades />
         </div>
       </div>
-      <div style="height: 85vh" class="col-lg-9 overflow-auto order-lg-2 order-sm-2 flex-wrap text-center">
+      <div
+        style="height: 85vh"
+        class="col-lg-9 overflow-auto order-lg-2 order-sm-2 flex-wrap text-center"
+      >
         <h1 class="w-100">Sets available for trade</h1>
         <div class="d-flex flex-wrap justify-content-center">
           <div class="m-3 set-card border-test" v-for="l in tradableSets">
             <TradeSetCard :key="l.id" :legoSet="l" />
-            <button type="button" class="bg-primary offer w-100 " @click="makeSetActive(l)" data-bs-toggle="modal"
-              data-bs-target="#exampleModal">
+            <button
+              type="button"
+              class="bg-primary offer w-100"
+              @click="makeSetActive(l)"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
               Make Offer
             </button>
           </div>
-
         </div>
       </div>
     </div>
@@ -58,22 +83,20 @@ import Pop from "../utils/Pop.js";
 import MarketSearchForm from "../components/MarketSearchForm.vue";
 import TradeSetCard from "../components/TradeSetCard.vue";
 import TradeModal from "../components/TradeModal.vue";
-import { ref } from 'vue'
+import { ref } from "vue";
 import YourTrades from "../components/YourTrades.vue";
 import OwnedSetsModal from "../components/OwnedSetsModal.vue";
 import { marketplaceService } from "../services/MarketplaceService.js";
 import { logger } from "../utils/Logger.js";
 export default {
   setup() {
-    const editable = ref({})
-
+    const editable = ref({});
 
     onMounted(() => {
       getTradableSets();
     });
     async function getTradableSets() {
       try {
-
         await legoSetsService.getTradableSets();
       } catch (error) {
         Pop.error(error, "[gettingTradableSets]");
@@ -83,13 +106,13 @@ export default {
       editable,
       async handleSubmit() {
         try {
-          if (editable.value.term == '') {
-            await legoSetsService.getTradableSets()
+          if (editable.value.term == "") {
+            await legoSetsService.getTradableSets();
           }
-          await marketplaceService.getTradableSetBySearch(editable.value.term)
+          await marketplaceService.getTradableSetBySearch(editable.value.term);
         } catch (error) {
-          logger.error('[searchTradable]', error)
-          Pop.error(error)
+          logger.error("[searchTradable]", error);
+          Pop.error(error);
         }
       },
       // getNameChecked() {
@@ -104,7 +127,9 @@ export default {
       //   }
       // },
 
-      tradableSets: computed(() => AppState.tradableSet.filter((s) => s.ownerId != AppState.account.id)),
+      tradableSets: computed(() =>
+        AppState.tradableSet.filter((s) => s.ownerId != AppState.account.id)
+      ),
 
       // tradableSearchSet: computed(() => tradableSet.includes(editable.value)),
       account: computed(() => AppState.account),
@@ -114,7 +139,13 @@ export default {
       },
     };
   },
-  components: { MarketSearchForm, TradeSetCard, TradeModal, YourTrades, OwnedSetsModal },
+  components: {
+    MarketSearchForm,
+    TradeSetCard,
+    TradeModal,
+    YourTrades,
+    OwnedSetsModal,
+  },
 };
 </script>
 
@@ -127,9 +158,7 @@ export default {
 // }
 
 .sidebar {
-
   margin-bottom: 0;
-
 }
 
 @media (max-width: 1000px) {
@@ -145,8 +174,6 @@ export default {
 
 .offer {
   z-index: 100;
-
-
 }
 
 .border-test {
@@ -154,6 +181,6 @@ export default {
   border-image-slice: 30 0 0 33;
   // border-image-outset: 0px 0rem 0rem 0px;x
   border-image-repeat: repeat repeat;
-  border-image-source: url("red-lego.webp");
+  border-image-source: url("/red-lego.webp");
 }
 </style>

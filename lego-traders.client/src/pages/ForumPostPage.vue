@@ -99,7 +99,7 @@ export default {
 
 .border-card {
   border-left: 1.5rem solid;
-  border-image-source: url("yellow-lego.webp");
+  border-image-source: url("/yellow-lego.webp");
   border-image-slice: 30 0 0 30;
   border-image-repeat: repeat;
 }
