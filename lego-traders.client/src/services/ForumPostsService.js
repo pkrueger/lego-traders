@@ -10,7 +10,6 @@ class ForumPostsService {
   }
   async getPosts() {
     const res = await api.get("/api/forum/posts");
-    console.log("POSTS", res.data);
     AppState.forumPosts = res.data.map((p) => new ForumPost(p)).reverse();
   }
   async createPost(PostData) {

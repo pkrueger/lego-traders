@@ -12,17 +12,14 @@ class MarketplaceService {
   }
   async getSentTrades() {
     const res = await api.get("api/trade/sent");
-    console.log("getSentTrades", res.data);
     AppState.sentTrades = res.data;
   }
   async getReceivedTrades() {
     const res = await api.get("api/trade/received");
-    console.log("getReceivedTrades", res.data);
     AppState.receivedTrades = res.data;
   }
   async changeStatus(id, status) {
     const res = await api.put(`api/trade/` + id, { status });
-    console.log("changeStatus", res.data);
 
     const requestedTrade = AppState.receivedTrades.find((t) => t.id == id);
     requestedTrade.status = res.data.status;
@@ -30,7 +27,6 @@ class MarketplaceService {
   }
   async removeTrade(id) {
     const res = await api.delete("api/trade/" + id);
-    // console.log("remove trade", res);
     AppState.sentTrades = AppState.sentTrades.filter(
       (s) => s.id != res.data.id
     );
@@ -38,10 +34,11 @@ class MarketplaceService {
       (s) => s.id != res.data.id
     );
   }
-  async getTradableSetBySearch(term){
-    debugger
-  AppState.tradableSet = AppState.tradableSet.filter((s)=> s.name.toUpperCase().includes(term.toUpperCase()))
-}
-  
+  async getTradableSetBySearch(term) {
+    debugger;
+    AppState.tradableSet = AppState.tradableSet.filter((s) =>
+      s.name.toUpperCase().includes(term.toUpperCase())
+    );
+  }
 }
 export const marketplaceService = new MarketplaceService();
