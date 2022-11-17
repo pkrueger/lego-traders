@@ -1,5 +1,6 @@
 import { dbContext } from "../db/DbContext.js";
 import { PostSchema } from "../models/Post.js";
+import { socketProvider } from "../SocketProvider.js";
 import { BadRequest, Forbidden } from "../utils/Errors.js";
 import { forumPostsService } from "./ForumPostsService.js";
 
@@ -29,6 +30,15 @@ class CommentsService {
         post.save();
       }
     }
+    // if(comment.tradeId != ''){
+    //   socketProvider.messageRoom(comment.tradeId, 'COMMENT_ADDED', comment)
+    // }else
+      //     if (req.body.tradeId) {
+      //   socketProvider.messageRoom(req.body.tradeId, 'COMMENT_ADDED', comment)
+      //   res.send(comment)
+      // } else {
+      //   res.send(comment)
+      // }
 
     await comment.save();
     return comment;

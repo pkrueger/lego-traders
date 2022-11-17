@@ -47,9 +47,9 @@ export class CommentsController extends BaseController {
       const comment = await commentsService.createComment(req.body)
       if (req.body.tradeId) {
         socketProvider.messageRoom(req.body.tradeId, 'COMMENT_ADDED', comment)
-      } else {
-        res.send(comment)
-      }
+        
+      } 
+      return res.send(comment)
     } catch (error) {
       next(error)
     }

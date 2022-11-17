@@ -5,9 +5,9 @@
         <!-- <h5 class="offcanvas-title" id="offcanvasRightLabel">Trade Chat</h5> -->
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
-      <div class="offcanvas-body d-flex flex-column justify-content-between">
+      <div class="offcanvas-body row flex-column justify-content-between">
         <!-- NOTE chat comments go here -->
-        <div>
+        <div class="w-auto">
           <ChatComment v-for="c in comments" :key="c.id" :comment="c" />
 
         </div>
@@ -17,8 +17,8 @@
         <div class="input-group mb-3">
           <!-- TODO clear field after submit v -->
           <input type="text" class="form-control ms-2" v-model="editable.body" placeholder="What you say?!"
-            aria-label="Recipient's username" aria-describedby="button-addon2">
-          <button class="btn btn-outline-secondary me-2" type="submit" id="button-addon2">Button</button>
+            aria-label="Chat comment" aria-describedby="button-addon2">
+          <button class="btn btn-outline-secondary me-2" type="submit" id="button-addon2">Send?</button>
         </div>
       </form>
     </div>
@@ -72,8 +72,10 @@ export default {
           if (!AppState.account.id) {
             return AuthService.loginWithRedirect()
           }
+
           editable.value.tradeId = AppState.activeTrade.id
-          await commentsService.createComment(editable.value)
+          await commentsService.createChatComment(editable.value)
+          editable.value = {}
 
         } catch (error) {
           Pop.error(error)
@@ -87,5 +89,8 @@ export default {
 
 
 <style lang="scss" scoped>
+.text-stuff {
+  overflow-wrap: break-word;
 
+}
 </style>

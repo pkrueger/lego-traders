@@ -38,8 +38,8 @@
         <i class="mdi mdi-delete selectable" @click="deleteLegoSet(legoSet.id)" title="Remove Set from Account"></i>
       </div>
 
-      <button v-else-if="$route.path !== '/account' && $route.name != 'Profile'" @click="addSetToWishList(legoSet)"
-        class="btn btn-success ms-1 selectable">Add to
+      <button v-else-if="$route.path !== '/account' && $route.name != 'Profile' && $route.name != 'Marketplace'"
+        @click="addSetToWishList(legoSet)" class="btn btn-success ms-1 selectable">Add to
         WishList</button>
     </div>
   </div>
