@@ -5,7 +5,7 @@
         <img class="img-fluid profile elevation-1 m-4" src="/ProfilePics/PatrickKrueger.jpg" alt="Patrick" />
         <img class="img-fluid profile-coel elevation-1 m-4" src="/ProfilePics/CoelAllen.jpg" alt="Coel" />
         <img class="img-fluid profile elevation-1 m-4" src="/ProfilePics/RandyHall.jpg" alt="Randy" />
-        <img class="img-fluid profile elevation-1 m-4" src="" alt="Eric" />
+        <img class="img-fluid profile elevation-1 m-4" src="/ProfilePics/Eric.jpg" alt="Eric" />
         <img class="img-fluid profile elevation-1 m-4" src="/ProfilePics/AndrewGreenlaw.jpg" alt="Andrew" />
       </div>
     </div>
