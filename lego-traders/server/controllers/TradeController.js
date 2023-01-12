@@ -57,7 +57,7 @@ export class TradeController extends BaseController {
       );
       res.send(trade);
     } catch (error) {
-      next(error);
+      next(error, "Trade error");
     }
   }
   async tradeResponse(req, res, next) {
