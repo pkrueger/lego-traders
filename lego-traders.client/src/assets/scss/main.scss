@@ -4,7 +4,7 @@
 @import "./utilities.scss";
 @import "./loaders.scss";
 
-body{
+body {
   overscroll-behavior: none;
 }
 
@@ -39,4 +39,15 @@ select {
 form:invalid button[type="submit"] {
   filter: grayscale(1);
   pointer-events: none;
+}
+
+@font-face {
+  font-family: lego;
+  src: url(./Legothick.ttf);
+}
+
+h1.font--lego {
+  text-transform: uppercase;
+  font-family: lego;
+  color: black;
 }
