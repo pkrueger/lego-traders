@@ -44,18 +44,18 @@
           </li>
           <li>
             <router-link
-              :to="{ name: 'MOC' }"
-              class="moc text-shadow btn btn-success selectable text-uppercase"
-            >
-              Create Your Own
-            </router-link>
-          </li>
-          <li>
-            <router-link
               :to="{ name: 'Collection' }"
               class="collections text-shadow btn btn-secondary selectable text-uppercase"
             >
               Collections
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              :to="{ name: 'Account' }"
+              class="moc text-shadow btn btn-success selectable text-uppercase"
+            >
+              Your Account
             </router-link>
           </li>
         </ul>

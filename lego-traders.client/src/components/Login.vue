@@ -29,13 +29,13 @@
         class="dropdown-menu mt-0 p-2 dropdown-menu-end me-1"
         aria-labelledby="authDropdown"
       >
-        <router-link :to="{ name: 'Account' }">
+        <!-- <router-link :to="{ name: 'Account' }">
           <div class="hoverable">
             <h6 class="text-start text-dark">Manage Account</h6>
           </div>
-        </router-link>
+        </router-link> -->
         <div class="hoverable text-danger" @click="logout">
-          <h6 class="text-start mdi mdi-logout">logout</h6>
+          <h6 class="text-start mdi mdi-logout pt-2 fs-5">logout</h6>
         </div>
       </div>
     </div>

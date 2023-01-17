@@ -1,38 +1,60 @@
 <template>
   <div class="container-fluid bg-primary account-page">
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-lg-12">
         <div class="row m-auto justify-content-between">
-          <div class="col-lg-4 order-lg-1 text-center p-3">
-            <img class="img-fluid my-2 profile-img" :src="account.picture" alt="User Name">
-          </div>
-          <div class="bg-white col-lg-4 card order-lg-2 d-flex flex-column justify-content-between p-0 my-2">
+          <div
+            class="bg-white col-lg-4 card order-lg-2 d-flex flex-column justify-content-between p-0 my-2"
+          >
             <div class="card-header">
-              <h3 class="text-center">{{account.name}}</h3>
+              <h3 class="text-center">{{ account.name }}</h3>
             </div>
+            <img
+              class="img-fluid my-2 profile-img"
+              :src="account.picture"
+              alt="User Name"
+            />
             <div class="card-body">
-              <h3 class="border-bottom dark mb-3">A little about me: </h3>
-              <p>{{account.desc}}</p>
+              <h3 class="border-bottom dark mb-3">A little about me:</h3>
+              <p>{{ account.desc }}</p>
             </div>
             <div class="align-self-end">
-              <button type="button" class="btn btn-primary me-2 mb-2" data-bs-toggle="modal"
-                data-bs-target="#accountModal">Manage
-                Account</button>
+              <button
+                type="button"
+                class="btn btn-primary me-2 mb-2"
+                data-bs-toggle="modal"
+                data-bs-target="#accountModal"
+              >
+                Edit Account
+              </button>
             </div>
-
           </div>
-          <div class="col-lg-3 col-md-12 col-sm-12 order-lg-3 my-2">
+          <div class="col-8 order-lg-3 my-2">
             <YourTrades />
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+
     <div class="row">
-      <div class="col-12">
-        <h3>Owned Sets:</h3>
+      <div class="col-2 text-center mt-3">
+        <img
+          :src="account.picture"
+          :alt="account.name"
+          class="profile-img mb-2"
+        />
+        <h3>{{ account.name }}</h3>
+        <p>{{ account.desc }}</p>
+      </div>
+
+      <div class="col-10">
+        <h3>My Sets:</h3>
         <div class="row">
           <!-- RouterLink to Set Details page -->
-          <div class="col-lg-3 d-flex justify-content-center mb-3" v-for="l in ownedLegoSets">
+          <div
+            class="col-lg-3 d-flex justify-content-center mb-3"
+            v-for="l in ownedLegoSets"
+          >
             <LegoSetCard :key="l.id" :legoSet="l" />
           </div>
           <!-- TODO Component for My Sets  -->
@@ -49,27 +71,29 @@
     </div>
   </div>
   <AccountModal />
-
 </template>
 
 <script>
-import { computed, onMounted, watchEffect } from 'vue'
-import { AppState } from '../AppState'
-import AccountModal from '../components/AccountModal.vue';
-import LegoSetCard from '../components/LegoSetCard.vue';
-import TradeChatOffcanvas from '../components/TradeChatOffcanvas.vue'
-import YourTrades from '../components/YourTrades.vue'
+import { computed, onMounted, watchEffect } from "vue";
+import { AppState } from "../AppState";
+import AccountModal from "../components/AccountModal.vue";
+import LegoSetCard from "../components/LegoSetCard.vue";
+import TradeChatOffcanvas from "../components/TradeChatOffcanvas.vue";
+import YourTrades from "../components/YourTrades.vue";
 export default {
   setup() {
     return {
       account: computed(() => AppState.account),
-      wishListLegoSets: computed(() => AppState.myLegoSets.filter(l => !l.isOwned)),
-      ownedLegoSets: computed(() => AppState.myLegoSets.filter(l => l.isOwned)),
-
+      wishListLegoSets: computed(() =>
+        AppState.myLegoSets.filter((l) => !l.isOwned)
+      ),
+      ownedLegoSets: computed(() =>
+        AppState.myLegoSets.filter((l) => l.isOwned)
+      ),
     };
   },
-  components: { AccountModal, LegoSetCard, TradeChatOffcanvas, YourTrades }
-}
+  components: { AccountModal, LegoSetCard, TradeChatOffcanvas, YourTrades },
+};
 </script>
 
 <style>
@@ -78,7 +102,10 @@ export default {
 }
 
 .profile-img {
-  max-height: auto;
+  max-height: 30vh;
+  width: auto;
+  object-fit: contain;
+  border-radius: 50%;
 }
 
 /* doesn't work atm... */
