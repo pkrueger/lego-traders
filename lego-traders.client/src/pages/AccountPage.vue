@@ -37,27 +37,44 @@
     </div> -->
 
     <div class="row">
-      <div class="col-2 text-center mt-3">
-        <img
-          :src="account.picture"
-          :alt="account.name"
-          class="profile-img mb-2"
-        />
-        <h3>{{ account.name }}</h3>
-        <p>{{ account.desc }}</p>
+      <div class="col-3 text-center mt-3">
+        <div>
+          <img
+            :src="account.picture"
+            :alt="account.name"
+            class="profile-img mb-2"
+          />
+          <h3>{{ account.name }}</h3>
+          <p>{{ account.desc }}</p>
+          <button
+            type="button"
+            class="btn btn-warning me-2 mb-2"
+            data-bs-toggle="modal"
+            data-bs-target="#accountModal"
+          >
+            Edit Account
+          </button>
+        </div>
+        <YourTrades />
       </div>
 
-      <div class="col-10">
+      <div class="col-9">
+        <Tabs>
+          <Tab title="test"></Tab>
+        </Tabs>
+      </div>
+
+      <!-- <div class="col-10">
         <h3>My Sets:</h3>
         <div class="row">
-          <!-- RouterLink to Set Details page -->
+          RouterLink to Set Details page
           <div
             class="col-lg-3 d-flex justify-content-center mb-3"
             v-for="l in ownedLegoSets"
           >
             <LegoSetCard :key="l.id" :legoSet="l" />
           </div>
-          <!-- TODO Component for My Sets  -->
+          TODO Component for My Sets
         </div>
         <div class="col-12">
           <h3>WishList:</h3>
@@ -67,7 +84,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   <AccountModal />
@@ -78,6 +95,8 @@ import { computed, onMounted, watchEffect } from "vue";
 import { AppState } from "../AppState";
 import AccountModal from "../components/AccountModal.vue";
 import LegoSetCard from "../components/LegoSetCard.vue";
+import Tabs from "../components/Tabs.vue";
+import Tab from "../components/Tab.vue";
 import TradeChatOffcanvas from "../components/TradeChatOffcanvas.vue";
 import YourTrades from "../components/YourTrades.vue";
 export default {
@@ -92,7 +111,14 @@ export default {
       ),
     };
   },
-  components: { AccountModal, LegoSetCard, TradeChatOffcanvas, YourTrades },
+  components: {
+    AccountModal,
+    LegoSetCard,
+    TradeChatOffcanvas,
+    YourTrades,
+    Tabs,
+    Tab,
+  },
 };
 </script>
 
