@@ -194,6 +194,6 @@ export default {
   // width: 38vh;
   max-height: 30vh;
 
-  // object-fit: contain;
+  /* object-fit: contain; */
 }
 </style>

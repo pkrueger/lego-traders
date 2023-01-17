@@ -10,39 +10,77 @@
           <div class="d-flex justify-content-between align-items-center my-3">
             <div class="d-flex">
               <div>
-                <p :title="t.requestedSet.name" class="set-text">{{t.requestedSet.name}}</p>
-                <router-link v-if="t.requestedAccount"
-                  :to="{ name: 'SetDetails', params: { set_num: t.requestedSet.set_num } }">
-                  <img class="selectable" v-if="t.requestedSet" height="50" :src="t.requestedSet.set_img_url"
-                    :alt="t.requestedSet.name" :title="t.requestedSet.name" />
+                <p :title="t.requestedSet.name" class="set-text">
+                  {{ t.requestedSet.name }}
+                </p>
+                <router-link
+                  v-if="t.requestedAccount"
+                  :to="{
+                    name: 'SetDetails',
+                    params: { set_num: t.requestedSet.set_num },
+                  }"
+                >
+                  <img
+                    class="selectable"
+                    v-if="t.requestedSet"
+                    height="50"
+                    :src="t.requestedSet.set_img_url"
+                    :alt="t.requestedSet.name"
+                    :title="t.requestedSet.name"
+                  />
                 </router-link>
               </div>
-              <div class="ps-2">
-
-              </div>
+              <div class="ps-2"></div>
             </div>
 
-            <p class="pt-3 ">For:</p>
+            <p class="pt-3">For:</p>
 
             <div class="d-flex">
               <div>
-                <p :title="t.offeredSet.name" class="set-text">{{t.offeredSet.name}}</p>
-                <router-link v-if="t.offeredSet"
-                  :to="{ name: 'SetDetails', params: { set_num: t.offeredSet.set_num } }">
-                  <img class="selectable" v-if="t.offeredSet" height="50" :src="t.offeredSet.set_img_url"
-                    :alt="t.offeredSet.name" :title="t.offeredSet.name" />
+                <p :title="t.offeredSet.name" class="set-text">
+                  {{ t.offeredSet.name }}
+                </p>
+                <router-link
+                  v-if="t.offeredSet"
+                  :to="{
+                    name: 'SetDetails',
+                    params: { set_num: t.offeredSet.set_num },
+                  }"
+                >
+                  <img
+                    class="selectable"
+                    v-if="t.offeredSet"
+                    height="50"
+                    :src="t.offeredSet.set_img_url"
+                    :alt="t.offeredSet.name"
+                    :title="t.offeredSet.name"
+                  />
                 </router-link>
               </div>
               <div class="ps-2">
-                <i v-if="t.status != 'pending'" class="mdi mdi-close text-danger selectable align-self-center"
-                  @click="removeTrade(t.id)"></i>
+                <i
+                  v-if="t.status != 'pending'"
+                  class="mdi mdi-close text-danger selectable align-self-center"
+                  @click="removeTrade(t.id)"
+                ></i>
               </div>
             </div>
           </div>
 
           <div class="d-flex justify-content-between border-top py-2">
-            <router-link v-if="t.requestedAccount" :to="{name: 'Profile', params:{profileId:t.requestedAccount.id}}">
-              <img class="selectable" :src="t.requestedAccount.picture" height="40" alt="" />
+            <router-link
+              v-if="t.requestedAccount"
+              :to="{
+                name: 'Profile',
+                params: { profileId: t.requestedAccount.id },
+              }"
+            >
+              <img
+                class="selectable"
+                :src="t.requestedAccount.picture"
+                height="40"
+                alt=""
+              />
             </router-link>
             <div>
               <span v-if="t.body" class="message">
@@ -50,14 +88,18 @@
                 <span class="message-body">{{ t.body }}</span>
               </span>
             </div>
-
-
-
           </div>
           <div class="d-flex justify-content-between border-top p-1">
-            <button class="btn btn-secondary btn-sm selectable" type="button" aria-controls="offcanvasRight"
-              data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" @click="getTradeComments(t)">Message
-              Seller</button>
+            <button
+              class="btn btn-secondary btn-sm selectable"
+              type="button"
+              aria-controls="offcanvasRight"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasRight"
+              @click="getTradeComments(t)"
+            >
+              Message Seller
+            </button>
             <p class="pt-1">Status: {{ t.status }}</p>
           </div>
         </div>
@@ -70,11 +112,24 @@
           <div class="d-flex justify-content-between align-items-center my-3">
             <div class="d-flex">
               <div>
-                <p :title="t.offeredSet.name" class="set-text">{{t.offeredSet.name}}</p>
-                <router-link v-if="t.offeredSet"
-                  :to="{ name: 'SetDetails', params: { set_num: t.offeredSet.set_num } }">
-                  <img v-if="t.offeredSet" class="" height="50" :src="t.offeredSet.set_img_url" :alt="t.offeredSet.name"
-                    :title="t.offeredSet.name" />
+                <p :title="t.offeredSet.name" class="set-text">
+                  {{ t.offeredSet.name }}
+                </p>
+                <router-link
+                  v-if="t.offeredSet"
+                  :to="{
+                    name: 'SetDetails',
+                    params: { set_num: t.offeredSet.set_num },
+                  }"
+                >
+                  <img
+                    v-if="t.offeredSet"
+                    class=""
+                    height="50"
+                    :src="t.offeredSet.set_img_url"
+                    :alt="t.offeredSet.name"
+                    :title="t.offeredSet.name"
+                  />
                 </router-link>
               </div>
             </div>
@@ -83,24 +138,47 @@
 
             <div class="d-flex">
               <div>
-                <p :title="t.requestedSet.name" class="set-text">{{t.requestedSet.name}}</p>
+                <p :title="t.requestedSet.name" class="set-text">
+                  {{ t.requestedSet.name }}
+                </p>
 
-                <router-link v-if="t.requestedSet"
-                  :to="{ name: 'SetDetails', params: { set_num: t.requestedSet.set_num } }">
-                  <img v-if="t.requestedSet" class="me-auto" height="50" :src="t.requestedSet.set_img_url"
-                    :alt="t.requestedSet.name" :title="t.requestedSet.name" />
+                <router-link
+                  v-if="t.requestedSet"
+                  :to="{
+                    name: 'SetDetails',
+                    params: { set_num: t.requestedSet.set_num },
+                  }"
+                >
+                  <img
+                    v-if="t.requestedSet"
+                    class="me-auto"
+                    height="50"
+                    :src="t.requestedSet.set_img_url"
+                    :alt="t.requestedSet.name"
+                    :title="t.requestedSet.name"
+                  />
                 </router-link>
               </div>
               <div class="ps-2">
-                <i v-if="t.status != 'pending'" class="mdi mdi-close text-danger selectable"
-                  @click="removeTrade(t.id)"></i>
+                <i
+                  v-if="t.status != 'pending'"
+                  class="mdi mdi-close text-danger selectable"
+                  @click="removeTrade(t.id)"
+                ></i>
               </div>
             </div>
           </div>
 
           <div class="d-flex align-items-center justify-content-between pb-2">
-            <router-link :to="{name: 'Profile', params:{profileId:t.owner.id}}">
-              <img class="selectable" :src="t.owner.picture" height="40" alt="" />
+            <router-link
+              :to="{ name: 'Profile', params: { profileId: t.owner.id } }"
+            >
+              <img
+                class="selectable"
+                :src="t.owner.picture"
+                height="40"
+                alt=""
+              />
             </router-link>
             <div class="ps-2">
               <span v-if="t.body" class="message">
@@ -109,17 +187,30 @@
               </span>
             </div>
             <div>
-              <button class="btn btn-secondary btn-sm" type="button" aria-controls="offcanvasRight"
-                data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" @click="getTradeComments(t)">Message
-                Buyer</button>
+              <button
+                class="btn btn-secondary btn-sm"
+                type="button"
+                aria-controls="offcanvasRight"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasRight"
+                @click="getTradeComments(t)"
+              >
+                Message Buyer
+              </button>
             </div>
           </div>
           <div class="border-bottom solid mb-2">
             <div v-if="t.status == 'pending'" class="pb-2">
-              <button class="btn btn-success w-auto me-1" @click="changeStatus(t.id, 'accepted')">
+              <button
+                class="btn btn-success w-auto me-1"
+                @click="changeStatus(t.id, 'accepted')"
+              >
                 Accept
               </button>
-              <button class="btn btn-danger w-auto" @click="changeStatus(t.id, 'rejected')">
+              <button
+                class="btn btn-danger w-auto"
+                @click="changeStatus(t.id, 'rejected')"
+              >
                 Reject
               </button>
             </div>
@@ -134,6 +225,7 @@
 
 <script>
 import { computed } from "@vue/reactivity";
+import { popScopeId } from "vue";
 import { AppState } from "../AppState.js";
 import { commentsService } from "../services/CommentsService.js";
 import { marketplaceService } from "../services/MarketplaceService.js";
@@ -149,7 +241,12 @@ export default {
       activeTrade: computed(() => AppState.activeTrade),
       async removeTrade(id) {
         try {
-          await marketplaceService.removeTrade(id);
+          const yes = Pop.confirm(
+            "This will delete trade history, including chat"
+          );
+          if (yes) {
+            await marketplaceService.removeTrade(id);
+          }
         } catch (error) {
           Pop.error("[removeTrade]", error);
         }
@@ -230,13 +327,13 @@ export default {
   top: -117px;
   right: 50px;
   opacity: 1;
-  z-index: 100
+  z-index: 100;
 }
 
 .set-text {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 95px
+  max-width: 95px;
 }
 </style>
