@@ -49,7 +49,7 @@ class LegoSetsService {
     const res = await legoApi.get(`sets`, {
       params: {
         theme_id,
-        page_size: 50,
+        page_size: 24,
       },
     });
     AppState.apiSets = res.data.results;

@@ -1,41 +1,5 @@
 <template>
   <div class="container-fluid bg-primary account-page">
-    <!-- <div class="row">
-      <div class="col-lg-12">
-        <div class="row m-auto justify-content-between">
-          <div
-            class="bg-white col-lg-4 card order-lg-2 d-flex flex-column justify-content-between p-0 my-2"
-          >
-            <div class="card-header">
-              <h3 class="text-center">{{ account.name }}</h3>
-            </div>
-            <img
-              class="img-fluid my-2 profile-img"
-              :src="account.picture"
-              alt="User Name"
-            />
-            <div class="card-body">
-              <h3 class="border-bottom dark mb-3">A little about me:</h3>
-              <p>{{ account.desc }}</p>
-            </div>
-            <div class="align-self-end">
-              <button
-                type="button"
-                class="btn btn-primary me-2 mb-2"
-                data-bs-toggle="modal"
-                data-bs-target="#accountModal"
-              >
-                Edit Account
-              </button>
-            </div>
-          </div>
-          <div class="col-8 order-lg-3 my-2">
-            <YourTrades />
-          </div>
-        </div>
-      </div>
-    </div> -->
-
     <div class="row">
       <div class="col-12 col-md-6 col-lg-4 text-center mt-3">
         <div>
@@ -58,15 +22,11 @@
         <YourTrades />
       </div>
 
-      <div class="col-12 col-md-6 col-lg-8">
+      <div class="col-6 col-md-6 col-lg-8">
         <Tabs :tabList="tabList">
           <template v-slot:tabPanel-1>
             <div class="row">
-              <!-- RouterLink to Set Details page -->
-              <div
-                class="col-lg-3 d-flex justify-content-center mb-3"
-                v-for="l in ownedLegoSets"
-              >
+              <div class="col-lg-3 mb-3" v-for="l in ownedLegoSets">
                 <LegoSetCard :key="l.id" :legoSet="l" />
               </div>
               <!-- TODO Component for My Sets -->

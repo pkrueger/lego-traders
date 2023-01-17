@@ -18,6 +18,7 @@
     </div>
 
     <div class="d-flex justify-content-end me-2 mb-2 bg-white">
+      <!-- Toggle for trade  -->
       <div
         v-if="
           account.id == legoSet.ownerId &&
@@ -35,9 +36,10 @@
           @change="toggleIsUpForTrade(legoSet)"
         />
         <label class="form-check-label" for="flexCheckDefault">
-          Check is this set is up for trade
+          Mark for trade
         </label>
       </div>
+      <!-- Add to Account -->
       <button
         class="btn btn-primary ms-2 me-auto"
         v-if="!legoSet.ownerId"
@@ -191,9 +193,11 @@ export default {
 }
 
 .img-size {
-  // width: 38vh;
-  max-height: 30vh;
-
-  /* object-fit: contain; */
+  max-height: 13rem;
+  object-fit: contain;
+}
+.card-size {
+  height: 25rem;
+  width: 15rem;
 }
 </style>

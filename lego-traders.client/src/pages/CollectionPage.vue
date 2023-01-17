@@ -1,7 +1,46 @@
 <template>
   <div class="collection container-fluid bg-light">
     <div class="row">
-      <div class="col-md-12 p-3 text-center">
+      <div id="carouselExampleControls" class="carousel carousel-dark slide">
+        <div class="carousel-inner">
+          <div class="carousel-item active text-center">
+            <img
+              class="img-fluid full-screen"
+              src="../assets/img/LegoStarWarsLogo.jpg"
+              alt=""
+            />
+          </div>
+          <div class="carousel-item" data-interval="false">
+            <img
+              class="img-fluid full-screen"
+              src="../assets/img/TechnicLogo.png"
+              alt=""
+            />
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleControls"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleControls"
+          data-bs-slide="next"
+          @click="getSetsByThemeId(themes.map())"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+      <!-- Theme Buttons -->
+      <!-- <div class="col-md-12 p-3 text-center">
         <img
           @click="getSetsByThemeId(158)"
           class="selectable collection-image"
@@ -33,10 +72,13 @@
           src="https://th.bing.com/th/id/OIP.rqqFzdeIZIQe1_LDW-7AgQHaF7?pid=ImgDet&rs=1"
           alt=""
         />
-      </div>
+      </div> -->
       <!-- Search Input -->
-      <form @submit.prevent="handleSubmit">
-        <div class="form-floating col-12 mt-5">
+      <form
+        @submit.prevent="handleSubmit"
+        class="d-flex justify-content-center"
+      >
+        <div class="form-floating col-6 mt-5">
           <input
             type="search"
             class="form-control"
@@ -45,22 +87,15 @@
             placeholder="search legos"
             v-model="editable.term"
           />
-          <label for="floatingInput">Search...</label>
-          <div class="text-end">
-            <button type="submit" class="btn btn-warning">Search</button>
-          </div>
+          <label for="floatingInput">Search all sets...</label>
         </div>
       </form>
-      <!-- Lego Set Cards -->
-      <div class="d-flex flex-wrap justify-content-center mt-5">
-        <LegoSetCard
-          v-for="set in apiSets"
-          :key="set.set_num"
-          :legoSet="set"
-          class="m-3 border-test"
-        />
+    </div>
+    <!-- Lego Set Cards -->
+    <div class="row sets overflow-auto" style="height: 70vh">
+      <div class="col-lg-2 col-md-6 col-12" v-for="l in apiSets">
+        <LegoSetCard :key="l.set_num" :legoSet="l" class="m-3 border-test" />
       </div>
-      <!-- Pagination -->
       <div class="col-12 d-flex justify-content-center gap-5">
         <div v-show="previousPage">
           <button class="btn btn-warning" @click="goPage(previousPage)">
@@ -74,6 +109,7 @@
         </div>
       </div>
     </div>
+    <!-- Pagination -->
   </div>
 </template>
 
@@ -90,6 +126,7 @@ export default {
     async function getSetsByThemeId(themeId) {
       try {
         await legoSetsService.getSetsByThemeId(themeId);
+        console.log(themeId);
       } catch (error) {
         Pop.error(error, "Getting Set Themes");
       }
@@ -104,6 +141,7 @@ export default {
       nextPage: computed(() => AppState.nextPage),
       previousPage: computed(() => AppState.previousPage),
       activeCollection: computed(() => AppState.activeCollection),
+      themes: [158, 1, 246, 252, 324],
       getSetsByThemeId,
 
       async handleSubmit() {
@@ -137,10 +175,10 @@ export default {
 }
 
 .collection-image {
-  height: 20vh;
-  max-width: 20vh;
+  height: 15rem;
+  max-width: 15rem;
   border-radius: 50%;
-  object-fit: cover;
+  object-fit: contain;
   margin-top: 5vh;
   margin-inline: 5vh;
 }
@@ -160,5 +198,21 @@ export default {
   border-image-source: url("/grey-lego.webp");
   border-image-slice: 30 0 0 30;
   border-image-repeat: repeat repeat;
+}
+.full-screen {
+  position: relative;
+  height: 91vh;
+  width: 100vw;
+  background-size: fill;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+form {
+  position: absolute;
+  top: 10vh;
+}
+.sets {
+  position: absolute;
+  top: 27vh;
 }
 </style>
