@@ -2,12 +2,12 @@
   <div class="container-fluid home bg-light">
     <div class="row">
       <div class="col-12 text-center p-5">
-        <div class="welcome-banner bg-white p-4 rounded shadow">
+        <div class="welcome-banner bg-white rounded shadow py-4">
           <h1 class="welcome-text font--lego">
             <span class="red">Welcome</span>
             <span class="blue">to</span>
             <span class="green">lego</span>
-            <span class="yellow">trader</span>
+            <span class="yellow me-0">trader</span>
           </h1>
         </div>
       </div>
@@ -75,7 +75,7 @@ export default {
   }
 
   .green {
-    color: #4b9f4a;
+    color: #198754;
   }
 
   .yellow {
