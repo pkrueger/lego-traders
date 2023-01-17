@@ -1,41 +1,58 @@
 <template>
   <div>
-    <ul class="tabs__header">
-      <li
-        v-for="(tab, index) in tabs"
-        :key="tab.title"
-        @click="selectTab(index)"
-      >
-        {{ tab.title }}
+    <ul
+      :class="{
+        flex: variant === 'vertical',
+      }"
+    >
+      <li v-for="(tab, index) in tabList" :key="index" class="mx-2">
+        <label :for="`${_uid}${index}`" v-text="tab" />
+        <input
+          :id="`${_uid}${index}`"
+          type="radio"
+          :name="`${_uid}-tab`"
+          :value="index + 1"
+          v-model="activeTab"
+          class="ms-3 mt-3 p-2"
+        />
       </li>
     </ul>
-    <slot></slot>
+
+    <template v-for="(tab, index) in tabList">
+      <div :key="index" v-if="index + 1 === activeTab">
+        <slot :name="`tabPanel-${index + 1}`" />
+      </div>
+    </template>
   </div>
 </template>
 
 <script>
 export default {
-  setup() {
+  props: {
+    tabList: {
+      type: Array,
+      required: true,
+    },
+    variant: {
+      type: String,
+      required: false,
+      default: () => "vertical",
+      validator: (value) => ["horizontal", "vertical"].includes(value),
+    },
+  },
+  data() {
     return {
-      selectedIndex: 0,
-      tabs: [],
+      activeTab: 1,
     };
   },
-  created() {
-    this.tabs = this.$children;
-  },
-  // mounted() {
-  //   this.selectTab(0);
-  // },
-  // // methods: {
-  // //   selectTab(i) {
-  // //     this.selectedIndex = i;
-  // //     this.tabs.forEach((tab, index) => {
-  // //       tab.isActive = index === i;
-  // //     });
-  // //   },
-  // // },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+.flex {
+  display: flex;
+}
+ul {
+  list-style-type: none;
+}
+</style>

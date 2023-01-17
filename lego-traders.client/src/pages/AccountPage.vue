@@ -37,7 +37,7 @@
     </div> -->
 
     <div class="row">
-      <div class="col-3 text-center mt-3">
+      <div class="col-12 col-md-6 col-lg-4 text-center mt-3">
         <div>
           <img
             :src="account.picture"
@@ -58,9 +58,26 @@
         <YourTrades />
       </div>
 
-      <div class="col-9">
-        <Tabs>
-          <Tab title="test"></Tab>
+      <div class="col-12 col-md-6 col-lg-8">
+        <Tabs :tabList="tabList">
+          <template v-slot:tabPanel-1>
+            <div class="row">
+              <!-- RouterLink to Set Details page -->
+              <div
+                class="col-lg-3 d-flex justify-content-center mb-3"
+                v-for="l in ownedLegoSets"
+              >
+                <LegoSetCard :key="l.id" :legoSet="l" />
+              </div>
+              <!-- TODO Component for My Sets -->
+            </div></template
+          >
+          <template v-slot:tabPanel-2>
+            <div class="row">
+              <div class="col-lg-3 mb-3" v-for="l in wishListLegoSets">
+                <LegoSetCard :key="l.id" :legoSet="l" />
+              </div></div
+          ></template>
         </Tabs>
       </div>
 
@@ -91,17 +108,17 @@
 </template>
 
 <script>
-import { computed, onMounted, watchEffect } from "vue";
+import { computed } from "vue";
 import { AppState } from "../AppState";
 import AccountModal from "../components/AccountModal.vue";
 import LegoSetCard from "../components/LegoSetCard.vue";
-import Tabs from "../components/Tabs.vue";
-import Tab from "../components/Tab.vue";
 import TradeChatOffcanvas from "../components/TradeChatOffcanvas.vue";
 import YourTrades from "../components/YourTrades.vue";
+import Tabs from "../components/Tabs.vue";
 export default {
   setup() {
     return {
+      tabList: ["My Sets", "Wishlist"],
       account: computed(() => AppState.account),
       wishListLegoSets: computed(() =>
         AppState.myLegoSets.filter((l) => !l.isOwned)
@@ -117,7 +134,6 @@ export default {
     TradeChatOffcanvas,
     YourTrades,
     Tabs,
-    Tab,
   },
 };
 </script>
